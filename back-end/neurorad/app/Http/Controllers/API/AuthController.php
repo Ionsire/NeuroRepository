@@ -75,6 +75,12 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
+        if (strpos($request->email, '@') == false) {
+            $user = User::where('cpf', $request->email)->first();
+            if (isset($user)) {
+                $request->replace(['email' => $user->email]);
+            }
+        }
         $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
