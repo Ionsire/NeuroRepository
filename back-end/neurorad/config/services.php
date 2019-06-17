@@ -43,5 +43,10 @@ return [
             'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),
         ],
     ],
+    'sabia' => [
+        'client_id' => env('SABIA_CLIENT_ID'),
+        'client_secret' => env('SABIA_CLIENT_SECRET'),
+        'redirect' => env('SABIA_REDIRECT_URL'),
+    ],
 
 ];
