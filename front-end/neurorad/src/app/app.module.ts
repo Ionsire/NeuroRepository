@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
-import { NgBootstrapModule } from './ng-bootstrap/ng-bootstrap.module';
+import { PaginaInicialModule } from './pagina-inicial/pagina-inicial.module';
 
 @NgModule({
   declarations: [
@@ -13,8 +13,8 @@ import { NgBootstrapModule } from './ng-bootstrap/ng-bootstrap.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgBootstrapModule,
-    FormsModule
+    FormsModule,
+    PaginaInicialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
