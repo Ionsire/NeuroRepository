@@ -43,5 +43,10 @@ return [
             'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),
         ],
     ],
+    'sabia' => [
+        'client_id' => '3orJIiJPrREl1MG2CH3ZwEe3havvoDKjhMXet47M',
+        'client_secret' => 'rlQyqLlunAqZlinp3z0oV6o8f0waFsyK3WkaWybdCH9e68LgWC7PssPyIDxBplQZggKP7tUaL3enoxd1W7ErpxVZxsHNLtudDPUI0kmMxrCE0JK1miq4fbWqTuPJxwS8',
+        'redirect' => 'http://localhost:8000/sabia/callback',
+    ],
 
 ];
