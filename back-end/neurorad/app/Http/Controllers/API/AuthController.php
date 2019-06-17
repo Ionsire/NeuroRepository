@@ -12,6 +12,17 @@ use App\User;
 class AuthController extends Controller
 {
     /**
+     * Index users
+     *
+     * Show all users in database
+     * To use, uncomment the function bellow and the corresponding route in /routes/api.php
+     */
+//    public function index()
+//    {
+//        $users = User::all();
+//        return response()->json($users, 200);
+//    }
+    /**
      * Create user
      *
      * @param  [string] name
@@ -23,14 +34,28 @@ class AuthController extends Controller
     public function signup(Request $request)
     {
         $request->validate([
+            'cpf' => 'required|string|max:11|unique:users',
             'name' => 'required|string',
             'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|confirmed'
+            'password' => 'required|string|confirmed',
+            'nascimento' => 'required|date',
+            'foto' => 'string',
+            'perfil_id' => 'integer',
+            'especialidade_id' => 'integer',
+            'papel_id' => 'integer',
+            'status_id' => 'integer',
         ]);
         $user = new User([
+            'cpf' => $request->cpf,
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password)
+            'password' => bcrypt($request->password),
+            'nascimento' => $request->nascimento,
+            'foto' => $request->foto,
+            'perfil_id' => $request->perfil_id,
+            'especialidade_id' => $request->especialidade_id,
+            'papel_id' => $request->papel_id,
+            'status_id' => $request->status_id,
         ]);
         $user->save();
         return response()->json([
