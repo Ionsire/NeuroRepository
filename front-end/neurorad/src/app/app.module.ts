@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { PaginaInicialModule } from './pagina-inicial/pagina-inicial.module';
+import { NeuroradInicialComponent } from './pagina-inicial/neurorad-inicial/neurorad-inicial.component';
 
 @NgModule({
   declarations: [

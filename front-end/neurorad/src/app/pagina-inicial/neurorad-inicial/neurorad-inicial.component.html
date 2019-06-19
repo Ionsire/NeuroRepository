@@ -3,10 +3,7 @@
   <ng-template #content let-modal>
 
     <div class="modal-body">
-        <div id="map-container" class="z-depth-1-half map-container" style="height: 500px">
-            <iframe src="https://login.sabia.ufrn.br/entrar/" frameborder="0"
-              style="border:0"></iframe>
-          </div>
+        <iframe class="e2e-iframe-trusted-src" [src]="'https://login.sabia.ufrn.br/entrar/' | safe" frameborder="0" style="border:0" width="640" height="390"></iframe>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-light" (click)="modal.close('Close click')" data-dismiss="modal">Fechar</button>
