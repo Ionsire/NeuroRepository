@@ -36,6 +36,10 @@ class User extends Authenticatable
         return $this->belongsTo(StatusUsuario::class);
     }
 
+    public function caso_clinico() {
+        return $this->hasMany(CasoClinico::class, 'usuario_id');
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *
