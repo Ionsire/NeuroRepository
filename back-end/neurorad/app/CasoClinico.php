@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class CasoClinico extends Model
 {
     protected $table = 'caso_clinico';
-
+    //comment
     protected $fillable = ['historia_clinica', 'descricao_achados_da_imagem', 'diagnostico', 'categoria_id', 'subcategoria_id', 'discussao', 'referencias', 'rejeicoes', 'correcoes', 'usuario_id', 'status_id', 'publicacao'];
 
     public function users() {
