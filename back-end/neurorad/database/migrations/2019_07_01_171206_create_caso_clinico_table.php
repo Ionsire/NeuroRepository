@@ -20,12 +20,12 @@ class CreateCasoClinicoTable extends Migration
             $table->string('diagnostico');
             $table->unsignedBigInteger('categoria_id');
             $table->foreign('categoria_id')->references('id')->on('categoria_caso_clinico');
-            $table->unsignedBigInteger('subcategoria_id');
+            $table->unsignedBigInteger('subcategoria_id')->nullable();
             $table->foreign('subcategoria_id')->references('id')->on('subcategoria_caso_clinico');
             $table->string('discussao');
             $table->string('referencias');
-            $table->integer('rejeicoes');
-            $table->string('correcoes');
+            $table->integer('rejeicoes')->default(0);
+            $table->string('correcoes')->nullable();
             $table->unsignedBigInteger('usuario_id');
             $table->foreign('usuario_id')->references('id')->on('users');
             $table->unsignedBigInteger('status_id');

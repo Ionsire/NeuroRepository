@@ -14,7 +14,7 @@ class AddFkToCasoClinicoTable extends Migration
     public function up()
     {
         Schema::table('caso_clinico', function (Blueprint $table) {
-            $table->unsignedBigInteger('imagem_capa_id');
+            $table->unsignedBigInteger('imagem_capa_id')->nullable();
             $table->foreign('imagem_capa_id')->references('id')->on('imagem');
         });
     }

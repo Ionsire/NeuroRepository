@@ -16,7 +16,7 @@ class AddFkToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->unsignedBigInteger('perfil_id');
             $table->foreign('perfil_id')->references('id')->on('perfil_usuario');
-            $table->unsignedBigInteger('especialidade_id');
+            $table->unsignedBigInteger('especialidade_id')->nullable();
             $table->foreign('especialidade_id')->references('id')->on('especialidade_usuario');
             $table->unsignedBigInteger('papel_id');
             $table->foreign('papel_id')->references('id')->on('papel_usuario');
