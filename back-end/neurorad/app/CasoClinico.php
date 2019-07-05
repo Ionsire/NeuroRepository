@@ -30,4 +30,9 @@ class CasoClinico extends Model
     public function imagem() {
         return $this->hasMany(Image::class);
     }
+
+    public function caso_da_semana()
+    {
+        return $this->belongsToMany(CasoDaSemana::class, 'agendamento_caso_da_semana');
+    }
 }
