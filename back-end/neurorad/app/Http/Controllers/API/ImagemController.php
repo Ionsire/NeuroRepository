@@ -39,7 +39,7 @@ class ImagemController extends Controller
 
         $request->validate([
             'imagem' =>'required|string',
-            //'caso_clinico_id'=>'required|biginteger'
+            'caso_clinico_id'=>'required|int'
         ]);
 
         Imagem::create($request->all());
@@ -84,7 +84,7 @@ class ImagemController extends Controller
     {
         $request->validate([
             'imagem'=>'required|string',
-            //'caso_clinico_id'=>'required|biginteger'
+            'caso_clinico_id'=>'required|int'
         ]);
 
         $imagem = Imagem::find($id);

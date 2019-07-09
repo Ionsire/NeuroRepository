@@ -43,7 +43,7 @@ class CasoClinicoController extends Controller
             'discussao'=>'required|string',
             'referencias'=>'required|string',
             'rejeicoes'=>'required|int',
-            'correcoes'=>'required|string',
+            'correcoes'=>'string',
             'publicacao'=>'required|string'
         ]);
 
@@ -94,7 +94,7 @@ class CasoClinicoController extends Controller
             'discussao'=>'required|string',
             'referencias'=>'required|string',
             'rejeicoes'=>'required|int',
-            'correcoes'=>'required|string',
+            'correcoes'=>'string',
             'publicacao'=>'required|string'
         ]);
         $casoclinico = CasoClinico::find($id);

@@ -17,7 +17,7 @@ class CreateImagemTable extends Migration
             $table->bigIncrements('id');
             $table->string('imagem');
             $table->unsignedBigInteger('caso_clinico_id');
-            $table->foreign('caso_clinico_id')->references('id')->on('caso_clinico');
+            $table->foreign('caso_clinico_id')->references('id')->on('caso_clinico')->onDelete('cascade');
             $table->timestamps();
         });
     }
