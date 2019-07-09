@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\CasoClinico;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class CasoClinicoController extends Controller
@@ -15,6 +16,18 @@ class CasoClinicoController extends Controller
     public function index()
     {
         $casoclinico = CasoClinico::all();
+        return response()->json($casoclinico, 200);
+    }
+
+    /**
+     * Retorna a lista de casos clínicos Homologados não inativos ou arquivados
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function index_common_user()
+    {
+        $casoclinico = CasoClinico::all()->whereNotIn('status_id', [1,5,6]);
         return response()->json($casoclinico, 200);
     }
 
