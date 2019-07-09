@@ -32,4 +32,7 @@ Route::apiResources([
     'especialidadeusuario' => 'API\EspecialidadeUsuarioController',
     'papelusuario' => 'API\PapelUsuarioController',
     'statususuario' => 'API\StatusUsuarioController',
+    'casodasemana' => 'API\CasoDaSemanaController',
+    'agendamentocasodasemana' => 'API\AgendamentoCasoDaSemanaController',
 ]);
+Route::get('/proximas_semanas', 'API\CasoDaSemanaController@proximas_semanas');
