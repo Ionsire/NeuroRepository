@@ -12,13 +12,32 @@ use App\Rules\SegundaFeira;
 class CasoDaSemanaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Retorna os casos clínicos atuais e de semanas anteriores
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index()
+    {
+        $casos_da_semana = CasoDaSemana::all()->filter(function($caso_da_semana) {
+            if (strtotime($caso_da_semana->inicio) <= strtotime('this week monday')) {
+                return $caso_da_semana;
+            }
+        })->orderBy('inicio', 'desc');
+        return response()->json($casos_da_semana, 200);
+    }
+
+    /**
+     * Retorna semana atual e seguintes, onde pode ser feito agendamento.
      *
      * @return \Illuminate\Http\Response
      */
     public function proximas_semanas()
     {
-        $semanas = CasoDaSemana::all()->where('inicio', '>=', date('Y-m-d', strtotime('monday this week')));
+        $semanas = CasoDaSemana::orderBy('inicio')->get()->filter(function($caso_da_semana) {
+            if (strtotime($caso_da_semana->inicio) >= strtotime('this week monday')) {
+                return $caso_da_semana;
+            }
+        });
         return response()->json($semanas, 200);
     }
 

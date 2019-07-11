@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\CasoClinico;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class CasoClinicoController extends Controller
@@ -15,6 +16,18 @@ class CasoClinicoController extends Controller
     public function index()
     {
         $casoclinico = CasoClinico::all();
+        return response()->json($casoclinico, 200);
+    }
+
+    /**
+     * Retorna a lista de casos clínicos Homologados não inativos ou arquivados
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function index_common_user()
+    {
+        $casoclinico = CasoClinico::all()->whereNotIn('status_id', [1,5,6]);
         return response()->json($casoclinico, 200);
     }
 
@@ -40,11 +53,15 @@ class CasoClinicoController extends Controller
             'historia_clinica' =>'required|string',
             'descricao_achados_da_imagem'=>'required|string',
             'diagnostico'=>'required|string',
+            'categoria_id'=>'required|int|exists:categoria_caso_clinico,id',
+            'subcategoria_id'=>'int|exists:subcategoria_caso_clinico,id',
             'discussao'=>'required|string',
             'referencias'=>'required|string',
-            'rejeicoes'=>'required|int',
+            'rejeicoes'=>'int',
             'correcoes'=>'string',
-            'publicacao'=>'required|string'
+            'usuario_id'=>'required|int|exists:users,id',
+            'status_id'=>'required|int|exists:status_caso_clinico,id',
+            'publicacao'=>'required|date'
         ]);
 
         CasoClinico::create($request->all());
@@ -91,11 +108,15 @@ class CasoClinicoController extends Controller
             'historia_clinica' =>'required|string',
             'descricao_achados_da_imagem'=>'required|string',
             'diagnostico'=>'required|string',
+            'categoria_id'=>'required|int|exists:categoria_caso_clinico,id',
+            'subcategoria_id'=>'int|exists:subcategoria_caso_clinico,id',
             'discussao'=>'required|string',
             'referencias'=>'required|string',
-            'rejeicoes'=>'required|int',
+            'rejeicoes'=>'int',
             'correcoes'=>'string',
-            'publicacao'=>'required|string'
+            'usuario_id'=>'required|int|exists:users,id',
+            'status_id'=>'required|int|exists:status_caso_clinico,id',
+            'publicacao'=>'required|date'
         ]);
         $casoclinico = CasoClinico::find($id);
         $casoclinico -> fill($request->all());

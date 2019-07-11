@@ -32,9 +32,12 @@ Route::apiResources([
     'especialidadeusuario' => 'API\EspecialidadeUsuarioController',
     'papelusuario' => 'API\PapelUsuarioController',
     'statususuario' => 'API\StatusUsuarioController',
+    'casoclinico' => 'API\CasoClinicoController',
     'casodasemana' => 'API\CasoDaSemanaController',
     'agendamentocasodasemana' => 'API\AgendamentoCasoDaSemanaController',
 ]);
-Route::get('/agendamentocasodasemana/create', 'API\AgendamentoCasoDaSemanaController@create');
+Route::get('/agendamentocasodasemana/create', 'API\AgendamentoCasoDaSemanaController@create')->name('agendamentocasodasemana.create');
+Route::get('/list_casos_clinicos', 'API\CasoClinicoController@index_common_user')->name('casoclinico.list');
+Route::get('/proximas_semanas', 'API\CasoDaSemanaController@proximas_semanas')->name('casodasemana.semanas');
 
 Route::get('/proximas_semanas', 'API\CasoDaSemanaController@proximas_semanas');
