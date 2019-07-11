@@ -36,7 +36,7 @@ Route::apiResources([
     'casodasemana' => 'API\CasoDaSemanaController',
     'agendamentocasodasemana' => 'API\AgendamentoCasoDaSemanaController',
 ]);
-Route::get('/agendamentocasodasemana/create', 'API\AgendamentoCasoDaSemanaController@create');
-Route::get('/casodasemana/list', 'API\CasoDaSemanaController@index_commom_user');
+Route::get('/agendamentocasodasemana/create', 'API\AgendamentoCasoDaSemanaController@create')->name('agendamentocasodasemana.create');
+Route::get('/casodasemana/list', 'API\CasoDaSemanaController@index_commom_user')->name('casodasemana.list');
 
 Route::get('/proximas_semanas', 'API\CasoDaSemanaController@proximas_semanas');

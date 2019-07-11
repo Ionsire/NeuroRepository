@@ -53,11 +53,15 @@ class CasoClinicoController extends Controller
             'historia_clinica' =>'required|string',
             'descricao_achados_da_imagem'=>'required|string',
             'diagnostico'=>'required|string',
+            'categoria_id'=>'required|int|exists:categoria_caso_clinico,id',
+            'subcategoria_id'=>'int|exists:subcategoria_caso_clinico,id',
             'discussao'=>'required|string',
             'referencias'=>'required|string',
-            'rejeicoes'=>'required|int',
+            'rejeicoes'=>'int',
             'correcoes'=>'string',
-            'publicacao'=>'required|string'
+            'usuario_id'=>'required|int|exists:users,id',
+            'status_id'=>'required|int|exists:status_caso_clinico,id',
+            'publicacao'=>'required|date'
         ]);
 
         CasoClinico::create($request->all());
@@ -104,11 +108,15 @@ class CasoClinicoController extends Controller
             'historia_clinica' =>'required|string',
             'descricao_achados_da_imagem'=>'required|string',
             'diagnostico'=>'required|string',
+            'categoria_id'=>'required|int|exists:categoria_caso_clinico,id',
+            'subcategoria_id'=>'int|exists:subcategoria_caso_clinico,id',
             'discussao'=>'required|string',
             'referencias'=>'required|string',
-            'rejeicoes'=>'required|int',
+            'rejeicoes'=>'int',
             'correcoes'=>'string',
-            'publicacao'=>'required|string'
+            'usuario_id'=>'required|int|exists:users,id',
+            'status_id'=>'required|int|exists:status_caso_clinico,id',
+            'publicacao'=>'required|date'
         ]);
         $casoclinico = CasoClinico::find($id);
         $casoclinico -> fill($request->all());
