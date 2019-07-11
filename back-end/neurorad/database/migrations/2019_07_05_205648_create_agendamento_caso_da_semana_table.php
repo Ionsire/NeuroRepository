@@ -14,10 +14,11 @@ class CreateAgendamentoCasoDaSemanaTable extends Migration
     public function up()
     {
         Schema::create('agendamento_caso_da_semana', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('caso_clinico_id');
-            $table->foreign('caso_clinico_id')->references('id')->on('caso_clinico');
+            $table->foreign('caso_clinico_id')->references('id')->on('caso_clinico')->onDelete('cascade');
             $table->unsignedBigInteger('caso_da_semana_id');
-            $table->foreign('caso_da_semana_id')->references('id')->on('caso_da_semana');
+            $table->foreign('caso_da_semana_id')->references('id')->on('caso_da_semana')->onDelete('cascade');
             $table->timestamps();
         });
     }

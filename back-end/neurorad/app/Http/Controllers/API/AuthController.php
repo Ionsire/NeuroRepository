@@ -40,10 +40,10 @@ class AuthController extends Controller
             'password' => 'required|string|confirmed',
             'nascimento' => 'required|date',
             'foto' => 'string',
-            'perfil_id' => 'integer',
+            'perfil_id' => 'required|integer|exists:perfil_usuario,id',
             'especialidade_id' => 'integer',
-            'papel_id' => 'integer',
-            'status_id' => 'integer',
+            'papel_id' => 'required|integer|exists:papel_usuario,id',
+            'status_id' => 'required|integer|exists:status_usuario,id',
         ]);
         $user = new User([
             'cpf' => $request->cpf,
