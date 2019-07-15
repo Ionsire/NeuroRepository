@@ -13,9 +13,25 @@ class CasoClinicoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $casoclinico = CasoClinico::all();
+        $search = $request->get('busca', null);
+        $casoclinico = CasoClinico::query();
+
+        if ($search != null) {
+            if(array_key_exists('diagnostico', $search)){
+                $casoclinico = $casoclinico
+                    ->where('diagnostico', 'LIKE', '%'.$search['diagnostico'].'%');
+            }
+            if(array_key_exists('categoria', $search)){
+                $casoclinico = $casoclinico
+                    ->where('categoria', 'LIKE', '%'.$search['categoria'].'%');
+            }
+            if(array_key_exists('data', $search)){
+                $casoclinico = $casoclinico
+                    ->where('data', 'LIKE', '%'.$search['data'].'%');
+            }
+        }
         return response()->json($casoclinico, 200);
     }
 
@@ -25,9 +41,27 @@ class CasoClinicoController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function index_common_user()
+    public function index_common_user(Request $request)
     {
-        $casoclinico = CasoClinico::all()->whereNotIn('status_id', [1,5,6]);
+        $search = $request->get('busca', null);
+        $casoclinico = CasoClinico::query();
+        $casoclinico = $casoclinico
+            ->whereNotIn('status_id', [1,5,6]);
+
+        if ($search != null) {
+            if(array_key_exists('diagnostico', $search)){
+                $casoclinico = $casoclinico
+                    ->where('diagnostico', 'LIKE', '%'.$search['diagnostico'].'%');
+            }
+            if(array_key_exists('categoria', $search)){
+                $casoclinico = $casoclinico
+                    ->where('categoria', 'LIKE', '%'.$search['categoria'].'%');
+            }
+            if(array_key_exists('data', $search)){
+                $casoclinico = $casoclinico
+                    ->where('data', 'LIKE', '%'.$search['data'].'%');
+            }
+        }
         return response()->json($casoclinico, 200);
     }
 
