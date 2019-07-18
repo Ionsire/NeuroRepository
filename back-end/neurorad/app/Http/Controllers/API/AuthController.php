@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use Illuminate\Support\Facades\Cookie;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,26 +23,17 @@ class AuthController extends Controller
 //        $users = User::all();
 //        return response()->json($users, 200);
 //    }
-    /**
-     * Create user
-     *
-     * @param  [string] name
-     * @param  [string] email
-     * @param  [string] password
-     * @param  [string] password_confirmation
-     * @return [string] message
-     */
+
     public function signup(Request $request)
     {
         $request->validate([
             'cpf' => 'required|string|max:11|unique:users',
             'name' => 'required|string',
             'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|confirmed',
             'nascimento' => 'required|date',
             'foto' => 'string',
             'perfil_id' => 'required|integer|exists:perfil_usuario,id',
-            'especialidade_id' => 'integer',
+            'especialidade_id' => 'integer|exists:especialidade_usuario,id',
             'papel_id' => 'required|integer|exists:papel_usuario,id',
             'status_id' => 'required|integer|exists:status_usuario,id',
         ]);
@@ -49,7 +41,7 @@ class AuthController extends Controller
             'cpf' => $request->cpf,
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password),
+            'password' => md5(rand(1, 10000)),
             'nascimento' => $request->nascimento,
             'foto' => $request->foto,
             'perfil_id' => $request->perfil_id,
@@ -58,52 +50,14 @@ class AuthController extends Controller
             'status_id' => $request->status_id,
         ]);
         $user->save();
-        return response()->json([
-            'message' => 'Successfully created user!'
-        ], 201);
-    }
-
-    /**
-     * Login user and create token
-     *
-     * @param  [string] email
-     * @param  [string] password
-     * @param  [boolean] remember_me
-     * @return [string] access_token
-     * @return [string] token_type
-     * @return [string] expires_at
-     */
-    public function login(Request $request)
-    {
-        if (strpos($request->email, '@') == false) {
-            $user = User::where('cpf', $request->email)->first();
-            if (isset($user)) {
-                $request->replace(['email' => $user->email]);
-            }
-        }
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-            'remember_me' => 'boolean'
-        ]);
-        $credentials = request(['email', 'password']);
-        if(!Auth::attempt($credentials))
-            return response()->json([
-                'message' => 'Unauthorized'
-            ], 401);
-        $user = $request->user();
-        $tokenResult = $user->createToken('Personal Access Token');
-        $token = $tokenResult->token;
-        if ($request->remember_me)
-            $token->expires_at = Carbon::now()->addWeeks(1);
-        $token->save();
-        return response()->json([
-            'access_token' => $tokenResult->accessToken,
-            'token_type' => 'Bearer',
-            'expires_at' => Carbon::parse(
-                $tokenResult->token->expires_at
-            )->toDateTimeString()
-        ]);
+        $token = auth('api')->login($user);
+        Cookie::queue('api_access_token', $token,
+            auth('api')->factory()->getTTL(), null, null, false, false);
+        return redirect()->to(config('services.sabia.client_url'));
+//        return response()->json([
+//            'message' => 'Successfully created user!',
+//            $user,
+//        ], 201);
     }
 
     /**
@@ -113,7 +67,8 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        $request->user()->token()->revoke();
+        auth()->logout();
+        Cookie::queue(Cookie::forget('api_access_token'));
         return response()->json([
             'message' => 'Successfully logged out'
         ]);
@@ -124,8 +79,8 @@ class AuthController extends Controller
      *
      * @return [json] user object
      */
-    public function user(Request $request)
+    public function user()
     {
-        return response()->json($request->user());
+        return response()->json(auth()->user());
     }
 }
