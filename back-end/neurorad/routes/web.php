@@ -12,8 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return response()->json(\Illuminate\Support\Facades\Cookie::get());
 });
+
 Route::group([
     'prefix' => 'sabia'
 ], function() {

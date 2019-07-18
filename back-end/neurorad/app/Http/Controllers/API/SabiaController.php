@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\API;
 
+use Illuminate\Support\Facades\Cookie;
 use App\Http\Controllers\Controller;
+use App\User;
 use Socialite;
 
 class SabiaController extends Controller
@@ -24,9 +26,20 @@ class SabiaController extends Controller
      */
     public function handleProviderCallback()
     {
-        $user = Socialite::driver('sabia')->user();
+        $usuario_sabia = Socialite::driver('sabia')->user();
+        $usuario = User::where('email', $usuario_sabia->email)
+            ->orWhere('cpf', $usuario_sabia->id)
+            ->first();
+        if (isset($usuario)) {
+            $usuario->email = $usuario_sabia->email;
+            $usuario->save();
+            $token = auth('api')->login($usuario);
+            Cookie::queue('api_access_token', $token,
+                auth('api')->factory()->getTTL(), null, null, false, false);
+            return redirect()->to(config('services.sabia.client_url'));
+        }
 
-        return response()->json($user, 200);
-        // $user->token;
+        return response()->json($usuario_sabia, 200);
+        // TODO: Mudar para uma Resource
     }
 }

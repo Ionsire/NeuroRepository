@@ -17,11 +17,10 @@ Route::group([
     'prefix' => 'auth'
 ], function () {
 //    Route::get('/', 'API\AuthController@index');
-    Route::post('login', 'API\AuthController@login');
-    Route::post('signup', 'API\AuthController@signup')->name('singup');
+    Route::post('signup', 'API\AuthController@signup')->name('signup');
 
     Route::group([
-        'middleware' => 'auth:api'
+        'middleware' => ['jwt.auth']
     ], function() {
         Route::get('logout', 'API\AuthController@logout');
         Route::get('user', 'API\AuthController@user');
