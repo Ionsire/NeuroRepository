@@ -28,8 +28,9 @@ class CreateCasoClinicoTable extends Migration
             $table->string('correcoes')->nullable();
             $table->unsignedBigInteger('usuario_id');
             $table->foreign('usuario_id')->references('id')->on('users');
-            $table->unsignedBigInteger('status_id');
+            $table->unsignedBigInteger('status_id')->default(1);
             $table->foreign('status_id')->references('id')->on('status_caso_clinico');
+            $table->date('semana')->nullable();
             $table->date('publicacao');
             $table->timestamps();
         });

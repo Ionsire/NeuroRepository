@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\CasoClinico;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Rules\SegundaFeira;
 
 class CasoClinicoController extends Controller
 {
@@ -13,7 +14,7 @@ class CasoClinicoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index_admin(Request $request)
     {
         $search = $request->get('busca', null);
         $casoclinico = CasoClinico::query();
@@ -23,13 +24,21 @@ class CasoClinicoController extends Controller
                 $casoclinico = $casoclinico
                     ->where('diagnostico', 'LIKE', '%'.$search['diagnostico'].'%');
             }
-            if(array_key_exists('categoria', $search)){
+            if(array_key_exists('categoria_id', $search)){
                 $casoclinico = $casoclinico
-                    ->where('categoria', 'LIKE', '%'.$search['categoria'].'%');
+                    ->where('categoria_id', '=',$search['categoria_id']);
             }
-            if(array_key_exists('data', $search)){
+            if(array_key_exists('subcategoria_id', $search)){
                 $casoclinico = $casoclinico
-                    ->where('data', 'LIKE', '%'.$search['data'].'%');
+                    ->where('subcategoria_id', '=',$search['subcategoria_id']);
+            }
+            if(array_key_exists('user_id', $search)){
+                $casoclinico = $casoclinico
+                    ->where('user_id', '=',$search['user_id']);
+            }
+            if(array_key_exists('publicacao', $search)){
+                $casoclinico = $casoclinico
+                    ->where('publicacao', '=',$search['publicacao']);
             }
         }
         return response()->json($casoclinico, 200);
@@ -41,7 +50,7 @@ class CasoClinicoController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function index_common_user(Request $request)
+    public function index(Request $request)
     {
         $search = $request->get('busca', null);
         $casoclinico = CasoClinico::query();
@@ -53,26 +62,64 @@ class CasoClinicoController extends Controller
                 $casoclinico = $casoclinico
                     ->where('diagnostico', 'LIKE', '%'.$search['diagnostico'].'%');
             }
-            if(array_key_exists('categoria', $search)){
+            if(array_key_exists('categoria_id', $search)){
                 $casoclinico = $casoclinico
-                    ->where('categoria', 'LIKE', '%'.$search['categoria'].'%');
+                    ->where('categoria_id', '=',$search['categoria_id']);
             }
-            if(array_key_exists('data', $search)){
+            if(array_key_exists('subcategoria_id', $search)){
                 $casoclinico = $casoclinico
-                    ->where('data', 'LIKE', '%'.$search['data'].'%');
+                    ->where('subcategoria_id', '=', $search['subcategoria_id']);
             }
         }
         return response()->json($casoclinico, 200);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Retorna todos os Casos Clínicos pertencentes a semana atual e as semanas já passadas
      *
-     * @return \Illuminate\Http\Response
+     * Referente a página inicial da aplicação
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function create()
+    public function casos_da_semana_home()
     {
-        //
+        $casos_da_semana = CasoClinico::all()->filter(function($caso_clinico) {
+            if (strtotime($caso_clinico->semana) <= strtotime('this week monday')) {
+                return $caso_clinico;
+            }
+        })->orderBy('semana', 'desc');
+        return response()->json($casos_da_semana, 200);
+    }
+
+    /**
+     * Salva no Caso Clínico a semana referente ao seu agendamento
+     *
+     * @param $id
+     * @param $date
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function agendar_caso_da_semana($id, $date)
+    {
+        $data = ['date' => $date];
+        $data->validate(['date' => ['date', new SegundaFeira]]);
+        $caso_clinico = CasoClinico::where($id);
+        $caso_clinico['semana'] = $date;
+        $caso_clinico->save();
+        return response()->json(['message' => 'Caso Clínico Agendado com Sucesso'], 200);
+    }
+
+    /**
+     * Remove do Caso Clínico a semana referente ao seu agendamento
+     *
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function desagendamento_caso_da_semana($id)
+    {
+        $caso_clinico = CasoClinico::where($id);
+        $caso_clinico['semana'] = null;
+        $caso_clinico->save;
+        return response()->json(['message' => 'Caso Clínico Desagendado com Sucesso'], 200);
     }
 
     /**
@@ -94,7 +141,8 @@ class CasoClinicoController extends Controller
             'rejeicoes'=>'int',
             'correcoes'=>'string',
             'usuario_id'=>'required|int|exists:users,id',
-            'status_id'=>'required|int|exists:status_caso_clinico,id',
+            'status_id'=>'int|exists:status_caso_clinico,id',
+            'semana'=> ['date', new SegundaFeira],
             'publicacao'=>'required|date'
         ]);
 
@@ -119,17 +167,6 @@ class CasoClinicoController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -150,6 +187,7 @@ class CasoClinicoController extends Controller
             'correcoes'=>'string',
             'usuario_id'=>'required|int|exists:users,id',
             'status_id'=>'required|int|exists:status_caso_clinico,id',
+            'semana'=> ['date', new SegundaFeira],
             'publicacao'=>'required|date'
         ]);
         $casoclinico = CasoClinico::find($id);
