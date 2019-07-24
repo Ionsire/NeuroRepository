@@ -16,8 +16,10 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array
      */
+    protected $table = 'TB_USUARIO';
+
     protected $fillable = [
-        'cpf','name', 'email', 'password', 'nascimento', 'foto', 'perfil_id', 'especialidade_id', 'papel_id', 'status_id',
+        'NU_CPF','DS_NOME', 'DS_EMAIL', 'DS_SENHA', 'DT_NASCIMENTO', 'IM_FOTO', 'perfil_id', 'especialidade_id', 'papel_id', 'status_id',
     ];
 
     public function perfil() {
