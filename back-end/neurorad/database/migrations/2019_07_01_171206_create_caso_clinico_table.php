@@ -13,26 +13,27 @@ class CreateCasoClinicoTable extends Migration
      */
     public function up()
     {
-        Schema::create('caso_clinico', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('historia_clinica');
-            $table->string('descricao_achados_da_imagem');
-            $table->string('diagnostico');
-            $table->unsignedBigInteger('categoria_id');
-            $table->foreign('categoria_id')->references('id')->on('categoria_caso_clinico');
-            $table->unsignedBigInteger('subcategoria_id')->nullable();
-            $table->foreign('subcategoria_id')->references('id')->on('subcategoria_caso_clinico');
-            $table->string('discussao');
-            $table->string('referencias');
-            $table->integer('rejeicoes')->default(0);
-            $table->string('correcoes')->nullable();
-            $table->unsignedBigInteger('usuario_id');
-            $table->foreign('usuario_id')->references('id')->on('users');
-            $table->unsignedBigInteger('status_id')->default(1);
-            $table->foreign('status_id')->references('id')->on('status_caso_clinico');
-            $table->date('semana')->nullable();
-            $table->date('publicacao');
-            $table->timestamps();
+        Schema::create('TB_CASO_CLINICO', function (Blueprint $table) {
+            $table->bigIncrements('CO_SEQ_CASO_CLINICO');
+            $table->string('DS_HISTORIA_CLINICA');
+            $table->string('DS_ACHADOS_DAS_IMAGENS');
+            $table->string('DS_DIAGNOSTICO');
+            $table->unsignedBigInteger('CO_CATEGORIA');
+            $table->foreign('CO_CATEGORIA')->references('CO_SEQ_CATEGORIA_CASO_CLINICO')->on('TB_CATEGORIA_CASO_CLINICO');
+            $table->unsignedBigInteger('CO_SUBCATEGORIA')->nullable();
+            $table->foreign('CO_SUBCATEGORIA')->references('CO_SEQ_SUBCATEGORIA_CASO_CLINICO')->on('TB_SUBCATEGORIA_CASO_CLINICO');
+            $table->string('DS_DISCUSSAO');
+            $table->string('DS_REFERENCIAS');
+            $table->integer('NU_REJEICOES')->default(0);
+            $table->string('DS_CORRECOES')->nullable();
+            $table->unsignedBigInteger('CO_USUARIO');
+            $table->foreign('CO_USUARIO')->references('CO_SEQ_USUARIO')->on('TB_USUARIO');
+            $table->unsignedBigInteger('CO_STATUS');
+            $table->foreign('CO_STATUS')->references('CO_SEQ_STATUS')->on('TB_STATUS_CASO_CLINICO');
+            $table->date('DT_SEMANA');
+            $table->timestamp('DT_CRIACAO');
+            $table->timestamp('DT_ATUALIZACAO');
+            $table->timestamp('DT_EXCLUSAO')->nullable();
         });
     }
 
@@ -43,16 +44,16 @@ class CreateCasoClinicoTable extends Migration
      */
     public function down()
     {
-        Schema::table('caso_clinico', function (Blueprint $table) {
-            $table->dropForeign('caso_clinico_categoria_id_foreign');
-            $table->dropColumn('categoria_id');
-            $table->dropForeign('caso_clinico_subcategoria_id_foreign');
-            $table->dropColumn('subcategoria_id');
-            $table->dropForeign('caso_clinico_usuario_id_foreign');
-            $table->dropColumn('usuario_id');
-            $table->dropForeign('caso_clinico_status_id_foreign');
-            $table->dropColumn('status_id');
+        Schema::table('TB_CASO_CLINICO', function (Blueprint $table) {
+            $table->dropForeign('TB_CASO_CLINICO_CO_CATEGORIA_foreign');
+            $table->dropColumn('CO_CATEGORIA');
+            $table->dropForeign('TB_CASO_CLINICO_CO_SUBCATEGORIA_foreign');
+            $table->dropColumn('CO_SUBCATEGORIA');
+            $table->dropForeign('TB_CASO_CLINICO_CO_USUARIO_foreign');
+            $table->dropColumn('CO_USUARIO');
+            $table->dropForeign('TB_CASO_CLINICO_CO_STATUS_foreign');
+            $table->dropColumn('CO_STATUS');
         });
-        Schema::dropIfExists('caso_clinico');
+        Schema::dropIfExists('TB_CASO_CLINICO');
     }
 }

@@ -13,10 +13,12 @@ class CreateSubcategoriaCasoClinicoTable extends Migration
      */
     public function up()
     {
-        Schema::create('subcategoria_caso_clinico', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('descricao');
-            $table->timestamps();
+        Schema::create('TB_SUBCATEGORIA_CASO_CLINICO', function (Blueprint $table) {
+            $table->bigIncrements('CO_SEQ_SUBCATEGORIA_CASO_CLINICO');
+            $table->string('DS_DESCRICAO');
+            $table->timestamp('DT_CRIACAO');
+            $table->timestamp('DT_ATUALIZACAO');
+            $table->timestamp('DT_EXCLUSAO')->nullable();
         });
     }
 
@@ -27,6 +29,6 @@ class CreateSubcategoriaCasoClinicoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subcategoria_caso_clinico');
+        Schema::dropIfExists('TB_SUBCATEGORIA_CASO_CLINICO');
     }
 }

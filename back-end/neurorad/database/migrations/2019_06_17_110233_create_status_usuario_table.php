@@ -13,9 +13,9 @@ class CreateStatusUsuarioTable extends Migration
      */
     public function up()
     {
-        Schema::create('status_usuario', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('descricao');
+        Schema::create('TB_STATUS_USUARIO', function (Blueprint $table) {
+            $table->bigIncrements('CO_SEQ_STATUS_USUARIO');
+            $table->string('DS_DESCRICAO');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateStatusUsuarioTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('status_usuario');
+        Schema::dropIfExists('TB_STATUS_USUARIO');
     }
 }

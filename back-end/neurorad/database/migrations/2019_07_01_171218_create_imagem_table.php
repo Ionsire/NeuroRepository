@@ -13,11 +13,11 @@ class CreateImagemTable extends Migration
      */
     public function up()
     {
-        Schema::create('imagem', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('imagem');
-            $table->unsignedBigInteger('caso_clinico_id');
-            $table->foreign('caso_clinico_id')->references('id')->on('caso_clinico')->onDelete('cascade');
+        Schema::create('TM_IMAGEM', function (Blueprint $table) {
+            $table->bigIncrements('CO_SEQ_IMAGEM');
+            $table->string('IM_IMAGEM');
+            $table->unsignedBigInteger('CO_CASO_CLINICO');
+            $table->foreign('CO_CASO_CLINICO')->references('CO_SEQ')->on('TB_CASO_CLINICO')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,10 +29,9 @@ class CreateImagemTable extends Migration
      */
     public function down()
     {
-        Schema::table('imagem', function (Blueprint $table) {
-            $table->dropForeign('imagem_caso_clinico_id_foreign');
-            $table->dropColumn('caso_clinico_id');
+        Schema::table('TB_IMAGEM', function (Blueprint $table) {
+            $table->dropForeign('TB_IMAGEM_CO_CASO_CLINICO_foreign');
         });
-        Schema::dropIfExists('imagem');
+        Schema::dropIfExists('TM_IMAGEM');
     }
 }

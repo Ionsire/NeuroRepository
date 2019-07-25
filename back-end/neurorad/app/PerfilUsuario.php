@@ -6,11 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class PerfilUsuario extends Model
 {
-    protected $table = 'perfil_usuario';
+    protected $table = 'TB_PERFIL_USUARIO';
+    protected $primaryKey = 'CO_SEQ_PERFIL_USUARIO';
 
-    protected $fillable = ['descricao'];
+    protected $fillable = ['DS_DESCRICAO'];
 
-    public function users() {
-        return $this->hasMany(User::class);
+    public function usuarios() {
+        return $this->hasMany(User::class, 'CO_PERFIL', 'CO_SEQ_PERFIL_USUARIO');
     }
+
+    protected $dates = ['DT_CRIACAO', 'DT_ATUALIZACAO', 'DT_EXCLUSAO'];
+    const CREATED_AT = 'DT_CRIACAO';
+    const UPDATED_AT = 'DT_ATUALIZACAO';
+    const DELETED_AT = 'DT_EXCLUSAO';
+
 }

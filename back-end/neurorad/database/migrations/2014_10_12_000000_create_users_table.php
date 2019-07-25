@@ -22,8 +22,8 @@ class CreateUsersTable extends Migration
             $table->date('DT_NASCIMENTO');
             $table->string('IM_FOTO')->nullable();
             $table->rememberToken();
-            $table->timestamp('DT_CRIACAO')->default(\DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('DT_ATUALIZADO')->default(\DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+            $table->timestamp('DT_CRIACAO');
+            $table->timestamp('DT_ATUALIZACAO');
             $table->timestamp('DT_EXCLUSAO')->nullable();
         });
     }

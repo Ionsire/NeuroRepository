@@ -27,27 +27,27 @@ class AuthController extends Controller
     public function signup(Request $request)
     {
         $request->validate([
-            'cpf' => 'required|string|max:11|unique:users',
-            'name' => 'required|string',
-            'email' => 'required|string|email|unique:users',
-            'nascimento' => 'required|date',
-            'foto' => 'string',
-            'perfil_id' => 'required|integer|exists:perfil_usuario,id',
-            'especialidade_id' => 'integer|exists:especialidade_usuario,id',
-            'papel_id' => 'required|integer|exists:papel_usuario,id',
-            'status_id' => 'required|integer|exists:status_usuario,id',
+            'NU_CPF' => 'required|string|max:11|unique:users',
+            'DS_NOME' => 'required|string',
+            'DS_EMAIL' => 'required|string|email|unique:users',
+            'DT_NASCIMENTO' => 'required|date',
+            'IM_FOTO' => 'string',
+            'CO_PERFIL' => 'required|integer|exists:TB_PERFIL_USUARIO,CO_SEQ_PERFIL_USUARIO',
+            'CO_ESPECIALIDADE' => 'integer|exists:TB_ESPECIALIDADE_USUARIO,CO_SEQ_ESPECIALIDADE_USUARIO',
+            'CO_PAPEL' => 'required|integer|exists:TB_PAPEL_USUARIO,CO_SEQ_PAPEL_USUARIO',
+            'CO_STATUS' => 'required|integer|exists:TB_STATUS_USUARIO,CO_SEQ_STATUS_USUARIO',
         ]);
         $user = new User([
-            'cpf' => $request->cpf,
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => md5(rand(1, 10000)),
-            'nascimento' => $request->nascimento,
-            'foto' => $request->foto,
-            'perfil_id' => $request->perfil_id,
-            'especialidade_id' => $request->especialidade_id,
-            'papel_id' => $request->papel_id,
-            'status_id' => $request->status_id,
+            'NU_CPF' => $request->NU_CPF,
+            'DS_NOME' => $request->DS_NOME,
+            'DS_EMAIL' => $request->DS_EMAIL,
+            'DS_SENHA' => md5(rand(1, 10000)),
+            'DT_NASCIMENTO' => $request->DT_NASCIMENTO,
+            'IM_FOTO' => $request->IM_FOTO,
+            'CO_PERFIL_id' => $request->CO_PERFIL,
+            'CO_ESPECIALIDADE_id' => $request->CO_ESPECIALIDADE,
+            'CO_PAPEL_id' => $request->CO_PAPEL,
+            'CO_STATUS_id' => $request->CO_STATUS,
         ]);
         $user->save();
         $token = auth('api')->login($user);
