@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PerfilUsuario extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'TB_PERFIL_USUARIO';
     protected $primaryKey = 'CO_SEQ_PERFIL_USUARIO';
 

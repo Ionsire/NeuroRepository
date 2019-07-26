@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class StatusUsuario extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'TB_STATUS_USUARIO';
 
     protected $fillable = ['DS_DESCRICAO'];

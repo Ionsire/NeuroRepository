@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\PerfilUsuario
 
 class CategoriaCasoClinicoSeeder extends Seeder
 {
@@ -13,10 +14,10 @@ class CategoriaCasoClinicoSeeder extends Seeder
     public function run()
     {
         $data = [
-            ['descricao' => 'Raio X'],
-            ['descricao' => 'Ressonância Magnética'],
-            ['descricao' => 'Ultrassonografia']
+            ['DS_DESCRICAO' => 'Raio X'],
+            ['DS_DESCRICAO' => 'Ressonância Magnética'],
+            ['DS_DESCRICAO' => 'Ultrassonografia']
         ];
-        DB::table('categoria_caso_clinico')->insert($data);
+        DB::table('TB_CATEGORIA_CASO_CLINICO')->insert($data);
     }
 }

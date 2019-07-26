@@ -16,8 +16,8 @@ class CreatePerfilUsuarioTable extends Migration
         Schema::create('TB_PERFIL_USUARIO', function (Blueprint $table) {
             $table->bigIncrements('CO_SEQ_PERFIL_USUARIO');
             $table->string('DS_DESCRICAO');
-            $table->timestamp('DT_CRIACAO');
-            $table->timestamp('DT_ATUALIZACAO');
+            $table->timestamp('DT_CRIACAO')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('DT_ATUALIZACAO')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('DT_EXCLUSAO')->nullable();
         });
     }

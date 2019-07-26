@@ -12,10 +12,10 @@ class PerfilUsuarioSeeder extends Seeder
     public function run()
     {
         $data = [
-            ['descricao' => 'Médico'],
-            ['descricao' => 'Estudante'],
-            ['descricao' => 'Demais profissionais da saúde']
+            ['DS_DESCRICAO' => 'Médico'],
+            ['DS_DESCRICAO' => 'Estudante'],
+            ['DS_DESCRICAO' => 'Demais profissionais da saúde']
         ];
-        DB::table('perfil_usuario')->insert($data);
+        DB::table('TB_PERFIL_USUARIO')->insert($data);
     }
 }

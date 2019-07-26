@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Imagem extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'TB_IMAGEM';
 
     protected $fillable = ['IM_IMAGEM', 'CO_CASO_CLINICO'];

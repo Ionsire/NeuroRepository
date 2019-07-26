@@ -12,12 +12,12 @@ class PapelUsuarioSeeder extends Seeder
     public function run()
     {
         $data = [
-            ['descricao' => 'Preceptor Administrador'],
-            ['descricao' => 'Preceptor Colaborador'],
-            ['descricao' => 'Residente Colaborador'],
-            ['descricao' => 'Residente Administrador'],
-            ['descricao' => 'Residente'],
+            ['DS_DESCRICAO' => 'Preceptor Administrador'],
+            ['DS_DESCRICAO' => 'Preceptor Colaborador'],
+            ['DS_DESCRICAO' => 'Residente Colaborador'],
+            ['DS_DESCRICAO' => 'Residente Administrador'],
+            ['DS_DESCRICAO' => 'Residente'],
         ];
-        DB::table('papel_usuario')->insert($data);
+        DB::table('TB_PAPEL_USUARIO')->insert($data);
     }
 }

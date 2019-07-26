@@ -16,7 +16,9 @@ class CreateStatusUsuarioTable extends Migration
         Schema::create('TB_STATUS_USUARIO', function (Blueprint $table) {
             $table->bigIncrements('CO_SEQ_STATUS_USUARIO');
             $table->string('DS_DESCRICAO');
-            $table->timestamps();
+            $table->timestamp('DT_CRIACAO')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('DT_ATUALIZACAO')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('DT_EXCLUSAO')->nullable();
         });
     }
 

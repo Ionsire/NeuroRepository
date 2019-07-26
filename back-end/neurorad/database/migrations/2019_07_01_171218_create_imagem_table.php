@@ -18,7 +18,9 @@ class CreateImagemTable extends Migration
             $table->string('IM_IMAGEM');
             $table->unsignedBigInteger('CO_CASO_CLINICO');
             $table->foreign('CO_CASO_CLINICO')->references('CO_SEQ_CASO_CLINICO')->on('TB_CASO_CLINICO')->onDelete('cascade');
-            $table->timestamps();
+            $table->timestamp('DT_CRIACAO')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('DT_ATUALIZACAO')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('DT_EXCLUSAO')->nullable();
         });
     }
 

@@ -12,13 +12,13 @@ class EspecialidadeUsuarioSeeder extends Seeder
     public function run()
     {
         $data = [
-            ['descricao' => 'Radiologia'],
-            ['descricao' => 'Neurologia'],
-            ['descricao' => 'Neurocirurgia'],
-            ['descricao' => 'Psiquiatria'],
-            ['descricao' => 'Geriatria'],
-            ['descricao' => 'Outros'],
+            ['DS_DESCRICAO' => 'Radiologia'],
+            ['DS_DESCRICAO' => 'Neurologia'],
+            ['DS_DESCRICAO' => 'Neurocirurgia'],
+            ['DS_DESCRICAO' => 'Psiquiatria'],
+            ['DS_DESCRICAO' => 'Geriatria'],
+            ['DS_DESCRICAO' => 'Outros'],
         ];
-        DB::table('especialidade_usuario')->insert($data);
+        DB::table('TB_ESPECIALIDADE_USUARIO')->insert($data);
     }
 }
