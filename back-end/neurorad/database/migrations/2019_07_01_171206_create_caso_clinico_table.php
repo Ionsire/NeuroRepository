@@ -30,7 +30,7 @@ class CreateCasoClinicoTable extends Migration
             $table->foreign('CO_USUARIO')->references('CO_SEQ_USUARIO')->on('TB_USUARIO');
             $table->unsignedBigInteger('CO_STATUS');
             $table->foreign('CO_STATUS')->references('CO_SEQ_STATUS')->on('TB_STATUS_CASO_CLINICO');
-            $table->date('DT_SEMANA');
+            $table->date('DT_SEMANA')->nullable();
             $table->timestamp('DT_CRIACAO');
             $table->timestamp('DT_ATUALIZACAO');
             $table->timestamp('DT_EXCLUSAO')->nullable();

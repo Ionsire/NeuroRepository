@@ -28,7 +28,7 @@ class StatusUsuarioController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'descricao' =>'required|string',
+            'DS_DESCRICAO' =>'required|string',
         ]);
 
         StatusUsuario::create($request->all());
@@ -59,7 +59,7 @@ class StatusUsuarioController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'descricao' =>'required|string',
+            'DS_DESCRICAO' =>'required|string',
         ]);
 
         $status = StatusUsuario::find($id);

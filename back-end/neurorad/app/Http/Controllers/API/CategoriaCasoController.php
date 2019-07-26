@@ -37,7 +37,7 @@ class CategoriaCasoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-           'descricao'=>'required|string',
+           'DS_DESCRICAO'=>'required|string',
         ]);
         CategoriaCasoClinico::create($request->all());
         return response()->json([
@@ -78,7 +78,7 @@ class CategoriaCasoController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-           'descricao'=>'required|string',
+           'DS_DESCRICAO'=>'required|string',
         ]);
         $categoriacaso = CategoriaCasoClinico::find($id);
         $categoriacaso->fill($request->all());

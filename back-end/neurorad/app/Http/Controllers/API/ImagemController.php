@@ -38,8 +38,8 @@ class ImagemController extends Controller
     {
 
         $request->validate([
-            'imagem' =>'required|string',
-            'caso_clinico_id'=>'required|int|exists:caso_clinico,id',
+            'IM_IMAGEM' =>'required|string',
+            'CO_CASO_CLINICO'=>'required|int|exists:caso_clinico,id',
         ]);
 
         Imagem::create($request->all());
@@ -83,8 +83,8 @@ class ImagemController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'imagem' =>'required|string',
-            'caso_clinico_id'=>'required|int|exists:caso_clinico,id',
+            'IM_IMAGEM' =>'required|string',
+            'CO_CASO_CLINICO'=>'required|int|exists:caso_clinico,id',
         ]);
 
         $imagem = Imagem::find($id);
