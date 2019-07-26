@@ -29,7 +29,7 @@ class CreateCasoClinicoTable extends Migration
             $table->unsignedBigInteger('CO_USUARIO');
             $table->foreign('CO_USUARIO')->references('CO_SEQ_USUARIO')->on('TB_USUARIO');
             $table->unsignedBigInteger('CO_STATUS');
-            $table->foreign('CO_STATUS')->references('CO_SEQ_STATUS')->on('TB_STATUS_CASO_CLINICO');
+            $table->foreign('CO_STATUS')->references('CO_SEQ_STATUS_CASO_CLINICO')->on('TB_STATUS_CASO_CLINICO');
             $table->date('DT_SEMANA')->nullable();
             $table->timestamp('DT_CRIACAO');
             $table->timestamp('DT_ATUALIZACAO');
@@ -45,13 +45,13 @@ class CreateCasoClinicoTable extends Migration
     public function down()
     {
         Schema::table('TB_CASO_CLINICO', function (Blueprint $table) {
-            $table->dropForeign('TB_CASO_CLINICO_CO_CATEGORIA_foreign');
+            $table->dropForeign('tb_caso_clinico_co_categoria_foreign');
             $table->dropColumn('CO_CATEGORIA');
-            $table->dropForeign('TB_CASO_CLINICO_CO_SUBCATEGORIA_foreign');
+            $table->dropForeign('tb_caso_clinico_co_subcategoria_foreign');
             $table->dropColumn('CO_SUBCATEGORIA');
-            $table->dropForeign('TB_CASO_CLINICO_CO_USUARIO_foreign');
+            $table->dropForeign('tb_caso_clinico_co_usuario_foreign');
             $table->dropColumn('CO_USUARIO');
-            $table->dropForeign('TB_CASO_CLINICO_CO_STATUS_foreign');
+            $table->dropForeign('tb_caso_clinico_co_status_foreign');
             $table->dropColumn('CO_STATUS');
         });
         Schema::dropIfExists('TB_CASO_CLINICO');
