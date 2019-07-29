@@ -15,6 +15,11 @@ class CasoClinico extends Model
 
     protected $fillable = ['DS_HISTORIA_CLINICA', 'DS_ACHADOS_DAS_IMAGENS', 'DS_DIAGNOSTICO', 'CO_CATEGORIA', 'CO_SUBCATEGORIA', 'DS_DISCUSSAO', 'DS_REFERENCIAS', 'NU_REJEICOES', 'DS_CORRECOES', 'CO_USUARIO', 'CO_STATUS', 'DT_SEMANA', 'CO_IMAGEM_CAPA'];
 
+    protected $dates = ['DT_CRIACAO', 'DT_ATUALIZACAO', 'DT_EXCLUSAO'];
+    const CREATED_AT = 'DT_CRIACAO';
+    const UPDATED_AT = 'DT_ATUALIZACAO';
+    const DELETED_AT = 'DT_EXCLUSAO';
+
     public function autor() {
         return $this->belongsTo(User::class, 'CO_USARIO', 'CO_SEQ_USUARIO');
     }
@@ -35,9 +40,9 @@ class CasoClinico extends Model
         return $this->hasMany(Image::class, 'CO_CASO_CLINICO', 'CO_SEQ_CASO_CLINICO');
     }
 
-    public function newCollection(array $models = [])
+    public function imagem_capa()
     {
-        return $this->hasOne(Image::class, 'CO__SEQ_IMAGEM', 'CO_IMAGEM_CAPA');
+        return $this->hasOne(Image::class, 'CO_SEQ_IMAGEM', 'CO_IMAGEM_CAPA');
     }
 
 }

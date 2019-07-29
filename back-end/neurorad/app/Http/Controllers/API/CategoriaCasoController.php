@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\CategoriaCasoClinico;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 
 class CategoriaCasoController extends Controller
 {

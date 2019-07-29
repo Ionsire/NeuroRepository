@@ -28,7 +28,7 @@ class CreateCasoClinicoTable extends Migration
             $table->string('DS_CORRECOES')->nullable();
             $table->unsignedBigInteger('CO_USUARIO');
             $table->foreign('CO_USUARIO')->references('CO_SEQ_USUARIO')->on('TB_USUARIO');
-            $table->unsignedBigInteger('CO_STATUS');
+            $table->unsignedBigInteger('CO_STATUS')->default(1);
             $table->foreign('CO_STATUS')->references('CO_SEQ_STATUS_CASO_CLINICO')->on('TB_STATUS_CASO_CLINICO');
             $table->date('DT_SEMANA')->nullable();
             $table->timestamp('DT_CRIACAO')->default(DB::raw('CURRENT_TIMESTAMP'));

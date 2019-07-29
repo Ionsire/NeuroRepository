@@ -27,9 +27,9 @@ class AuthController extends Controller
     public function signup(Request $request)
     {
         $request->validate([
-            'NU_CPF' => 'required|string|max:11|unique:users',
+            'NU_CPF' => 'required|string|max:11|unique:TB_USUARIO',
             'DS_NOME' => 'required|string',
-            'DS_EMAIL' => 'required|string|email|unique:users',
+            'DS_EMAIL' => 'required|string|email|unique:TB_USUARIO',
             'DT_NASCIMENTO' => 'required|date',
             'IM_FOTO' => 'string',
             'CO_PERFIL' => 'required|integer|exists:TB_PERFIL_USUARIO,CO_SEQ_PERFIL_USUARIO',
@@ -44,20 +44,20 @@ class AuthController extends Controller
             'DS_SENHA' => md5(rand(1, 10000)),
             'DT_NASCIMENTO' => $request->DT_NASCIMENTO,
             'IM_FOTO' => $request->IM_FOTO,
-            'CO_PERFIL_id' => $request->CO_PERFIL,
-            'CO_ESPECIALIDADE_id' => $request->CO_ESPECIALIDADE,
-            'CO_PAPEL_id' => $request->CO_PAPEL,
-            'CO_STATUS_id' => $request->CO_STATUS,
+            'CO_PERFIL' => $request->CO_PERFIL,
+            'CO_ESPECIALIDADE' => $request->CO_ESPECIALIDADE,
+            'CO_PAPEL' => $request->CO_PAPEL,
+            'CO_STATUS' => $request->CO_STATUS,
         ]);
         $user->save();
         $token = auth('api')->login($user);
         Cookie::queue('api_access_token', $token,
             auth('api')->factory()->getTTL(), null, null, false, false);
-        return redirect()->to(config('services.sabia.client_url'));
-//        return response()->json([
-//            'message' => 'Successfully created user!',
-//            $user,
-//        ], 201);
+        // return redirect()->to(config('services.sabia.client_url'));
+       return response()->json([
+           'message' => 'Successfully created user!',
+           $user,
+       ], 201);
     }
 
     /**

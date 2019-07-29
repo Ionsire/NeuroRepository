@@ -87,7 +87,7 @@ class CasoClinicoController extends Controller
             if (strtotime($caso_clinico->DT_SEMANA) <= strtotime('this week monday')) {
                 return $caso_clinico;
             }
-        })->orderBy('semana', 'desc');
+        })->sortByDesc('DT_SEMANA');
         return response()->json($casos_da_semana, 200);
     }
 
@@ -134,15 +134,15 @@ class CasoClinicoController extends Controller
             'DS_HISTORIA_CLINICA' =>'required|string',
             'DS_ACHADOS_DAS_IMAGENS'=>'required|string',
             'DS_DIAGNOSTICO'=>'required|string',
-            'CO_CATEGORIA'=>'required|int|exists:categoria_caso_clinico,id',
-            'CO_SUBCATEGORIA'=>'int|exists:subcategoria_caso_clinico,id',
+            'CO_CATEGORIA'=>'required|int|exists:TB_CATEGORIA_CASO_CLINICO,CO_SEQ_CATEGORIA_CASO_CLINICO',
+            'CO_SUBCATEGORIA'=>'int|exists:TB_SUBCATEGORIA_CASO_CLINICO,CO_SEQ_SUBCATEGORIA_CASO_CLINICO',
             'DS_DISCUSSAO'=>'required|string',
             'DS_REFERENCIAS'=>'required|string',
             'NU_REJEICOES'=>'int',
             'DS_CORRECOES'=>'string',
-            'CO_USUARIO'=>'required|int|exists:users,id',
-            'CO_STATUS'=>'int|exists:status_caso_clinico,id',
-            'DT_CRIACAO'=>'required|date'
+            'CO_USUARIO'=>'required|int|exists:TB_USUARIO,CO_SEQ_USUARIO',
+            'CO_STATUS'=>'int|exists:TB_STATUS_CASO_CLINICO,CO_SEQ_STATUS_CASO_CLINICO',
+            // 'DT_CRIACAO'=>'required|date'
         ]);
 
         CasoClinico::create($request->all());
