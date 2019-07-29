@@ -12,10 +12,10 @@ class StatusUsuarioSeeder extends Seeder
     public function run()
     {
         $data = [
-            ['descricao' => 'Ativo'],
-            ['descricao' => 'Inativo'],
-            ['descricao' => 'Excluido']
+            ['DS_DESCRICAO' => 'Ativo'],
+            ['DS_DESCRICAO' => 'Inativo'],
+            ['DS_DESCRICAO' => 'Excluido']
         ];
-        DB::table('status_usuario')->insert($data);
+        DB::table('TB_STATUS_USUARIO')->insert($data);
     }
 }

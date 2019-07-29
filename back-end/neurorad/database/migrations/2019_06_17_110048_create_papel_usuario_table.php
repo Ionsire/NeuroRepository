@@ -13,10 +13,12 @@ class CreatePapelUsuarioTable extends Migration
      */
     public function up()
     {
-        Schema::create('papel_usuario', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('descricao');
-            $table->timestamps();
+        Schema::create('TB_PAPEL_USUARIO', function (Blueprint $table) {
+            $table->bigIncrements('CO_SEQ_PAPEL_USUARIO');
+            $table->string('DS_DESCRICAO');
+            $table->timestamp('DT_CRIACAO')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('DT_ATUALIZACAO')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('DT_EXCLUSAO')->nullable();
         });
     }
 
@@ -27,6 +29,6 @@ class CreatePapelUsuarioTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('papel_usuario');
+        Schema::dropIfExists('TB_PAPEL_USUARIO');
     }
 }

@@ -13,10 +13,12 @@ class CreateStatusCasoClinicoTable extends Migration
      */
     public function up()
     {
-        Schema::create('status_caso_clinico', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('descricao');
-            $table->timestamps();
+        Schema::create('TB_STATUS_CASO_CLINICO', function (Blueprint $table) {
+            $table->bigIncrements('CO_SEQ_STATUS_CASO_CLINICO');
+            $table->string('DS_DESCRICAO');
+            $table->timestamp('DT_CRIACAO')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('DT_ATUALIZACAO')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('DT_EXCLUSAO')->nullable();
         });
     }
 
@@ -27,6 +29,6 @@ class CreateStatusCasoClinicoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('status_caso_clinico');
+        Schema::dropIfExists('TB_STATUS_CASO_CLINICO');
     }
 }

@@ -27,11 +27,11 @@ class SabiaController extends Controller
     public function handleProviderCallback()
     {
         $usuario_sabia = Socialite::driver('sabia')->user();
-        $usuario = User::where('email', $usuario_sabia->email)
-            ->orWhere('cpf', $usuario_sabia->id)
+        $usuario = User::where('DS_EMAIL', $usuario_sabia->email)
+            ->orWhere('NU_CPF', $usuario_sabia->id)
             ->first();
         if (isset($usuario)) {
-            $usuario->email = $usuario_sabia->email;
+            $usuario->DS_EMAIL = $usuario_sabia->email;
             $usuario->save();
             $token = auth('api')->login($usuario);
             Cookie::queue('api_access_token', $token,

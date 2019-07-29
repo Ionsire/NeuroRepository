@@ -12,10 +12,10 @@ class SubCategoriaCasoClinicoSeeder extends Seeder
     public function run()
     {
         $data = [
-            ['descricao' => 'Cabeça'],
-            ['descricao' => 'Ombro'],
-            ['descricao' => 'Joelho']
+            ['DS_DESCRICAO' => 'Cabeça'],
+            ['DS_DESCRICAO' => 'Ombro'],
+            ['DS_DESCRICAO' => 'Joelho']
         ];
-        DB::table('subcategoria_caso_clinico')->insert($data);
+        DB::table('TB_SUBCATEGORIA_CASO_CLINICO')->insert($data);
     }
 }

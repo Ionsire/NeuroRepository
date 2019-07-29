@@ -4,40 +4,49 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
+    protected $table = 'TB_USUARIO';
+    protected $primaryKey = 'CO_SEQ_USUARIO';
+
     protected $fillable = [
-        'cpf','name', 'email', 'password', 'nascimento', 'foto', 'perfil_id', 'especialidade_id', 'papel_id', 'status_id',
+        'NU_CPF','DS_NOME', 'DS_EMAIL', 'DS_SENHA', 'DT_NASCIMENTO', 'IM_FOTO', 'CO_PERFIL', 'CO_ESPECIALIDADE', 'CO_PAPEL', 'CO_STATUS',
     ];
 
+    protected $dates = ['DT_CRIACAO', 'DT_ATUALIZACAO', 'DT_EXCLUSAO'];
+    const CREATED_AT = 'DT_CRIACAO';
+    const UPDATED_AT = 'DT_ATUALIZACAO';
+    const DELETED_AT = 'DT_EXCLUSAO';
+
     public function perfil() {
-        return $this->belongsTo(PerfilUsuario::class);
+        return $this->belongsTo(PerfilUsuario::class, 'CO_PERFIL', 'CO_SEQ_PERFIL_USUARIO');
     }
 
     public function especialidade() {
-        return $this->belongsTo(EspecialidadeUsuario::class);
+        return $this->belongsTo(EspecialidadeUsuario::class, 'CO_ESPECIALIDADE', 'CO_SEQ_ESPECIALIDADE_USUARIO');
     }
 
     public function papel() {
-        return $this->belongsTo(PapelUsuario::class);
+        return $this->belongsTo(PapelUsuario::class, 'CO_PAPEL', 'CO_SEQ_PAPEL_USUARIO');
     }
 
     public function status() {
-        return $this->belongsTo(StatusUsuario::class);
+        return $this->belongsTo(StatusUsuario::class, 'CO_STATUS', 'CO_SEQ_STATUS_USUARIO');
     }
 
-    public function caso_clinico() {
-        return $this->hasMany(CasoClinico::class, 'usuario_id');
+    public function casos_clinicos() {
+        return $this->hasMany(CasoClinico::class, 'CO_USUARIO', 'CO_SEQ_USUARIO');
     }
 
     /**
@@ -46,16 +55,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
+        'DS_SENHA',
     ];
 
     /**

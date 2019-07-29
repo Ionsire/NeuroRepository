@@ -13,15 +13,15 @@ class AddFkToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('perfil_id');
-            $table->foreign('perfil_id')->references('id')->on('perfil_usuario');
-            $table->unsignedBigInteger('especialidade_id')->nullable();
-            $table->foreign('especialidade_id')->references('id')->on('especialidade_usuario');
-            $table->unsignedBigInteger('papel_id');
-            $table->foreign('papel_id')->references('id')->on('papel_usuario');
-            $table->unsignedBigInteger('status_id');
-            $table->foreign('status_id')->references('id')->on('status_usuario');
+        Schema::table('TB_USUARIO', function (Blueprint $table) {
+            $table->unsignedBigInteger('CO_PERFIL');
+            $table->foreign('CO_PERFIL')->references('CO_SEQ_PERFIL_USUARIO')->on('TB_PERFIL_USUARIO');
+            $table->unsignedBigInteger('CO_ESPECIALIDADE')->nullable();
+            $table->foreign('CO_ESPECIALIDADE')->references('CO_SEQ_ESPECIALIDADE_USUARIO')->on('TB_ESPECIALIDADE_USUARIO');
+            $table->unsignedBigInteger('CO_PAPEL');
+            $table->foreign('CO_PAPEL')->references('CO_SEQ_PAPEL_USUARIO')->on('TB_PAPEL_USUARIO');
+            $table->unsignedBigInteger('CO_STATUS');
+            $table->foreign('CO_STATUS')->references('CO_SEQ_STATUS_USUARIO')->on('TB_STATUS_USUARIO');
         });
     }
 
@@ -32,15 +32,15 @@ class AddFkToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign('users_perfil_id_foreign');
-            $table->dropColumn('perfil_id');
-            $table->dropForeign('users_especialidade_id_foreign');
-            $table->dropColumn('especialidade_id');
-            $table->dropForeign('users_papel_id_foreign');
-            $table->dropColumn('papel_id');
-            $table->dropForeign('users_status_id_foreign');
-            $table->dropColumn('status_id');
+        Schema::table('TB_USUARIO', function (Blueprint $table) {
+            $table->dropForeign('tb_usuario_co_perfil_foreign');
+            $table->dropColumn('CO_PERFIL');
+            $table->dropForeign('tb_usuario_co_especialidade_foreign');
+            $table->dropColumn('CO_ESPECIALIDADE');
+            $table->dropForeign('tb_usuario_co_papel_foreign');
+            $table->dropColumn('CO_PAPEL');
+            $table->dropForeign('tb_usuario_co_status_foreign');
+            $table->dropColumn('CO_STATUS');
         });
     }
 }

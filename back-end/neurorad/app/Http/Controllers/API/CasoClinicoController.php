@@ -20,25 +20,25 @@ class CasoClinicoController extends Controller
         $casoclinico = CasoClinico::query();
 
         if ($search != null) {
-            if(array_key_exists('diagnostico', $search)){
+            if(array_key_exists('DS_DIAGNOSTICO', $search)){
                 $casoclinico = $casoclinico
-                    ->where('diagnostico', 'LIKE', '%'.$search['diagnostico'].'%');
+                    ->where('DS_DIAGNOSTICO', 'LIKE', '%'.$search['DS_DIAGNOSTICO'].'%');
             }
-            if(array_key_exists('categoria_id', $search)){
+            if(array_key_exists('CO_CATEGORIA', $search)){
                 $casoclinico = $casoclinico
-                    ->where('categoria_id', '=',$search['categoria_id']);
+                    ->where('CO_CATEGORIA', '=',$search['CO_CATEGORIA']);
             }
-            if(array_key_exists('subcategoria_id', $search)){
+            if(array_key_exists('CO_SUBCATEGORIA', $search)){
                 $casoclinico = $casoclinico
-                    ->where('subcategoria_id', '=',$search['subcategoria_id']);
+                    ->where('CO_SUBCATEGORIA', '=',$search['CO_SUBCATEGORIA']);
             }
-            if(array_key_exists('user_id', $search)){
+            if(array_key_exists('CO_USUARIO', $search)){
                 $casoclinico = $casoclinico
-                    ->where('user_id', '=',$search['user_id']);
+                    ->where('CO_USUARIO', '=',$search['CO_USUARIO']);
             }
-            if(array_key_exists('publicacao', $search)){
+            if(array_key_exists('DT_CRIACAO', $search)){
                 $casoclinico = $casoclinico
-                    ->where('publicacao', '=',$search['publicacao']);
+                    ->where('DT_CRIACAO', '=',$search['DT_CRIACAO']);
             }
         }
         return response()->json($casoclinico, 200);
@@ -55,20 +55,20 @@ class CasoClinicoController extends Controller
         $search = $request->get('busca', null);
         $casoclinico = CasoClinico::query();
         $casoclinico = $casoclinico
-            ->whereNotIn('status_id', [1,5,6]);
+            ->whereNotIn('CO_STATUS', [1,5,6]);
 
         if ($search != null) {
-            if(array_key_exists('diagnostico', $search)){
+            if(array_key_exists('DS_DIAGNOSTICO', $search)){
                 $casoclinico = $casoclinico
-                    ->where('diagnostico', 'LIKE', '%'.$search['diagnostico'].'%');
+                    ->where('DS_DIAGNOSTICO', 'LIKE', '%'.$search['DS_DIAGNOSTICO'].'%');
             }
-            if(array_key_exists('categoria_id', $search)){
+            if(array_key_exists('CO_CATEGORIA', $search)){
                 $casoclinico = $casoclinico
-                    ->where('categoria_id', '=',$search['categoria_id']);
+                    ->where('CO_CATEGORIA', '=',$search['CO_CATEGORIA']);
             }
-            if(array_key_exists('subcategoria_id', $search)){
+            if(array_key_exists('CO_SUBCATEGORIA', $search)){
                 $casoclinico = $casoclinico
-                    ->where('subcategoria_id', '=', $search['subcategoria_id']);
+                    ->where('CO_SUBCATEGORIA', '=', $search['CO_SUBCATEGORIA']);
             }
         }
         return response()->json($casoclinico, 200);
@@ -84,10 +84,10 @@ class CasoClinicoController extends Controller
     public function casos_da_semana_home()
     {
         $casos_da_semana = CasoClinico::all()->filter(function($caso_clinico) {
-            if (strtotime($caso_clinico->semana) <= strtotime('this week monday')) {
+            if (strtotime($caso_clinico->DT_SEMANA) <= strtotime('this week monday')) {
                 return $caso_clinico;
             }
-        })->orderBy('semana', 'desc');
+        })->sortByDesc('DT_SEMANA');
         return response()->json($casos_da_semana, 200);
     }
 
@@ -103,7 +103,7 @@ class CasoClinicoController extends Controller
         $data = ['date' => $date];
         $data->validate(['date' => ['date', new SegundaFeira]]);
         $caso_clinico = CasoClinico::where($id);
-        $caso_clinico['semana'] = $date;
+        $caso_clinico['DT_SEMANA'] = $date;
         $caso_clinico->save();
         return response()->json(['message' => 'Caso Clínico Agendado com Sucesso'], 200);
     }
@@ -117,7 +117,7 @@ class CasoClinicoController extends Controller
     public function desagendamento_caso_da_semana($id)
     {
         $caso_clinico = CasoClinico::where($id);
-        $caso_clinico['semana'] = null;
+        $caso_clinico['DT_SEMANA'] = null;
         $caso_clinico->save;
         return response()->json(['message' => 'Caso Clínico Desagendado com Sucesso'], 200);
     }
@@ -131,19 +131,18 @@ class CasoClinicoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'historia_clinica' =>'required|string',
-            'descricao_achados_da_imagem'=>'required|string',
-            'diagnostico'=>'required|string',
-            'categoria_id'=>'required|int|exists:categoria_caso_clinico,id',
-            'subcategoria_id'=>'int|exists:subcategoria_caso_clinico,id',
-            'discussao'=>'required|string',
-            'referencias'=>'required|string',
-            'rejeicoes'=>'int',
-            'correcoes'=>'string',
-            'usuario_id'=>'required|int|exists:users,id',
-            'status_id'=>'int|exists:status_caso_clinico,id',
-            'semana'=> ['date', new SegundaFeira],
-            'publicacao'=>'required|date'
+            'DS_HISTORIA_CLINICA' =>'required|string',
+            'DS_ACHADOS_DAS_IMAGENS'=>'required|string',
+            'DS_DIAGNOSTICO'=>'required|string',
+            'CO_CATEGORIA'=>'required|int|exists:TB_CATEGORIA_CASO_CLINICO,CO_SEQ_CATEGORIA_CASO_CLINICO',
+            'CO_SUBCATEGORIA'=>'int|exists:TB_SUBCATEGORIA_CASO_CLINICO,CO_SEQ_SUBCATEGORIA_CASO_CLINICO',
+            'DS_DISCUSSAO'=>'required|string',
+            'DS_REFERENCIAS'=>'required|string',
+            'NU_REJEICOES'=>'int',
+            'DS_CORRECOES'=>'string',
+            'CO_USUARIO'=>'required|int|exists:TB_USUARIO,CO_SEQ_USUARIO',
+            'CO_STATUS'=>'int|exists:TB_STATUS_CASO_CLINICO,CO_SEQ_STATUS_CASO_CLINICO',
+            // 'DT_CRIACAO'=>'required|date'
         ]);
 
         CasoClinico::create($request->all());
@@ -176,19 +175,17 @@ class CasoClinicoController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'historia_clinica' =>'required|string',
-            'descricao_achados_da_imagem'=>'required|string',
-            'diagnostico'=>'required|string',
-            'categoria_id'=>'required|int|exists:categoria_caso_clinico,id',
-            'subcategoria_id'=>'int|exists:subcategoria_caso_clinico,id',
-            'discussao'=>'required|string',
-            'referencias'=>'required|string',
-            'rejeicoes'=>'int',
-            'correcoes'=>'string',
-            'usuario_id'=>'required|int|exists:users,id',
-            'status_id'=>'required|int|exists:status_caso_clinico,id',
-            'semana'=> ['date', new SegundaFeira],
-            'publicacao'=>'required|date'
+            'DS_HISTORIA_CLINICA' =>'required|string',
+            'DS_ACHADOS_DAS_IMAGENS'=>'required|string',
+            'DS_DIAGNOSTICO'=>'required|string',
+            'CO_CATEGORIA'=>'required|int|exists:categoria_caso_clinico,id',
+            'CO_SUBCATEGORIA'=>'int|exists:subcategoria_caso_clinico,id',
+            'DS_DISCUSSAO'=>'required|string',
+            'DS_REFERENCIAS'=>'required|string',
+            'NU_REJEICOES'=>'int',
+            'DS_CORRECOES'=>'string',
+            'CO_USUARIO'=>'required|int|exists:users,id',
+            'CO_STATUS'=>'required|int|exists:status_caso_clinico,id',
         ]);
         $casoclinico = CasoClinico::find($id);
         $casoclinico -> fill($request->all());

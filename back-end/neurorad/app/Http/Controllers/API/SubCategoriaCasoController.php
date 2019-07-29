@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\SubCategoriaCasoClinico;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 
 class SubCategoriaCasoController extends Controller
 {
@@ -79,7 +81,7 @@ class SubCategoriaCasoController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-         'descricao'=>'required|string',
+         'DS_DESCRICAO'=>'required|string',
         ]);
         $subcategoriacaso = SubCategoriaCasoClinico::find($id);
         $subcategoriacaso->fill($request->all());

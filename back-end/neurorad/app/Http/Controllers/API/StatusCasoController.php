@@ -37,7 +37,7 @@ class StatusCasoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-           'descricao'=>'required|string',
+           'DS_DESCRICAO'=>'required|string',
         ]);
         StatusCasoClinico::create($request->all());
 
@@ -81,7 +81,7 @@ class StatusCasoController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-           'descricao'=>'required|string',
+           'DS_DESCRICAO'=>'required|string',
         ]);
         $statuscaso = StatusCasoClinico::find($id);
         $statuscaso->fill($request->all());

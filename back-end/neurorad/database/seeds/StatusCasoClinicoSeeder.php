@@ -12,13 +12,13 @@ class StatusCasoClinicoSeeder extends Seeder
     public function run()
     {
         $data = [
-            ['descricao' => 'Pendente Homologação'],
-            ['descricao' => 'Homologado'],
-            ['descricao' => 'Reservado'],
-            ['descricao' => 'Em uso'],
-            ['descricao' => 'Arquivado'],
-            ['descricao' => 'Inativado'],
+            ['DS_DESCRICAO' => 'Pendente Homologação'],
+            ['DS_DESCRICAO' => 'Homologado'],
+            ['DS_DESCRICAO' => 'Reservado'],
+            ['DS_DESCRICAO' => 'Em uso'],
+            ['DS_DESCRICAO' => 'Arquivado'],
+            ['DS_DESCRICAO' => 'Inativado'],
         ];
-        DB::table('status_caso_clinico')->insert($data);
+        DB::table('TB_STATUS_CASO_CLINICO')->insert($data);
     }
 }
