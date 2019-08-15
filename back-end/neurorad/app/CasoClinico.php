@@ -21,7 +21,7 @@ class CasoClinico extends Model
     const DELETED_AT = 'DT_EXCLUSAO';
 
     public function autor() {
-        return $this->belongsTo(User::class, 'CO_USARIO', 'CO_SEQ_USUARIO');
+        return $this->belongsTo(User::class, 'CO_USUARIO', 'CO_SEQ_USUARIO');
     }
 
     public function categoria() {
@@ -42,7 +42,7 @@ class CasoClinico extends Model
 
     public function imagem_capa()
     {
-        return $this->hasOne(Image::class, 'CO_SEQ_IMAGEM', 'CO_IMAGEM_CAPA');
+        return $this->belongsTo(Image::class, 'CO_IMAGEM_CAPA', 'CO_SEQ_IMAGEM');
     }
 
 }

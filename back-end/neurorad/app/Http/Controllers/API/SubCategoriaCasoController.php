@@ -41,11 +41,11 @@ class SubCategoriaCasoController extends Controller
         $request->validate([
            'subcategoriacaso'=>'required|string',
         ]);
-        SubCategoriaCasoClinico::create($request->all);
+        SubCategoriaCasoClinico::create($request->all());
 
         return response()->json([
            'message'=>'Sub categoria de caso clínico cadastrado com sucesso!'
-        ],200);
+        ],201);
     }
 
     /**
