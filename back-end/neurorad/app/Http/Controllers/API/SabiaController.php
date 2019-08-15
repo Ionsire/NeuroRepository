@@ -26,7 +26,7 @@ class SabiaController extends Controller
      */
     public function handleProviderCallback()
     {
-        $usuario_sabia = Socialite::driver('sabia')->user();
+        $usuario_sabia = Socialite::driver('sabia')->stateless()->user();
         $usuario = User::where('DS_EMAIL', $usuario_sabia->email)
             ->orWhere('NU_CPF', $usuario_sabia->id)
             ->first();
