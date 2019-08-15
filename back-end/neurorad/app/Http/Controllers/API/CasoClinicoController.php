@@ -18,30 +18,36 @@ class CasoClinicoController extends Controller
     {
         $search = $request->get('busca', null);
         $casoclinico = CasoClinico::query();
+        $resultados = array();
 
         if ($search != null) {
             if(array_key_exists('DS_DIAGNOSTICO', $search)){
                 $casoclinico = $casoclinico
-                    ->where('DS_DIAGNOSTICO', 'LIKE', '%'.$search['DS_DIAGNOSTICO'].'%');
+                                    ->where('DS_DIAGNOSTICO', 'LIKE', '%'.$search['DS_DIAGNOSTICO'].'%');
+                $resultados['DS_DIAGNOSTICO'] = $casoclinico;
             }
             if(array_key_exists('CO_CATEGORIA', $search)){
                 $casoclinico = $casoclinico
-                    ->where('CO_CATEGORIA', '=',$search['CO_CATEGORIA']);
+                                    ->where('CO_CATEGORIA', '=',$search['CO_CATEGORIA']);
+                $resultados['CO_CATEGORIA'] = $casoclinico;
             }
             if(array_key_exists('CO_SUBCATEGORIA', $search)){
                 $casoclinico = $casoclinico
-                    ->where('CO_SUBCATEGORIA', '=',$search['CO_SUBCATEGORIA']);
+                                    ->where('CO_SUBCATEGORIA', '=',$search['CO_SUBCATEGORIA']);
+                $resultados['CO_SUBCATEGORIA'] = $casoclinico;
             }
             if(array_key_exists('CO_USUARIO', $search)){
                 $casoclinico = $casoclinico
-                    ->where('CO_USUARIO', '=',$search['CO_USUARIO']);
+                                    ->where('CO_USUARIO', '=',$search['CO_USUARIO']);
+                $resultados['CO_USUARIO'] = $casoclinico;
             }
             if(array_key_exists('DT_CRIACAO', $search)){
                 $casoclinico = $casoclinico
-                    ->where('DT_CRIACAO', '=',$search['DT_CRIACAO']);
+                                    ->where('DT_CRIACAO', '=',$search['DT_CRIACAO']);
+                $resultados['DT_CRIACAO'] = $casoclinico;
             }
         }
-        return response()->json($casoclinico, 200);
+        return response()->json($resultados, 200);
     }
 
     /**
@@ -118,7 +124,7 @@ class CasoClinicoController extends Controller
     {
         $caso_clinico = CasoClinico::where($id);
         $caso_clinico['DT_SEMANA'] = null;
-        $caso_clinico->save;
+        $caso_clinico->save();
         return response()->json(['message' => 'Caso Clínico Desagendado com Sucesso'], 200);
     }
 
