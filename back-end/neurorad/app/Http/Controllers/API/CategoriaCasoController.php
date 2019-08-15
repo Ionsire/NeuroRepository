@@ -44,7 +44,7 @@ class CategoriaCasoController extends Controller
         CategoriaCasoClinico::create($request->all());
         return response()->json([
            'message'=>'Categoria de caso cadastrada com sucesso!'
-        ],200);
+        ],201);
     }
 
     /**
