@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\CasoClinico;
+use App\Imagem;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Rules\SegundaFeira;
@@ -61,23 +62,25 @@ class CasoClinicoController extends Controller
         $search = $request->get('busca', null);
         $casoclinico = CasoClinico::query();
         $casoclinico = $casoclinico
-            ->whereNotIn('CO_STATUS', [1,5,6]);
+                            ->whereNotIn('CO_STATUS', [1,5,6]);
+
+        $resultados = array();        
 
         if ($search != null) {
             if(array_key_exists('DS_DIAGNOSTICO', $search)){
-                $casoclinico = $casoclinico
-                    ->where('DS_DIAGNOSTICO', 'LIKE', '%'.$search['DS_DIAGNOSTICO'].'%');
+                $resultados['DS_DIAGNOSTICO'] = $casoclinico
+                                                    ->where('DS_DIAGNOSTICO', 'LIKE', '%'.$search['DS_DIAGNOSTICO'].'%');
             }
             if(array_key_exists('CO_CATEGORIA', $search)){
-                $casoclinico = $casoclinico
-                    ->where('CO_CATEGORIA', '=',$search['CO_CATEGORIA']);
+                $resultados['CO_CATEGORIA'] = $casoclinico
+                                                    ->where('CO_CATEGORIA', '=',$search['CO_CATEGORIA']);
             }
             if(array_key_exists('CO_SUBCATEGORIA', $search)){
-                $casoclinico = $casoclinico
-                    ->where('CO_SUBCATEGORIA', '=', $search['CO_SUBCATEGORIA']);
+                $resultados['CO_SUBCATEGORIA'] = $casoclinico
+                                                    ->where('CO_SUBCATEGORIA', '=', $search['CO_SUBCATEGORIA']);
             }
         }
-        return response()->json($casoclinico, 200);
+        return response()->json($resultados, 200);
     }
 
     /**
@@ -128,6 +131,16 @@ class CasoClinicoController extends Controller
         return response()->json(['message' => 'Caso Clínico Desagendado com Sucesso'], 200);
     }
 
+    
+    public function homologar($id)
+    {
+        $caso_clinico = CasoClinico::where($id);
+        $caso_clinico['CO_STATUS'] = 2;
+        $caso_clinico->save();
+        return response()->json(['message' => 'Caso Clínico Homologado com Sucesso'], 200);
+    }
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -146,12 +159,42 @@ class CasoClinicoController extends Controller
             'DS_REFERENCIAS'=>'required|string',
             'NU_REJEICOES'=>'int',
             'DS_CORRECOES'=>'string',
-            'CO_USUARIO'=>'required|int|exists:TB_USUARIO,CO_SEQ_USUARIO',
+            // 'CO_USUARIO'=>'required|int|exists:TB_USUARIO,CO_SEQ_USUARIO',
             'CO_STATUS'=>'int|exists:TB_STATUS_CASO_CLINICO,CO_SEQ_STATUS_CASO_CLINICO',
             // 'DT_CRIACAO'=>'required|date'
         ]);
+    
+        // Salva o caso clínico e recupera o ID recém criado
+        $_caso_clinico = CasoClinico::create($request->all());
+        $_id_caso = $_caso_clinico->CO_SEQ_CASO_CLINICO;
 
-        CasoClinico::create($request->all());
+        //Define o caminho padrão de upload
+        $_upload_path = "storage/images";
+
+        $i = 0;
+        foreach ($request->images as $image) {
+            $_dados_imagem = array(
+                'IM_IMAGEM' => $_upload_path,               
+                'CO_CASO_CLINICO' => $_id_caso
+            );
+            $_imagem = Imagem::create($_dados_imagem);
+            $_id_imagem = $_imagem->CO_SEQ_IMAGEM;
+            $_extension = $image->getClientOriginalExtension();
+
+            $_imagem->IM_IMAGEM = "{$_upload_path}/{$_id_imagem}.{$_extension}";
+            $_imagem->save();
+
+            $_filename = "{$_id_imagem}.{$_extension}";
+            //Realiza o Upload na pasta do projeto: public/storage/images/filename
+            $image->storeAs('images', $_filename);
+
+            //Atualiza a imagem de capa
+            if ($i == 0) {
+                $_caso_clinico->CO_IMAGEM_CAPA = $_id_imagem;
+                $_caso_clinico->save();
+            }
+            $i++;
+        }
 
         return response()->json([
             'message' => 'Caso clinico cadastrado com sucesso!'
