@@ -159,7 +159,7 @@ class CasoClinicoController extends Controller
             'DS_REFERENCIAS'=>'required|string',
             'NU_REJEICOES'=>'int',
             'DS_CORRECOES'=>'string',
-            // 'CO_USUARIO'=>'required|int|exists:TB_USUARIO,CO_SEQ_USUARIO',
+            'CO_USUARIO'=>'required|int|exists:TB_USUARIO,CO_SEQ_USUARIO',
             'CO_STATUS'=>'int|exists:TB_STATUS_CASO_CLINICO,CO_SEQ_STATUS_CASO_CLINICO',
             // 'DT_CRIACAO'=>'required|date'
         ]);

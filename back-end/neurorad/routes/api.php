@@ -41,3 +41,5 @@ Route::get('/desagendamento/{id}', 'API\CasoClinicoController@desagendamento_cas
 Route::get('/homologar/{id}', 'API\CasoClinicoController@homologar')->name('homologar');
 Route::get('/casos_clinicos_admin', 'API\CasoClinicoController@index_admin')->name('casoclinico.index_admin');
 Route::get('/casos_da_semana_home', 'API\CasoClinicoController@casos_da_semana_home')->name('homepage');
+
+Route::get('/test', 'API\PublicacaoAutomaticaCasoController@publicarCaso');

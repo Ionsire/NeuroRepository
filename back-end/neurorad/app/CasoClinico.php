@@ -11,6 +11,7 @@ class CasoClinico extends Model
     use SoftDeletes;
 
     protected $table = 'TB_CASO_CLINICO';
+
     protected $primaryKey = 'CO_SEQ_CASO_CLINICO';
 
     protected $fillable = ['DS_HISTORIA_CLINICA', 'DS_ACHADOS_DAS_IMAGENS', 'DS_DIAGNOSTICO', 'CO_CATEGORIA', 'CO_SUBCATEGORIA', 'DS_DISCUSSAO', 'DS_REFERENCIAS', 'NU_REJEICOES', 'DS_CORRECOES', 'CO_USUARIO', 'CO_STATUS', 'DT_SEMANA', 'CO_IMAGEM_CAPA'];
