@@ -27,6 +27,7 @@ Route::group([
     });
 });
 Route::apiResources([
+    'users'=>'API\UsersController',
     'perfilusuario' => 'API\PerfilUsuarioController',
     'especialidadeusuario' => 'API\EspecialidadeUsuarioController',
     'papelusuario' => 'API\PapelUsuarioController',
