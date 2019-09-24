@@ -1,0 +1,57 @@
+<section id="pagInicial">
+
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li *ngFor="let caso of SecundaryCase;let I = index" data-target="#carouselExampleIndicators" data-slide-to="I"></li>
+    </ol>
+    <div class="carousel-inner">
+      <h1 *ngIf="!condicoes" >Publicação da Semana </h1>
+      <h1 *ngIf="condicoes" >Publicações da Semana </h1>
+      <div  *ngIf="PrimaryCase"  class="carousel-item active">
+        <article class="CaseSemana" >
+          <div id="caso">
+            <div class="img">
+              <a href=""><img [src]="PrimaryCase.images[0]" alt="diagnóstico"></a>
+              <h5>Descrição das imagens:</h5>
+              <p>{{PrimaryCase.DS_ACHADOS_DAS_IMAGENS}}</p>
+            </div>
+            <div class="descricao">
+              <h3> Caso: #{{PrimaryCase.id}}</h3>
+              <p>{{PrimaryCase.DS_HISTORIA_CLINICA}}</p>
+              <button type="button" class="btn btn-outline-primary" (click)="VisualizarCaso(PrimaryCase.id)">Ver Caso</button>
+            </div>
+          </div>
+        </article>
+      
+      </div>
+      <div class="carousel-item" *ngFor="let caso of SecundaryCase">
+          <article class="CaseSemana" >
+              <div id="caso">
+                <div class="img">
+                  <a href=""><img [src]="caso.images[0]" alt="diagnóstico"></a>
+                  <h5>Descrição das imagens:</h5>
+                  <p >{{caso.DS_ACHADOS_DAS_IMAGENS}}</p>
+                </div>
+                <div class="descricao">
+                  <h3> Caso: #{{caso.id}}</h3>
+                  <p>{{caso.DS_HISTORIA_CLINICA}}</p>
+                  <button type="button" class="btn btn-outline-primary" (click)="VisualizarCaso(caso.id)">Ver Caso</button>
+
+                </div>
+              </div>
+            </article>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" style="width: 70px">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next" style="width: 70px" >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+    
+  
+</section>

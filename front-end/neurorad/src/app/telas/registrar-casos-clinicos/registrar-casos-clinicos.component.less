@@ -1,0 +1,407 @@
+
+section{
+    width: 100%;
+    min-height: 92vh;
+    height: 100%;
+    background-image: url("../../../assets/images/analysis-2030266_1920.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: auto;
+    padding-bottom: 2em;
+    
+    div.header{
+        width: 90%;
+        margin: auto;
+    }
+}
+@media screen and(min-width: 2000px) {
+    section{
+     width: 2000px;
+     margin: 0 auto;
+    }
+    
+ 
+ }
+
+nav#RegisterCases{
+    width: 90%;
+    min-width:300px;
+    margin: auto;
+    margin-bottom: 2em;
+    ul{
+        margin: 0;
+        padding: 0;
+        display: flex;
+        li{
+            list-style: none;
+            button{
+                outline: 0;
+                padding: .5em;
+                border: none;
+                border-radius: .2em .2em 0em 0em ;
+                background-color:  #dddada;
+                z-index: 0;
+                &:hover{
+                    cursor: pointer;
+                }
+                &.active{
+                    background-color: #FFF;
+                    opacity: 1.2;
+                }
+                span{
+                    padding: 0em .4em;
+                    background: #000;
+                    color: #FFF;
+                    border-radius: .3em;
+                    margin-right: .6em;
+                }
+                
+            }
+        }
+    }
+    @media screen and(max-width: 699px) {
+            ul{
+                li{
+                    button{
+                        font-size: .8em;
+                        span{
+                            
+                        }
+                    }
+                }
+            }
+        
+    }
+    @media screen and(max-width: 560px) {
+        ul{
+            li{
+                button{
+                    font-size: .6em;
+                    span{
+                        
+                    }
+                }
+            }
+        }
+    
+}
+@media screen and(max-width: 460px) {
+    ul{
+        li{
+            button{
+                font-size: .5em;
+                span{
+                    
+                }
+            }
+        }
+    }
+
+}
+@media screen and(max-width: 352px) {
+    ul{
+        li{
+            button{
+                font-size: .4em;
+            }
+        }
+    }
+
+}
+    form#toggleclasses{
+        width: 100%;
+        height: 100%;
+        min-height: 200px;
+        padding: 1em;
+        margin: auto;
+        background-color:#ffffff;
+        border-radius: 0 .3em .3em ;
+        box-shadow: .2em 0.3em  .2em #5c5c5c;
+       div{
+           display: none;
+           &.form-container{
+               display: flex;
+               margin: auto;
+               flex-direction: column;
+               width: 90%;
+               textarea{
+                width: 100%;
+                min-height: 80px;
+               }
+               button{
+                @var: calc(100% - 100px);
+                width: 100px;
+                height: 40px;
+                margin-top: 1em;
+                border: none;
+                background-color: #6d6a6a;
+                border-radius: .3em;
+                margin-left: @var;
+
+                @media(max-width:700px){
+                  width: 80px;
+                  height: 35px;
+                  font-size: 1em;
+                  @var: calc(100% - 80px);
+                  margin-left: @var;
+                    
+                }
+                @media(max-width:560px){
+                    width: 60px;
+                    height: 30px;
+                    font-size: .8em;
+                    @var: calc(100% - 60px);
+                    margin-left: @var;
+                      
+                  }
+                  @media(max-width:460px){
+                    width: 50px;
+                    height: 20px;
+                    font-size: .6em;
+                    @var: calc(100% - 50px);
+                    margin-left: @var;
+                      
+                  }
+               }
+           }
+          
+        }
+        div.active{
+            display: flex;
+        }
+        div#BNT3{
+            flex-wrap: wrap;
+             
+                img:hover{
+                 cursor: pointer;
+                 display: flex;
+                }
+               img.card{
+                width: 100%;
+                max-width: 180px;
+                max-height: 180px;
+                border: 5px solid rgb(255, 255, 255);
+                box-shadow: 0.2em 0.3em .4em 0px #000000;
+                margin-bottom: 2em;
+                margin-left: 1em;
+                opacity: .9;
+                &:hover{
+                    opacity: 1.2;
+                }
+                &:active{
+                    position: relative;
+                    box-shadow: 0.1em 0.15em .4em 0px #000000;
+                }
+               }
+               img#bntdelete{
+                width: 10%;
+                height: 12%;
+                background-color: #FFF;
+                border-radius: 1px solid #ffffff;
+                border-radius: .3em;
+                box-shadow: 1px 3px 5px 0px #000000;
+                z-index: 1px;
+                position: relative;
+                right: 1.2em;
+                opacity: .6;
+                &:hover{
+                    opacity: 1;
+                }
+                &:active{
+                    position: relative;
+                    top: 0.1em;
+                    box-shadow: none
+                }
+               }  
+               div#cards{
+                   margin: 1em auto;
+                   display:flex;
+                   flex-wrap: wrap;
+                   justify-content: center;
+               } 
+               .browse-btn {
+                margin: 0 auto;
+                justify-content: center;
+                max-width: 100px;
+                max-height:100px ;
+                min-width: 50px;
+                min-height: 50px;
+                border:1px solid #ccc;
+                box-shadow: .2em 0.3em  .2em #5c5c5c;
+
+                border-radius: .3em;
+                &:active{
+                    position: relative;
+                    top: 0.3em;
+                    box-shadow: none
+                }
+                #cameraImg {
+                    cursor: pointer;
+                    margin-top: 1em;
+                    opacity: 0;
+                    position: absolute;
+                    width: 80px;
+                    height: 80px;
+                    z-index: 3;
+                }   
+            }
+               
+        }
+        div#BNT4{
+        /*
+        primeiro estilo
+            div{
+                #Resumocontainer{
+                    display: flex;
+                   width: 100%;
+                   height: 100%;
+                 //  flex-direction: column;
+                  // justify-content: center;
+                    #resumofotos{
+                        flex-direction: column;
+                        width: 39%;
+                        height: 70%;
+                        margin-right: .7em;
+                        img.imgfull{
+                            min-width: 300px;
+                            min-height: 274px;
+                            width: 100%;
+                            border: 2px solid rgb(131, 130, 130);
+                            object-fit: cover;
+                            object-position: 100% 0;
+                        }
+                        #minCards{
+                            min-width: 300px;
+                            display: flex;
+                            flex-wrap: nowrap;
+                            overflow-x: auto;
+                            flex-direction: row;
+                            width: 100%;
+                            height: 100%;
+                            margin-top: 1em;
+                            padding: 0.2em;
+                            background: rgb(0, 247, 33);  
+                        div{
+                            border: 2px solid rgb(0, 0, 0);
+                            img{
+                                width: 100px;
+                                &:hover{
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+                        }
+                    }
+                    #resumos{
+                        margin-left: 1em;
+                        display: flex;
+                        width: 100%;
+                        div.RDR{
+                            display: block;
+                            padding: 0.5em;
+                            width: 100%;
+                            height: 100%;
+                            overflow-y: auto;
+                            border: solid 1px red;
+                        div{
+                            display: block;
+                        }
+                            
+                        }
+                        div.DCD{
+                            display: block;
+                            padding: 0.5em;
+                            width: 100%;
+                            height: 100%;
+                            overflow-y: auto;
+                            border: solid 1px rgb(233, 250, 0);
+                        div{
+                            display: block;
+                        }
+                           
+                        }
+
+                    }
+                }
+                
+            }
+            */
+            // segundo estilo
+            div{
+                #Resumocontainer{
+                    display: flex;
+                   width: 100%;
+                   height: 100%;
+                   flex-direction: column;
+                   
+                    #resumofotos{
+                        margin:  0 auto;
+                        div#carouselExampleControls{
+                            height: 50vh;
+                            min-height: 300px;
+                            @media screen and(max-width:800px){
+                            }
+                            div#carouselExampleIndicators{
+                                background-color: #8b8b8b;
+                                    margin:  0 auto;
+                                    width: 45%;
+                                    min-width: 300px;
+                                    max-width: 1200px;
+                                    min-height: 300px;
+                                    max-height: 400px;
+                                    ol{
+                                        li:hover{
+                                            cursor:inherit !important ;
+                                        }
+                                    }
+                                    ul.carousel-inner{
+                                        li.carousel-item{
+                                          //  margin: auto 0;
+
+                                        }
+
+                                    }
+
+                            }
+                        }
+                       
+                       margin-bottom: 2em;
+                    }
+                    #resumos{
+                        display: flex;
+                        width: 100%;
+                        div.RDR{
+                            display: block;
+                            padding: 0.5em;
+                            width: 100%;
+                            height: 100%;
+                            overflow-y: auto;
+                        div{
+                            display: block;
+                        }
+                            
+                        }
+                        div.DCD{
+                            display: block;
+                            padding: 0.5em;
+                            width: 100%;
+                            height: 100%;
+                            overflow-y: auto;
+                        div{
+                            display: block;
+                        }
+                           
+                        }
+
+                    }
+                }
+                
+            }
+            
+        }
+       
+    }
+    
+}
+
+   

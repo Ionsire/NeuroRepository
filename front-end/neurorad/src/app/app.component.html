@@ -1,3 +1,12 @@
-<!-- Chamada do Componente da Página Inicial do NeuroRad -->
-<app-neurorad-inicial></app-neurorad-inicial>
-<router-outlet></router-outlet>
+ <nav>
+<app-bnt-do-menu></app-bnt-do-menu>
+
+ <app-usuario-logado *ngIf="_servic.Logoff()"></app-usuario-logado>
+
+ <app-sabia-enter *ngIf="!_servic.Login()" ></app-sabia-enter>
+
+ </nav>
+
+<div id="container"> <router-outlet></router-outlet> </div>
+
+

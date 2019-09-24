@@ -1,0 +1,52 @@
+<div id="container">
+        <div id="notifica">
+            
+          <a (click)="Sino()" ><img src="../../../../assets/images/icons8-sino-24.png" alt=""></a>
+          <div id="arrow-up" [class]="sino" ></div>
+          <ul [class]="sino">
+            <li><a href="">Não tem nemhuma notificação</a></li>
+          </ul>
+        </div>
+        <div id="container2" *ngIf="false" >
+          <nav>
+            <ul>
+              <li><a  (click)="Utilidades()" ><img src="../../../../assets/images/icons8-novo-por-cópia-24.png" alt=""></a></li>
+              <li><a (click)="Utilidades()" ><img src="../../../../assets/images/icons8-visualizar-arquivo-24.png" alt=""></a></li>
+              <li><a (click)="Utilidades()" ><img src="../../../../assets/images/icons8-excluir-24.png" alt=""></a></li>
+               </ul>
+            <div id="arrow-up" [class]="icone" ></div>
+            <div id="utilitarios" [class]="icone">
+                
+                <a class="bntRegister" routerLink="registercase"> Registrar</a>
+                 <span>Rascunhos</span>
+                 <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="bucar" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+                    </div>
+                  </div>
+                 <span>Pendentes</span>
+                 <button>buttn1</button>
+                 <button>button2</button> 
+         </div> 
+               
+          </nav>
+        
+        </div>
+
+        <p>guillherme</p>
+      
+        <div class="avatar" >
+          <img  (click)="Perfil()"src="../../../../assets/images/user-silhouette.png" alt="">
+          <div id="arrow-up" [class]="perfil" ></div>
+        </div>
+        
+      
+          <div id="perfilAvatar" [class]="perfil">
+                 <ul>
+                  <li><a href="">Perfil.</a></li>
+                  <hr>
+                  <li><a href="">Sair</a></li>
+                </ul>
+          </div>      
+</div>

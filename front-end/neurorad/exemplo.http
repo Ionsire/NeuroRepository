@@ -1,0 +1,48 @@
+http://localhost:3000/cursos
+
+###
+GET http://localhost:3000/cursos/2
+   //json-server --watch CasosClinicos.json
+
+###
+
+POST http://localhost:3000/cursos HTTP/1.1
+content-type: application/json
+
+{
+    "nome": "java"
+}
+###
+
+PUT http://localhost:3000/cursos/2 HTTP/1.1
+content-type: application/json
+
+{
+    "nome": "java"
+}
+
+###
+
+DELETE  http://localhost:3000/cursos/13 HTTP/1.1
+
+###
+
+POST http://localhost:3000/CasosClinicos HTTP/1.1
+content-type: application/json
+
+{
+    "resumo": "resumo",
+    "discussao": "discurssao",
+    "referencias": "referencias",
+    "categoria_doenca": "categoria_doenca",
+    "Descricao_dos_Achados": "Descricao_dos_Achados",
+    "CapaImage": "",
+    "Imagens": [
+      {
+        "Url": "Material 100"
+      }
+    ]
+}
+###
+
+DELETE  http://localhost:3000/CasosClinicos/4 HTTP/1.1

@@ -3,9 +3,14 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
-import { PaginaInicialModule } from './pagina-inicial/pagina-inicial.module';
-import { NeuroradInicialComponent } from './pagina-inicial/neurorad-inicial/neurorad-inicial.component';
+import { ComponenteMenuModule } from './Componentes-Menu-principal/componente-menu.module';
+import { TelasModule } from './telas/telas.module';
+import { AuthService } from './services/authentication/auth.service';
+import {HttpClientModule} from '@angular/common/http';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { CasesService } from './services/Casos-Clinicos/cases.service';
+import { UsuarioService } from './services/UsuarioService/usuario.service';
+
 
 @NgModule({
   declarations: [
@@ -14,10 +19,14 @@ import { NeuroradInicialComponent } from './pagina-inicial/neurorad-inicial/neur
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    PaginaInicialModule
+    ComponenteMenuModule,
+    TelasModule,
+    HttpClientModule,
+    NgxPaginationModule,
+  
+
   ],
-  providers: [],
+  providers: [ AuthService, CasesService,UsuarioService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,47 @@
+<section id="casos">
+
+    <article *ngIf="CasosClinicos$ | async as Casos; else loadingError">
+        <div id="cards"  >
+           <div class="card-principal" *ngFor="let caso of Casos | paginate: { itemsPerPage: 12, currentPage: pag }; let i = index">
+                    <div>
+                        <h5 class="card-title">{{caso.CO_CATEGORIA}}</h5>
+                        <img src="{{caso.images[0]}}" alt="">
+                        <p> Caso: {{caso.id}}</p>
+                        <button type="button" class="btn btn-outline-primary" (click)="VisualizarCaso(caso.id)">Ver Caso</button>
+                    </div>
+            </div>
+            <pagination-controls (pageChange)="pag = $event"></pagination-controls>
+        </div>
+        <div id="filtros">
+            <form action="">
+                    <h4>formulario de Filtros</h4>
+                    <label for="">Categoria</label>
+                    <select name="carlist" form="carform">
+                        <option value=""></option>
+                        <option value="{{cat.id}}" *ngFor="let cat of  Categorias.categorias">{{cat.classe}}</option>
+   
+                    </select>
+                    <br>
+                    <label for="">sub_Categoria</label>
+                    <select name="carlist" form="carform">
+                            <option value="volvo">Volvo</option>
+                            <option value="saab">Saab</option>
+                            <option value="opel">Opel</option>
+                            <option value="audi">Audi</option>
+                    </select>
+                    <button (click)="teste()" >test</button>
+            </form>
+        </div>
+    </article>
+
+</section>
+<ng-template #loadingError>
+        <div *ngIf="erro$ | async; else loading">
+            Erro ao carregar os casos clinícos. Tente novamente mais tarde.
+            <button type="button" class="btn btn-outline-primary" (click)="Atualizar()">Carregar a Página</button>
+            
+        </div>
+        <ng-template #loading>
+          <span>Carregando Casos...</span>
+        </ng-template>
+</ng-template>

@@ -24,30 +24,34 @@ class CasoClinicoController extends Controller
         if ($search != null) {
             if(array_key_exists('DS_DIAGNOSTICO', $search)){
                 $casoclinico = $casoclinico
-                                    ->where('DS_DIAGNOSTICO', 'LIKE', '%'.$search['DS_DIAGNOSTICO'].'%');
+                                    ->where('DS_DIAGNOSTICO', 'LIKE', '%'.$search['DS_DIAGNOSTICO'].'%')->get();
                 $resultados['DS_DIAGNOSTICO'] = $casoclinico;
+               
+                
             }
             if(array_key_exists('CO_CATEGORIA', $search)){
                 $casoclinico = $casoclinico
-                                    ->where('CO_CATEGORIA', '=',$search['CO_CATEGORIA']);
+                                    ->where('CO_CATEGORIA', '=',$search['CO_CATEGORIA'])->get();
                 $resultados['CO_CATEGORIA'] = $casoclinico;
             }
             if(array_key_exists('CO_SUBCATEGORIA', $search)){
                 $casoclinico = $casoclinico
-                                    ->where('CO_SUBCATEGORIA', '=',$search['CO_SUBCATEGORIA']);
+                                    ->where('CO_SUBCATEGORIA', '=',$search['CO_SUBCATEGORIA'])->get();
                 $resultados['CO_SUBCATEGORIA'] = $casoclinico;
             }
             if(array_key_exists('CO_USUARIO', $search)){
                 $casoclinico = $casoclinico
-                                    ->where('CO_USUARIO', '=',$search['CO_USUARIO']);
+                                    ->where('CO_USUARIO', '=',$search['CO_USUARIO'])->get();
                 $resultados['CO_USUARIO'] = $casoclinico;
             }
             if(array_key_exists('DT_CRIACAO', $search)){
                 $casoclinico = $casoclinico
-                                    ->where('DT_CRIACAO', '=',$search['DT_CRIACAO']);
+                                    ->where('DT_CRIACAO', '=',$search['DT_CRIACAO'])->get();
                 $resultados['DT_CRIACAO'] = $casoclinico;
             }
         }
+        // dd($casoclinico->get());
+        //dd($resultados['DS_DIAGNOSTICO']->get());
         return response()->json($resultados, 200);
     }
 
@@ -60,26 +64,39 @@ class CasoClinicoController extends Controller
     public function index(Request $request)
     {
         $search = $request->get('busca', null);
+
+
+        // Usa o ->get() pra nao dar error
         $casoclinico = CasoClinico::query();
         $casoclinico = $casoclinico
                             ->whereNotIn('CO_STATUS', [1,5,6]);
 
-        $resultados = array();        
+        $resultados = array();       
+        
+       
 
         if ($search != null) {
+            
             if(array_key_exists('DS_DIAGNOSTICO', $search)){
                 $resultados['DS_DIAGNOSTICO'] = $casoclinico
-                                                    ->where('DS_DIAGNOSTICO', 'LIKE', '%'.$search['DS_DIAGNOSTICO'].'%');
+                                                    ->where('DS_DIAGNOSTICO', 'LIKE', '%'.$search['DS_DIAGNOSTICO'].'%')->get();
+
+                                                    
+
+                                                    
             }
             if(array_key_exists('CO_CATEGORIA', $search)){
                 $resultados['CO_CATEGORIA'] = $casoclinico
-                                                    ->where('CO_CATEGORIA', '=',$search['CO_CATEGORIA']);
+                                                    ->where('CO_CATEGORIA', '=',$search['CO_CATEGORIA'])->get();
+                                                    
             }
             if(array_key_exists('CO_SUBCATEGORIA', $search)){
                 $resultados['CO_SUBCATEGORIA'] = $casoclinico
-                                                    ->where('CO_SUBCATEGORIA', '=', $search['CO_SUBCATEGORIA']);
+                                                    ->where('CO_SUBCATEGORIA', '=', $search['CO_SUBCATEGORIA'])->get();
+                                                    
             }
         }
+        //dd($resultados['CO_CATEGORIA']->get());
         return response()->json($resultados, 200);
     }
 
@@ -132,7 +149,7 @@ class CasoClinicoController extends Controller
     }
 
     
-    public function homologar($id)
+    public function homologar($id)  // trocar para metodo do tipo update para adicionar a atualizacao de todos os campos do caso 
     {
         $caso_clinico = CasoClinico::where($id);
         $caso_clinico['CO_STATUS'] = 2;
@@ -159,7 +176,7 @@ class CasoClinicoController extends Controller
             'DS_REFERENCIAS'=>'required|string',
             'NU_REJEICOES'=>'int',
             'DS_CORRECOES'=>'string',
-            // 'CO_USUARIO'=>'required|int|exists:TB_USUARIO,CO_SEQ_USUARIO',
+            'CO_USUARIO'=>'required|int|exists:TB_USUARIO,CO_SEQ_USUARIO',
             'CO_STATUS'=>'int|exists:TB_STATUS_CASO_CLINICO,CO_SEQ_STATUS_CASO_CLINICO',
             // 'DT_CRIACAO'=>'required|date'
         ]);
@@ -211,6 +228,22 @@ class CasoClinicoController extends Controller
     public function show($id)
     {
         $casoclinico = CasoClinico::find($id);
+
+        // fazendo a consulta na tabela img
+        $imgcaso = Imagem::query();
+
+        // pega as imagens que fazem parte desse caso clinico
+        $imgcaso = $imgcaso->where('CO_CASO_CLINICO', '=', $id)->get();
+
+        for($i=0;$i<sizeof($imgcaso);$i++){
+            //Array recebe imagem do caso
+            $array[$i] = $imgcaso[$i]->IM_IMAGEM;
+            
+        }
+
+        // em caso clinico é adcionado um campo array no Json
+        $casoclinico['images'] = $array;
+
         return response()->json($casoclinico,200);
     }
 

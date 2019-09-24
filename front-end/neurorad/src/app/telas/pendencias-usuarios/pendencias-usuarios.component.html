@@ -1,0 +1,60 @@
+<section>
+    <div id="Pendencias" class="active">
+        <h3>Pendências De Usuários</h3>
+        <div class="tabela">
+                 <table class="table">
+                                 <thead >
+                                   <tr>
+                                     <th scope="col">Nome</th>
+                                     <th scope="col">Perfil</th>
+                                     <th scope="col">Especialidade</th>
+                                     <th scope="col">Click</th>
+                                   </tr>
+                                 </thead>
+                                 <tbody>
+                                   <tr *ngFor="let usuario of  UsuariosPendentes">
+                                     <td>{{usuario.Nome}}</td>
+                                     <td>{{usuario.Perfil}}</td>
+                                     <td>{{usuario.Especialidade}}</td>
+                                     <th scope="row"><button type="button" class="btn btn-outline-primary" (click)=" PopulaForms(usuario)">Ver</button></th>
+                                   </tr>
+                                 </tbody>
+                         </table>
+        </div>
+    
+    </div>
+    <div id="Informacao">
+        <h3>Dados do Usuário</h3>
+        <article class="container">
+            <h6>Nome:</h6>
+            <p>{{Usuario$.Nome}}</p>
+            <h6>Email:</h6>
+            <p>{{Usuario$.Email}}</p>
+            <h6>Data_Nascimento:</h6>
+            <p>{{Usuario$.Data_Nascimento}}</p>
+            <h6>Perfil:</h6>
+            <p>{{Usuario$.Perfil}}</p>
+            <h6>Especialidade:</h6>
+            <p>{{Usuario$.Especialidade}}</p>
+           <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+                <div class="form-group col-md-6">
+                        <label for="Papel" class="control-label">Papel do Usuário </label>
+                        <select  class="form-control" id="Papel" formControlName="Papel" [ngClass]="aplicaCssErro('Papel')" name="Papel">
+                            <option value="" selected></option> 
+                            <option value="Pre_Adminstrador">Preceptor Adminstrador</option> 
+                            <option value="Pre_Colaborador" >Preceptor Colaborador</option>
+                            <option value="Resi_Colaborado">Residente Colaborador</option>
+                            <option value="Resi_Adminstrador">Residente Adminstrador</option>
+                            <option value="Resi">Residente</option>
+                          </select>
+                          <div *ngIf="verificarValidTouched('Papel')" class="invalid-feedback">
+                            Campo é obrigatório.
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" >Submit</button>
+                    <button type="button" class="btn btn-outline-danger" (click)="recusar(Usuario$.id)" >Recursar</button>
+           </form>
+        </article>
+     
+    </div>
+</section>
