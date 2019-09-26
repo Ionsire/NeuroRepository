@@ -15,7 +15,7 @@ class CasoClinicoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index_admin(Request $request)
+    public function index_admin(Request $request) // Falta validar de verdade
     {
         $search = $request->get('busca', null);
         $casoclinico = CasoClinico::query();
@@ -61,28 +61,30 @@ class CasoClinicoController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function index(Request $request)
+    public function index(Request $request) // Funcionando
     {
         $search = $request->get('busca', null);
 
 
         // Usa o ->get() pra nao dar error
         $casoclinico = CasoClinico::query();
-        $casoclinico = $casoclinico
-                            ->whereNotIn('CO_STATUS', [1,5,6]);
+
+
+        // Observação importante: os casos clinicos retornados são somente os que não tem Status 1 e 6 
+        // Sendo respectivamentes: Pendentes e inativos
+        
+
+        // Erro semantico, os casos clinicos com status 5 significam que estão disponiveis na base geral(Arquivados)
+                            // ->whereNotIn('CO_STATUS', [1,5,6]);
+        $casoclinico = $casoclinico->whereNotIn('CO_STATUS', [1,6]);
 
         $resultados = array();       
         
-       
-
         if ($search != null) {
             
             if(array_key_exists('DS_DIAGNOSTICO', $search)){
                 $resultados['DS_DIAGNOSTICO'] = $casoclinico
                                                     ->where('DS_DIAGNOSTICO', 'LIKE', '%'.$search['DS_DIAGNOSTICO'].'%')->get();
-
-                                                    
-
                                                     
             }
             if(array_key_exists('CO_CATEGORIA', $search)){
@@ -95,6 +97,10 @@ class CasoClinicoController extends Controller
                                                     ->where('CO_SUBCATEGORIA', '=', $search['CO_SUBCATEGORIA'])->get();
                                                     
             }
+        }
+        else{
+            // Resultado recebe todos os casos clinicos que não sao 1 e 6
+            $resultados = $casoclinico->whereNotIn('CO_STATUS', [1,6])->get();
         }
         //dd($resultados['CO_CATEGORIA']->get());
         return response()->json($resultados, 200);
@@ -126,8 +132,14 @@ class CasoClinicoController extends Controller
      */
     public function agendar_caso_da_semana($id, $date)
     {
+        // atribui em $data na chave date a informacao que vem 
         $data = ['date' => $date];
+
+        dd($data);
+
         $data->validate(['date' => ['date', new SegundaFeira]]);
+
+        //
         $caso_clinico = CasoClinico::where($id);
         $caso_clinico['DT_SEMANA'] = $date;
         $caso_clinico->save();
@@ -149,12 +161,11 @@ class CasoClinicoController extends Controller
     }
 
     
-    public function homologar($id)  // trocar para metodo do tipo update para adicionar a atualizacao de todos os campos do caso 
+    public function homologar($id)  // Funcionando
     {
-        $caso_clinico = CasoClinico::where($id);
-        $caso_clinico['CO_STATUS'] = 2;
-        $caso_clinico->save();
-        return response()->json(['message' => 'Caso Clínico Homologado com Sucesso'], 200);
+        $caso_clinico = CasoClinico::where('CO_SEQ_CASO_CLINICO', $id)->update(['CO_STATUS' => 2]);
+
+        return response()->json(['message' => 'Caso Clinico Homologado com Sucesso'], 200);
     }
 
 
@@ -164,7 +175,7 @@ class CasoClinicoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) // Funcionando
     {
         $request->validate([
             'DS_HISTORIA_CLINICA' =>'required|string',
@@ -225,7 +236,7 @@ class CasoClinicoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id) // Funcionando
     {
         $casoclinico = CasoClinico::find($id);
 
@@ -254,26 +265,36 @@ class CasoClinicoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id) // Funcionando através do metodo PUT e com o Header Content Type: x-www-form-urlencoded
     {
         $request->validate([
+            //Necessita ser enviado via x-www-form-urlencoded
+
             'DS_HISTORIA_CLINICA' =>'required|string',
-            'DS_ACHADOS_DAS_IMAGENS'=>'required|string',
-            'DS_DIAGNOSTICO'=>'required|string',
-            'CO_CATEGORIA'=>'required|int|exists:categoria_caso_clinico,id',
-            'CO_SUBCATEGORIA'=>'int|exists:subcategoria_caso_clinico,id',
+            'DS_ACHADOS_DAS_IMAGENS'=>'required|string',   
+            'DS_DIAGNOSTICO'=>'required|string',  
+            
+            // linha de CO_CATEGORIA estava em caixa baixa e nao tinha o TB na frente, alem do id nao ser CO_SEQ
+            'CO_CATEGORIA'=>'required|int|exists:TB_CATEGORIA_CASO_CLINICO,CO_SEQ_CATEGORIA_CASO_CLINICO',     
+
+            // Mesmo problema estava aki tbm
+            'CO_SUBCATEGORIA'=>'int|exists:TB_SUBCATEGORIA_CASO_CLINICO,CO_SEQ_SUBCATEGORIA_CASO_CLINICO',
+
+
             'DS_DISCUSSAO'=>'required|string',
             'DS_REFERENCIAS'=>'required|string',
             'NU_REJEICOES'=>'int',
             'DS_CORRECOES'=>'string',
-            'CO_USUARIO'=>'required|int|exists:users,id',
-            'CO_STATUS'=>'required|int|exists:status_caso_clinico,id',
+
+            // Logica: verifica se CO_USUARIO que veio via Request tem valor existente na tabela do banco TB_USUARIO que tem na coluna CO_SEQ_USUARIO
+            'CO_USUARIO'=>'required|int|exists:TB_USUARIO,CO_SEQ_USUARIO',
+            'CO_STATUS'=>'required|int|exists:TB_STATUS_CASO_CLINICO,CO_SEQ_STATUS_CASO_CLINICO',
         ]);
         $casoclinico = CasoClinico::find($id);
         $casoclinico -> fill($request->all());
         $casoclinico -> save();
         return response()->json([
-            'message'=>'Caso clinico cadastrado com sucesso!'
+            'message'=>'Caso clinico atualizado com sucesso!'
         ],200);
     }
 
@@ -283,7 +304,7 @@ class CasoClinicoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id) // Funcionou
     {
         $casoclinico = CasoClinico::find($id);
         $casoclinico->delete();
