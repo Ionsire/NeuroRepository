@@ -12,14 +12,14 @@
         <article class="CaseSemana" >
           <div id="caso">
             <div class="img">
-              <a href=""><img [src]="PrimaryCase.images[0]" alt="diagnóstico"></a>
+              <a href=""><img src="{{hostApi}}{{PrimaryCase.CO_IMAGEM_CAPA}}{{ext}}" alt="diagnóstico"></a>
               <h5>Descrição das imagens:</h5>
               <p>{{PrimaryCase.DS_ACHADOS_DAS_IMAGENS}}</p>
             </div>
             <div class="descricao">
-              <h3> Caso: #{{PrimaryCase.id}}</h3>
+              <h3> Caso: #{{PrimaryCase.CO_SEQ_CASO_CLINICO}}</h3>
               <p>{{PrimaryCase.DS_HISTORIA_CLINICA}}</p>
-              <button type="button" class="btn btn-outline-primary" (click)="VisualizarCaso(PrimaryCase.id)">Ver Caso</button>
+              <button type="button" class="btn btn-outline-primary" (click)="VisualizarCaso(PrimaryCase.CO_SEQ_CASO_CLINICO)">Ver Caso</button>
             </div>
           </div>
         </article>
@@ -29,26 +29,26 @@
           <article class="CaseSemana" >
               <div id="caso">
                 <div class="img">
-                  <a href=""><img [src]="caso.images[0]" alt="diagnóstico"></a>
+                  <a href=""><img src="{{hostApi}}{{caso.CO_IMAGEM_CAPA}}{{ext}}" alt="diagnóstico"></a>
                   <h5>Descrição das imagens:</h5>
                   <p >{{caso.DS_ACHADOS_DAS_IMAGENS}}</p>
                 </div>
                 <div class="descricao">
-                  <h3> Caso: #{{caso.id}}</h3>
+                  <h3> Caso: #{{caso.CO_SEQ_CASO_CLINICO}}</h3>
                   <p>{{caso.DS_HISTORIA_CLINICA}}</p>
-                  <button type="button" class="btn btn-outline-primary" (click)="VisualizarCaso(caso.id)">Ver Caso</button>
+                  <button type="button" class="btn btn-outline-primary" (click)="VisualizarCaso(caso.CO_SEQ_CASO_CLINICO)">Ver Caso</button>
 
                 </div>
               </div>
             </article>
       </div>
     </div>
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" style="width: 70px">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <a style=" width: 30px; height: 30px; margin-top: 27%" class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" >
+      <span  class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="sr-only">Previous</span>
     </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next" style="width: 70px" >
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <a style=" width: 30px; height: 30px; margin-top: 27%" class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span style=" width: 30px; height: 30px;"  class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="sr-only">Next</span>
     </a>
   </div>

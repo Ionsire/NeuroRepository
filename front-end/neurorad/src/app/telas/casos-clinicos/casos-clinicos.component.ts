@@ -1,10 +1,12 @@
 import { CasesService } from './../../services/Casos-Clinicos/cases.service';
 import { Component, OnInit } from '@angular/core';
-import { CasoClinico } from 'src/app/services/Casos-Clinicos/caso';
+import { CasoClinico } from 'src/app/services/Classes/caso';
+import { SubCategorias } from 'src/app/services/Classes/subcategorias';
 import { Observable, Subject, empty } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { Categorias } from 'src/app/services/Categorias';
+import { Categorias } from 'src/app/services/Classes/Categorias';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-casos-clinicos',
@@ -13,35 +15,64 @@ import { Categorias } from 'src/app/services/Categorias';
 })
 export class CasosClinicosComponent implements OnInit {
 
-  //CasosClinicos: any[] =[];
-  CasosClinicos:CasoClinico[];
   CasosClinicos$: Observable<CasoClinico[]>;
+  casosclinicos : CasoClinico[];
   erro$ = new Subject<boolean>();
   pag: number = 1;
-  Categorias : Categorias = new Categorias();
+  Resuldado: number = 0;
+  Categorias: Categorias = new Categorias();
+  formulario: FormGroup;
+  SubCategoria: SubCategorias = new SubCategorias();
+  Sub_aux: string;
+  auxiliar: string[] = [];
 
-  constructor(private _http: CasesService, private router: Router) { }
+  hostApi: string = "http://localhost:8000/storage/images/";
+  ext: string = ".png";
+
+  constructor(private formBuilder: FormBuilder, private _http: CasesService, private router: Router) { }
 
   ngOnInit() {
-   this.Atualizar();
+    this.Atualizar();
+    this.formulario = this.formBuilder.group({
+      CO_CATEGORIA: [null],
+      CO_SUBCATEGORIA: [null],
+    });
   }
-  Atualizar(){
+  Atualizar() {
 
-   this.CasosClinicos$ = this._http.getCase()
-   .pipe(
-    catchError(error => {
-      console.log(error);
-      this.erro$.next(true);
-      return empty();
-      })
-    );
+    // this._http.getCase().subscribe(
+    //   responser => console.log(responser),
+      
+    // )
+    this.CasosClinicos$ = this._http.getCase()
+      .pipe(
+        catchError(error => {
+          console.log(error);
+          this.erro$.next(true);
+          return empty();
+        })
+      );
+      ;
+      
   }
-  VisualizarCaso(id){
-   this.router.navigate(['viewcase',id])
+  VisualizarCaso(id) {
+    this.router.navigate(['viewcase', id])
   }
+  SubCategorias() {
+    this.formulario.patchValue({
+      CO_SUBCATEGORIA: [null],
+    });
 
- teste(){
-   console.log(this.Categorias.categorias)
- }
+    if (this.formulario.get('CO_CATEGORIA').value) {
+       let aux;
+      aux = this.formulario.get('CO_CATEGORIA').value;
+      this.Sub_aux = this.Categorias.categorias[aux-1].chave;
+      this.auxiliar = this.SubCategoria[this.Sub_aux];
+    } else {
+      this.auxiliar = [];
+
+
+    }
+  }
 
 }

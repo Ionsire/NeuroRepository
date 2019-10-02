@@ -130,19 +130,20 @@ class CasoClinicoController extends Controller
      * @param $date
      * @return \Illuminate\Http\JsonResponse
      */
-    public function agendar_caso_da_semana($id, $date)
+    public function agendar_caso_da_semana($id, $date) // Funcionando
     {
         // atribui em $data na chave date a informacao que vem 
         $data = ['date' => $date];
-
-        dd($data);
-
-        $data->validate(['date' => ['date', new SegundaFeira]]);
-
         //
-        $caso_clinico = CasoClinico::where($id);
+        $caso_clinico = CasoClinico::find($id);
+
+        $caso_clinico = $caso_clinico->toArray();
+
         $caso_clinico['DT_SEMANA'] = $date;
-        $caso_clinico->save();
+        $caso_clinico['CO_STATUS'] = 3;
+
+        CasoClinico::where('CO_SEQ_CASO_CLINICO', $id)->update($caso_clinico);
+
         return response()->json(['message' => 'Caso Clínico Agendado com Sucesso'], 200);
     }
 
@@ -152,21 +153,106 @@ class CasoClinicoController extends Controller
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function desagendamento_caso_da_semana($id)
+    public function desagendamento_caso_da_semana($id) // Funcionando
     {
-        $caso_clinico = CasoClinico::where($id);
-        $caso_clinico['DT_SEMANA'] = null;
-        $caso_clinico->save();
+        $caso_clinico = CasoClinico::find($id);
+        $caso_clinico = $caso_clinico->toArray();
+        $caso_clinico['CO_STATUS'] = 2;
+        CasoClinico::where('CO_SEQ_CASO_CLINICO', $id)->update($caso_clinico);
+
         return response()->json(['message' => 'Caso Clínico Desagendado com Sucesso'], 200);
     }
 
     
-    public function homologar($id)  // Funcionando
+    public function homologar(Request $request, $agendar = null)  // Funcionando Mas precisa adicionar como update
     {
-        $caso_clinico = CasoClinico::where('CO_SEQ_CASO_CLINICO', $id)->update(['CO_STATUS' => 2]);
+
+        // campo agendar opcional, se caso a data de agendamento for enviada via URL entao o campo DT_SEMANA é preenchido tbm
+
+        $request->validate([
+            //Necessita ser enviado via x-www-form-urlencoded
+
+            // Campos para possivel edição do preceptor Administrador
+            'DS_HISTORIA_CLINICA' =>'required|string',
+            'DS_ACHADOS_DAS_IMAGENS'=>'required|string',   
+            'DS_DIAGNOSTICO'=>'required|string',  
+            
+            'CO_CATEGORIA'=>'required|int|exists:TB_CATEGORIA_CASO_CLINICO,CO_SEQ_CATEGORIA_CASO_CLINICO',     
+            'CO_SUBCATEGORIA'=>'required|int|exists:TB_SUBCATEGORIA_CASO_CLINICO,CO_SEQ_SUBCATEGORIA_CASO_CLINICO',
+
+            'DS_DISCUSSAO'=>'required|string',
+            'DS_REFERENCIAS'=>'required|string',
+            //'NU_REJEICOES'=>'int',
+            //'DS_CORRECOES'=>'string',
+
+            //'CO_USUARIO'=>'required|int|exists:TB_USUARIO,CO_SEQ_USUARIO',
+            //'CO_STATUS'=>'required|int|exists:TB_STATUS_CASO_CLINICO,CO_SEQ_STATUS_CASO_CLINICO',
+        ]);
+
+        // se o nao vem valor de agendamento entao status: 2 (apenas homologado)
+        if(!$agendar){
+            $request['CO_STATUS'] = 2;
+        }
+        // se veio entao status: 3 (reservado)
+        else{
+            $request['CO_STATUS'] = 3;
+            $request['DT_SEMANA'] = $agendar;
+        }
+
+        //dd($request['DT_SEMANA']);
+
+        $request = $request->all(); // convertendo de objeto Request para Array
+       
+        // $caso_clinico = CasoClinico::where('CO_SEQ_CASO_CLINICO', $id)->update(['CO_STATUS' => 2]);
+
+        $caso_clinico = CasoClinico::where('CO_SEQ_CASO_CLINICO', $request['CO_SEQ_CASO_CLINICO'])->update($request);
 
         return response()->json(['message' => 'Caso Clinico Homologado com Sucesso'], 200);
     }
+
+
+    public function tornar_caso_publico($id) // Funcionando
+    {
+        $caso_clinico = CasoClinico::find($id);
+        $caso_clinico = $caso_clinico->toArray();
+        $caso_clinico['CO_STATUS'] = 5;
+        CasoClinico::where('CO_SEQ_CASO_CLINICO', $id)->update($caso_clinico);
+
+        return response()->json(['message' => 'Caso Clínico Disponibilizado com Sucesso'], 200);
+    }
+
+
+
+    // ################################################## LISTAS DOS TIPOS DE CASOS ##############################
+    public function lista_Pendentes() // Funcionando
+    {
+        $casoclinico = CasoClinico::query();
+
+        // pega todos os casos com codigo Status 1: pendente de homologacao
+        $casoclinico = $casoclinico->where('CO_STATUS', 1)->get();
+
+        return response()->json($casoclinico, 200);
+    }
+    public function lista_Homologados()
+    {
+        $casoclinico = CasoClinico::query();
+
+        // pega todos os casos com codigo Status 2: homologados
+        $casoclinico = $casoclinico->where('CO_STATUS', 2)->get();
+
+        return response()->json($casoclinico, 200);
+    }
+    public function lista_Agendados()
+    {
+        $casoclinico = CasoClinico::query();
+
+        // pega todos os casos com codigo Status 3: agendados
+        $casoclinico = $casoclinico->where('CO_STATUS', 3)->get();
+
+        return response()->json($casoclinico, 200);
+    }
+
+    #################################################################################################
 
 
     /**

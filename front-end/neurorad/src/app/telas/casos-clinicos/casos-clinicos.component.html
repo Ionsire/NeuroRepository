@@ -1,37 +1,40 @@
 <section id="casos">
 
+
     <article *ngIf="CasosClinicos$ | async as Casos; else loadingError">
-        <div id="cards"  >
-           <div class="card-principal" *ngFor="let caso of Casos | paginate: { itemsPerPage: 12, currentPage: pag }; let i = index">
-                    <div>
-                        <h5 class="card-title">{{caso.CO_CATEGORIA}}</h5>
-                        <img src="{{caso.images[0]}}" alt="">
-                        <p> Caso: {{caso.id}}</p>
-                        <button type="button" class="btn btn-outline-primary" (click)="VisualizarCaso(caso.id)">Ver Caso</button>
-                    </div>
-            </div>
-            <pagination-controls (pageChange)="pag = $event"></pagination-controls>
-        </div>
-        <div id="filtros">
-            <form action="">
-                    <h4>formulario de Filtros</h4>
-                    <label for="">Categoria</label>
-                    <select name="carlist" form="carform">
-                        <option value=""></option>
-                        <option value="{{cat.id}}" *ngFor="let cat of  Categorias.categorias">{{cat.classe}}</option>
-   
-                    </select>
-                    <br>
-                    <label for="">sub_Categoria</label>
-                    <select name="carlist" form="carform">
-                            <option value="volvo">Volvo</option>
-                            <option value="saab">Saab</option>
-                            <option value="opel">Opel</option>
-                            <option value="audi">Audi</option>
-                    </select>
-                    <button (click)="teste()" >test</button>
-            </form>
-        </div>
+            <span>Resultado:  {{Casos.length}} Casos </span>
+     <div class="flex">
+          
+            <div id="cards"  >
+                    <div class="card-principal" *ngFor="let caso of Casos | paginate: { itemsPerPage: 12, currentPage: pag }; let i = index">
+                             <div>
+                                 <h5  class="card-title">{{caso.CO_CATEGORIA}}</h5>
+                                 <img  *ngIf="true" src="{{hostApi}}{{caso.CO_IMAGEM_CAPA}}{{ext}}" alt="">
+                                 <p> Caso: {{caso.CO_SEQ_CASO_CLINICO}}</p>
+                                 <button type="button" class="btn btn-outline-primary" (click)="VisualizarCaso(caso.CO_SEQ_CASO_CLINICO)">Ver Caso</button>
+                             </div>
+                     </div>
+                     <pagination-controls (pageChange)="pag = $event"></pagination-controls>
+                 </div>
+                 <div id="filtros" class="container">
+                     <form class="form-group" [formGroup]="formulario" action="">
+                             <h4> Filtros</h4>
+                             <label for="">Categorias </label>
+                             <select (change)="SubCategorias()" class="custom-select" formControlName="CO_CATEGORIA" name="CO_CATEGORIA" form="CO_CATEGORIA">
+                                 <option value=""></option>
+                                 <option value="{{cat.id}}" *ngFor="let cat of  Categorias.categorias">{{cat.classe1}}</option>
+            
+                             </select>
+                             <br>
+                             <label for="">SubCategoria</label>
+                             <select name="carlist" form="carform" class="custom-select" formControlName="CO_SUBCATEGORIA" name="CO_SUBCATEGORIA" form="CO_SUBCATEGORIA">
+                                     <option value=""></option>
+                                     <option value="{{subcat.id}}" *ngFor="let subcat of auxiliar">{{subcat.classe}}</option>
+                             </select>
+                     </form>
+                 </div>
+     </div>
+       
     </article>
 
 </section>
@@ -43,5 +46,8 @@
         </div>
         <ng-template #loading>
           <span>Carregando Casos...</span>
+          <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
         </ng-template>
 </ng-template>

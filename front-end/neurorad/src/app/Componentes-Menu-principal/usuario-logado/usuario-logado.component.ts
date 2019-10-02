@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UsuarioService } from 'src/app/services/UsuarioService/usuario.service';
+import { CasesService } from 'src/app/services/Casos-Clinicos/cases.service';
 
 @Component({
   selector: 'app-usuario-logado',
@@ -7,40 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsuarioLogadoComponent implements OnInit {
 
-  icone = 'active';
-  sino = 'active';
-  perfil = 'active';
 
-  constructor() { }
+  UsuariosPendentes: number = 0;
+  CasosPendentes: number = 0;
+
+  constructor( private _http: UsuarioService , private _http1: CasesService) { }
 
   ngOnInit() {
+    this._http.GET().subscribe(
+      response => this.UsuariosPendentes = response.length,
+      erro => console.log(erro)
+    );
+    this._http1.getCaseHomo()
+    .subscribe(Response => this.CasosPendentes = Response.length,
+      erro => console.log(erro)
+      );
   }
-  Utilidades() {
-    if ( this.icone === 'active') {
-      this.icone  = 'a';
-      this.perfil =  this.sino  = 'active';
-
-    } else {
-      this.icone = this.perfil = this.sino  = 'active';
-    }
-  }
-  Perfil() {
-    if ( this.perfil === 'active') {
-      this.perfil = 'a';
-      this.sino  = this.icone  = 'active';
-    } else {
-      this.perfil = this.sino  = this.icone  = 'active';
-    }
-  }
- Sino() {
-    if ( this.sino === 'active') {
-      this.sino  = 'a';
-      this.icone  =  this.perfil = 'active';
-    } else {
-      this.sino = this.icone  = this.perfil = 'active';
-
-    }
-  }
-
 
 }

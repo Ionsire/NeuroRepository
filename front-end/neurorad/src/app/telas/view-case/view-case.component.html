@@ -1,10 +1,10 @@
 <section>
         <div id="principal"  >
-        <h1>Caso: {{CasoClinico.id}}</h1>
+        <h1>Caso: {{CasoClinico.CO_SEQ_CASO_CLINICO}}</h1>
 
     <div id="titulo">
             <img *ngIf="Img" class="capa"
-                [src]="Img"
+                src="{{hostApi}}{{Img}}"
                 alt="">
             <div id="Historia">
                 <h5>História Clínica:</h5>
@@ -16,7 +16,7 @@
             <div class="imagens">
                  <img data-toggle="modal" data-target="#exampleModal" *ngFor="let url of  CasoClinico.images"
                     (click)="ModalImg(url)"
-                    [src]="url"
+                    src="{{hostApi}}{{url}}"
                     alt="">
         </div>
    </div>
@@ -51,7 +51,7 @@
    
 </div>
 
-   <!-- modal-->
+   <!-- modal
    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
    aria-hidden="true">
    <div class="modal-dialog" role="document">
@@ -72,5 +72,29 @@
            </div>
        </div>
    </div>
+</div>
+-->
+  <!-- modal-->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div  class="modal-dialog" role="document"
+          style="margin-top: 20px; padding: 0 50vw 0 0;">
+          <div  class="modal-content" style="width: 50vw !important">
+                  <div  class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Imagens</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                          </button>
+                  </div>
+                  <div  class="modal-body">
+                          <img *ngIf="imagem" src="{{hostApi}}{{imagem}}" style="width: 80%;" alt="">
+
+                  </div>
+                  <div  class="modal-footer">
+                          <button type="button" class="btn btn-secondary"
+                                  data-dismiss="modal">Voltar</button>
+                  </div>
+          </div>
+  </div>
 </div>
 </section>

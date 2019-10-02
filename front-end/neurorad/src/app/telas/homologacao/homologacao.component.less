@@ -1,7 +1,7 @@
 
 section{
     width: 100%;
-    min-height: 92vh;
+    min-height: 93vh;
     height: 100%;
     background-image: url("../../../assets/images/analysis-2030266_1920.jpg");
     background-attachment: fixed;
@@ -19,6 +19,57 @@ section{
         width: 35%;
         height: 35%;
         margin: 0 auto;
+        display: flex;
+        div.button{
+            display: flex;
+            flex-direction: column;
+            button{
+                padding: 10px;
+                &.M{
+                    margin-top: 2.57em;
+                    background-color: rgb(243, 243, 33);
+                    border: 3px solid rgb(243, 243, 33);
+                }
+                &.V{
+                    background-color: rgb(1, 148, 1);
+                    border: 3px solid rgb(1, 148, 1);
+                }
+                &.A{
+                    background-color: rgb(0, 217, 255);
+                    border: 3px solid rgb(0, 217, 255);
+                }
+            }
+         
+        }
+        div#tabelas{
+            width: 100%;
+            height: 100%;
+            div.esperandoHomologacao{
+                div.tabela{
+                    thead{
+                        border: 1px solid rgb(255, 255, 255);
+                        background-color: rgb(243, 243, 33);
+                    }
+                }
+             
+            }
+            div.homologados{
+                div.tabela{
+                    thead{
+                        background-color: green;
+                    }
+                }
+             
+            }
+            div.agendados{
+                div.tabela{
+                    thead{
+                        background-color: rgb(0, 217, 255);
+                    }
+                }
+             
+            }
+        }
         h3{
             color: #fff;
             text-align: center;

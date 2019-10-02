@@ -1,4 +1,4 @@
-import {CasoClinico } from 'src/app/services/Casos-Clinicos/caso';
+import {CasoClinico } from 'src/app/services/Classes/caso';
 import { CasesService } from './../../services/Casos-Clinicos/cases.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -15,6 +15,9 @@ export class ViewCaseComponent implements OnInit {
   CasoClinico: CasoClinico = new CasoClinico();
   Img: string[];
   imagem: string;
+
+  hostApi: string = "http://localhost:8000/";
+  ext: string = ".png";
 
   constructor( private route: ActivatedRoute,private location: Location, private _http: CasesService, ) { }
 

@@ -1,3 +1,4 @@
+import { Categorias } from './../../services/Classes/Categorias';
 import { Component, OnInit, } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -16,6 +17,7 @@ export class RegistrarCasosClinicosComponent implements OnInit {
   CapaImg: any;
   CapaSalva: number = 0;
   images: any[] =[]
+  Categoria$: Categorias = new Categorias();
 
 
   select: Array<File> = null;
@@ -68,7 +70,7 @@ export class RegistrarCasosClinicosComponent implements OnInit {
       formData.append('CO_USUARIO', this.formulario.get('CO_USUARIO').value);
       formData.append('CO_STATUS', this.formulario.get('CO_STATUS').value);
       this.imagensCapaTopo();
-      console.log(this.ArrayImagens);
+      console.log(this.formulario.get('CO_CATEGORIA').value);
     
       for (var i = 0; i < this.ArrayImagens.length; i++) {
       formData.append('images[]', this.ArrayImagens[i]);
@@ -81,7 +83,6 @@ export class RegistrarCasosClinicosComponent implements OnInit {
       alert("Enviado com sucesso!")
     } else {
       alert("Formulario invalido")
-      console.log('formulario com erros');
       this.verificarValidacoeFrom(this.formulario);
     }
   }
@@ -160,7 +161,6 @@ export class RegistrarCasosClinicosComponent implements OnInit {
     } else if (i = this.CapaSalva) {
       this.CapaSalva = 0;
     }
-  console.log(this.ArrayImagens)
   }
    SalvarCapa(capa) {
      this.CapaSalva = capa;

@@ -1,26 +1,86 @@
 <section>
         <div id="Homolog" class="active">
-               <h3>Esperando a Homologação</h3>
-               <div class="tabela">
-                        <table class="table">
-                                        <thead >
-                                          <tr>
-                                            <th scope="col">Ver</th>
-                                            <th scope="col">Homologar</th>
-                                            <th scope="col">Reenviar</th>
-                                            <th scope="col"> Deletar</th>
-                                          </tr>
+       
+                <div class="button">
+                                <button  (click)="mostratabelas( tabela, 0)" class="M"></button>
+                                <button  (click)="mostratabelas( tabela, 1)" class="V"></button>
+                                <button  (click)="mostratabelas( tabela, 2)" class="A"></button>
+                </div>
+                <div id="tabelas">
+ 
+                <div class="esperandoHomologacao"  *ngIf="tabela[0]" >
+                        <h3>Esperando a Homologação</h3>
+                        <div class="tabela">
+                                <table class="table">
+                                        <thead>
+                                                <tr>
+                                                        <th scope="col">#Caso</th>
+                                                        <th scope="col">Categoria</th>
+                                                        <th scope="col">Ver Caso</th>
+                                                </tr>
                                         </thead>
                                         <tbody>
-                                          <tr *ngFor="let caso of CasosPendentes">
-                                            <th scope="row"><button type="button" class="btn btn-outline-primary" (click)=" PopulaForms(caso)">Caso:{{caso.id}}</button></th>
-                                            <td><button type="button" class="btn btn-outline-success"> Homologar</button></td>
-                                            <td> <button type="button" class="btn btn-outline-warning"> Reenviar</button></td>
-                                            <td> <button type="button" class="btn btn-outline-danger"> Deletar </button></td>
-                                          </tr>
+                                                <tr *ngFor="let caso of CasosPendentes;let index = index">
+                                                        <th scope="row">{{index+1}}</th>
+                                                        <td>{{caso.CO_CATEGORIA}}</td>
+                                                        <td><button type="button" class="btn btn-outline-primary"
+                                                                        (click)="PopulaForms(caso)">Visualizar</button>
+                                                        </td>
+                                                </tr>
                                         </tbody>
                                 </table>
-               </div>
+                        </div>
+                </div>
+                <div class="homologados"  *ngIf="tabela[1]"  >
+                        <h3>Homologados</h3>
+                        <div class="tabela">
+                                <table class="table">
+                                        <thead>
+                                                <tr>
+                                                        <th scope="col">#Caso</th>
+                                                        <th scope="col">Categoria</th>
+                                                        <th scope="col">Ver Caso</th>
+                                                </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr *ngFor="let caso of CasosHomolagados;let index = index">
+                                                        <th scope="row">{{index+1}}</th>
+                                                        <td>{{caso.CO_CATEGORIA}}</td>
+                                                        <td><button type="button" class="btn btn-outline-primary"
+                                                                        (click)="PopulaForms(caso)">Visualizar</button>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                </table>
+                        </div>
+                </div>
+                <div class="agendados" *ngIf="tabela[2]" >
+                        <h3>Agendados</h3>
+                        <div class="tabela">
+                                <table class="table">
+                                        <thead>
+                                                <tr>
+                                                        <th scope="col">#Caso</th>
+                                                        <th scope="col">Categoria</th>
+                                                        <th scope="col">Data</th>
+                                                        <th scope="col">Ver Caso</th>
+                                                </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr *ngFor="let caso of CasosAgendados;let index = index">
+                                                        <th scope="row">{{index+1}}</th>
+                                                        <td>{{caso.CO_CATEGORIA}}</td>
+                                                        <td>{{caso.DT_SEMANA}}</td>
+                                                        <td><button type="button" class="btn btn-outline-primary"
+                                                                        (click)="PopulaForms(caso)">Visualizar</button>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                </table>
+                        </div>
+                </div>
+                </div>
+               
            
         </div>
 
@@ -42,11 +102,11 @@
                                         (click)="toggle(classes, 4)"><span>5</span>Revisão</button></li>
                 </ul>
 
-                <form id="toggleclasses" [formGroup]="formulario" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+                <form id="toggleclasses" [formGroup]="formulario" (ngSubmit)="homologar()" enctype="multipart/form-data">
                         <div id="BNT0" class="form-group" [class.active]="classes[0]">
                                 <div class="form-container" [class.active]="classes[0]">
                                         <label for="DS_HISTORIA_CLINICA" class="control-label">Resumo:</label>
-                                        <textarea type="text" class="form-control" formControlName="DS_HISTORIA_CLINICA" id="resumo"
+                                        <textarea type="text" class="form-control" formControlName="DS_HISTORIA_CLINICA" id="resumo" 
                                                 [ngClass]="aplicaCssErro('DS_HISTORIA_CLINICA')" style="max-height: 50vh " rows="20"
                                                 cols="4"></textarea>
                                         <span *ngIf="verificarValidTouched('DS_HISTORIA_CLINICA')" class="invalid-feedback">
@@ -89,31 +149,24 @@
                                         </span>
                                         <label id="doenca" for="CO_CATEGORIA" class="control-label">Categoria da
                                                 Doença:</label>
-                                        <select formControlName="CO_CATEGORIA" class="custom-select"
+                                        <select (change)="SubCategorias()" formControlName="CO_CATEGORIA" class="custom-select"
                                                 id="formControlName3" [ngClass]="aplicaCssErro('CO_CATEGORIA')">
-                                                <option selected></option>
-                                                <option selected="selected" value=1>One</option>
-                                                <option value=2>Two</option>
-                                                <option value=3>Three</option>
-                                                <option value=4>for</option>
-                                                <option value=5>five</option>
+                                                <option value=""></option>
+                                                <option value="{{cat.id}}" *ngFor="let cat of  Categorias.categorias">{{cat.classe1}}</option>
+                                   
+                                                   
                                         </select>
                                         <span *ngIf="verificarValidTouched('CO_CATEGORIA')"
                                                 class="invalid-feedback">
                                                 Campo é obrigatório.
                                         </span>
-                                         <label id="doenca" for="CO_SUB_CATEGORIA" class="control-label">Sub-Categoria da
+                                         <label id="doenca" for=" CO_SUBCATEGORIA" class="control-label">Sub-Categoria da
                                                 Doença:</label>
-                                        <select formControlName="CO_SUB_CATEGORIA" class="custom-select"
-                                                id="formControlName3" [ngClass]="aplicaCssErro('CO_SUB_CATEGORIA')">
-                                                <option selected></option>
-                                                <option value=1>One</option>
-                                                <option value=2>Two</option>
-                                                <option value=3>Three</option>
-                                                <option value=4>for</option>
-                                                <option value=5>five</option>
-                                        </select>
-                                        <span *ngIf="verificarValidTouched('CO_SUB_CATEGORIA')"
+                                                <select  [ngClass]="aplicaCssErro('CO_SUBCATEGORIA')" class="custom-select" formControlName="CO_SUBCATEGORIA"  >
+                                                        <option value=""></option>
+                                                        <option value="{{subcat.id}}" *ngFor="let subcat of auxiliar">{{subcat.classe}}</option>
+                                                </select>
+                                        <span *ngIf="verificarValidTouched('CO_SUBCATEGORIA')"
                                                 class="invalid-feedback">
                                                 Campo é obrigatório.
                                         </span>
@@ -134,31 +187,6 @@
                                                 class="invalid-feedback">
                                                 Campo é obrigatório.
                                         </span>
-                                        <div id="cards" [class.active]="classes[3] ">
-                                                <div [class.active]="classes[3]"
-                                                        *ngFor="let url of urls;let index = index">
-                                                        <img data-toggle="modal" data-target="#exampleModal"
-                                                                (click)="ModalImg(url,index)" class="card" [src]="url"
-                                                                alt="Card image cap">
-                                                        <img id="bntdelete" (click)="Delete(index)"
-                                                                src="https://img.icons8.com/color/20/000000/close-window.png"
-                                                                alt="Delete">
-
-                                                </div>
-                                        </div>
-                                        <div [class.active]="classes[3]" class="browse-btn">
-                                                <input type="file" name="Img" id="cameraImg" multiple
-                                                        (change)="detectFiles($event)"  />
-                                                <div [class.active]="classes[3]" class="browse-image">
-                                                        <img
-                                                        src="https://img.icons8.com/wired/80/000000/add-camera.png">
-                                                </div>
-                                                        
-                                        </div>
-                                        <div>
-                                                
-                                        </div>
-
                                         <button id="proximo" type="button" class="btn btn-outline-primary" (click)="toggle(classes, 4)">proxima</button>
                                 </div>
                         </div>
@@ -246,7 +274,7 @@
                                                                 </div>
                                                                 <div [class.active]="classes[4]">
                                                                                 <h5>Sub Categoria da Doença:</h5>
-                                                                                <p> {{ formulario.value.CO_SUB_CATEGORIA}}</p>
+                                                                                <p> {{ formulario.value.CO_SUBCATEGORIA}}</p>
                                                                 </div>
                                                                 <div [class.active]="classes[4]">
                                                                         <h5> Descrição dos Achados:</h5>
@@ -259,18 +287,29 @@
                                                         </div>
                                                 </div>
                                         </div>
-                                       <div class="Acoes" [class.active]="classes[4]">
-                                        <button type="button" class="btn btn-outline-danger"> Deletar </button>
-                                        <button type="button" class="btn btn-outline-warning"> Reenviar</button>
-                                        <button type="button" class="btn btn-outline-success" >Homologar</button>
-                                       </div>
-                                       <button id="HLG" type="button" class="btn btn-outline-success" >Homologar como caso da semana</button>
+                                        <button (click)="Desagendar()" type="button" *ngIf="tabela[2]" class="btn btn-outline-success" >Desagendar</button>
+                                       <div class="Acoes" [class.active]="classes[4]" *ngIf="!tabela[2]">
+                                        <button type="button" *ngIf="!tabela[1]" class="btn btn-outline-danger"> Deletar </button>
+                                        <button type="button" *ngIf="!tabela[1]" class="btn btn-outline-warning"> Reenviar</button>
+                                        <button type="submit" *ngIf="!tabela[1]" class="btn btn-outline-success" >Homologar</button>
+                                        
 
+                                         <div [class.active]="classes[4]" *ngIf="!tabela[0]" class="form-row ">
+                                                <div style="flex-direction: column" [class.active]="classes[4]" class="form-group col-md-12">
+                                                <label for="DT_SEMANA" class="control-label">Data de Agendamento</label>
+                                                <input type="date"  lass="form-control"
+                                                formControlName="DT_SEMANA" id="DT_SEMANA"  class="form-control"   >
+                                                </div>
+                                        </div>
+
+                                        
+                                        <button (click)="Agendar()" id="HLG" style="height:30px" type="button" *ngIf="!tabela[0]" class="btn btn-outline-success" >Agendar</button>
+                                        <button (click)="Disponibilizar()" type="button" *ngIf="!tabela[0]" class="btn btn-outline-success" >Disponibilizar</button>
+                                       </div>
                                        
+
                                 </div>
                         </div>
-
-
                 </form>
         </nav>
         <!-- modal-->

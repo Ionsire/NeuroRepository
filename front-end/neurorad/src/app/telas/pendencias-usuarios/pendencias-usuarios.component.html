@@ -13,9 +13,9 @@
                                  </thead>
                                  <tbody>
                                    <tr *ngFor="let usuario of  UsuariosPendentes">
-                                     <td>{{usuario.Nome}}</td>
-                                     <td>{{usuario.Perfil}}</td>
-                                     <td>{{usuario.Especialidade}}</td>
+                                     <td>{{usuario.DS_NOME}}</td>
+                                     <td>{{usuario.CO_PERFIL}}</td>
+                                     <td>{{usuario.CO_ESPECIALIDADE}}</td>
                                      <th scope="row"><button type="button" class="btn btn-outline-primary" (click)=" PopulaForms(usuario)">Ver</button></th>
                                    </tr>
                                  </tbody>
@@ -27,15 +27,17 @@
         <h3>Dados do Usuário</h3>
         <article class="container">
             <h6>Nome:</h6>
-            <p>{{Usuario$.Nome}}</p>
+            <p>{{Usuario$.DS_NOME}}</p>
             <h6>Email:</h6>
-            <p>{{Usuario$.Email}}</p>
+            <p>{{Usuario$.DS_EMAIL}}</p>
             <h6>Data_Nascimento:</h6>
-            <p>{{Usuario$.Data_Nascimento}}</p>
+            <p>{{Usuario$.DT_NASCIMENTO}}</p>
             <h6>Perfil:</h6>
-            <p>{{Usuario$.Perfil}}</p>
+            <p>{{Usuario$.CO_PERFIL}}</p>
             <h6>Especialidade:</h6>
-            <p>{{Usuario$.Especialidade}}</p>
+            <p>{{Usuario$.CO_ESPECIALIDADE}}</p>
+            <h6>Preferencia de Papel no NeuroRad:</h6>
+            <p>{{Usuario$.CO_PAPEL}}</p>
            <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
                 <div class="form-group col-md-6">
                         <label for="Papel" class="control-label">Papel do Usuário </label>

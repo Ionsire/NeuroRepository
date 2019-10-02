@@ -1,3 +1,6 @@
+
+  <!-- 
+
 <div class="dropdown">
         <button type="button" class="btn btn-secondary" (click)="active()" > &#10148; {{M}}</button>
         <ul class="{{lu}}" >
@@ -7,7 +10,35 @@
             <li><a  (click)="activeRe()" routerLink="Homologacao"><button type="button" class="btn btn-secondary">Homologação </button></a></li>
             <li><a  (click)="activeRe()" routerLink="perfil/formulario"><button type="button" class="btn btn-secondary">UserForm</button></a></li>
             <li><a  (click)="activeRe()" routerLink="usuariopendecias"><button type="button" class="btn btn-secondary">UserPendentes </button></a></li>
+            <li><a  (click)="activeRe()" routerLink="perfil"><button type="button" class="btn btn-secondary">perfil </button></a></li>
         </ul>
 </div>
-    
-    
+--> 
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
+        <a class="navbar-brand" routerLink="">NeuroRad</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+              <a class="nav-link" routerLink="" routerLinActive="active">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"  routerLink="casos" routerLinActive="active">Casos Clinicos</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link" routerLink="registrar" routerLinActive="active">Registrar</a>
+            </li>
+          </ul>
+          <form class="form-inline"  method="get" >
+            <input class="search " name="search" type="search" placeholder="Search..." aria-label="Search">
+            <button class="bnt-search "  type="submit"><img src="https://img.icons8.com/android/15/000000/search.png"></button>
+        </form>
+
+          <app-usuario-logado *ngIf="true"></app-usuario-logado>
+
+          <app-sabia-enter *ngIf="false" ></app-sabia-enter>
+        
+        </div>
+ </nav>

@@ -13,6 +13,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { HomologacaoComponent } from './homologacao/homologacao.component';
 import { UsuarioFormComponent } from './usuario-form/usuario-form.component';
 import { PendenciasUsuariosComponent } from './pendencias-usuarios/pendencias-usuarios.component';
+import { PerfilComponent } from './perfil/perfil.component';
 
 
 
@@ -27,6 +28,7 @@ import { PendenciasUsuariosComponent } from './pendencias-usuarios/pendencias-us
     HomologacaoComponent,
     UsuarioFormComponent,
     PendenciasUsuariosComponent,
+    PerfilComponent,
   ],
   imports: [
     CommonModule,

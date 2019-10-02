@@ -1,16 +1,20 @@
 section#pagInicial{
     width: 100%;
-    height: 92vh;
- 
+    min-height: 93vh;
+  //  height: 100%;
+    background-image: url('https://estilo.online/wp-content/uploads/2018/08/naom_5b7213ce5ab2d.jpg');
+    background-position: 50% 0%;
+    z-index: 0;
+
 
     div#carouselExampleIndicators{
         div.carousel-inner{
             width: 100%;
-            height: 92vh;
+            height: 90vh;
             min-height: 800px;
-            background-image: url('https://estilo.online/wp-content/uploads/2018/08/naom_5b7213ce5ab2d.jpg');
-            background-position: 50% 0%;
-            
+            z-index: 0 !important;
+
+       
             h1{
                 color: aliceblue;
                 margin-top: 1em;
@@ -23,12 +27,14 @@ section#pagInicial{
                 article.CaseSemana{
                     min-width: 659px;
                     width: 60%;
-                    height: 65%;
+                    height: 64%;
                     min-height: 540px;
                     background-color: rgb(226, 226, 226);
                     border-radius: 1em;
+                  
                      margin: auto auto;
                      margin-top: 3%;
+                     padding-bottom: 1em ;
                     div#caso{
                         padding: 1em;
                         display: flex;
@@ -44,9 +50,11 @@ section#pagInicial{
                             }
                             p{
                                 text-indent:2em;
+                                text-align: justify;
                                 width: 100%;
-                                height: 170px;
+                                height: 140px;
                                 overflow: hidden;
+                    
                             }
                         }
                         div.descricao{
@@ -56,7 +64,10 @@ section#pagInicial{
                                 text-align: center;
                             }
                             p{
+                                text-align: justify;
                                 text-indent:2em;
+                               max-height: 380px;
+                                overflow: hidden;
                             }
                            
 

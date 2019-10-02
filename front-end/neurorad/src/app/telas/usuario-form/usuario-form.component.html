@@ -2,60 +2,90 @@
 <form  class="container" [formGroup]="formulario" (ngSubmit)="onSubmit()">
     <!--[formGroup]="formulario" para sicronizar com o formulario do TS-->
     <div class="form-group">
-        <label for="Nome" class="control-label">Nome</label>
-        <input type="text" class="form-control" formControlName="Nome" id="Nome" [ngClass]="aplicaCssErro('Nome')"
-            placeholder="Nome">
-        <div *ngIf="verificarValidTouched('Nome')" class="invalid-feedback">
+        <label for="DS_NOME" class="control-label">NOME</label>
+        <input type="text" class="form-control" formControlName="DS_NOME" id="DS_NOME" [ngClass]="aplicaCssErro('DS_NOME')"
+            placeholder="Nome" >
+        <div *ngIf="verificarValidTouched('DS_NOME')" class="invalid-feedback">
 
             Campo é obrigatório.
         </div>
     </div>
     
     <div class="form-group">
-        <label for="Email">Email</label>
-        <input type="Email" class="form-control" formControlName="Email" id="Email" [ngClass]="aplicaCssErro('Email')"
-            placeholder="Nome@email.com">
-        <div *ngIf="verificarValidTouched('Email')" class="invalid-feedback">
+        <label for="DS_EMAIL">Email</label>
+        <input type="DS_EMAIL" class="form-control" formControlName="DS_EMAIL" id="DS_EMAIL" [ngClass]="aplicaCssErro('DS_EMAIL')"
+            placeholder="nome@email.com">
+        <div *ngIf="verificarValidTouched('DS_EMAIL')" class="invalid-feedback">
             Campo é obrigatório.
         </div>
     </div>
 
             <div class="form-row ">
                 <div class="form-group col-md-3">
-                    <label for="Data_Nascimento" class="control-label">Data de Nascimento</label>
-                    <input type="date" class="form-control" id="Data_Nascimento" formControlName="Data_Nascimento" [ngClass]="aplicaCssErro('Data_Nascimento')" >
-                    <div *ngIf="verificarValidTouched('Data_Nascimento')" class="invalid-feedback">
+                    <label for="DT_NASCIMENTO" class="control-label">Data de Nascimento</label>
+                    <input type="date" class="form-control" id="DT_NASCIMENTO" formControlName="DT_NASCIMENTO" [ngClass]="aplicaCssErro('DT_NASCIMENTO')" >
+                    <div *ngIf="verificarValidTouched('DT_NASCIMENTO')" class="invalid-feedback">
                         Campo é obrigatório.
                     </div>
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="Perfil" class="control-label">Perfil</label>
-                    <select  class="form-control" id="Perfil" formControlName="Perfil" [ngClass]="aplicaCssErro('Perfil')" name="Perfil">
+                    <label for="CO_PERFIL" class="control-label">Perfil</label>
+                    <select  class="form-control" id="CO_PERFIL" formControlName="CO_PERFIL" [ngClass]="aplicaCssErro('CO_PERFIL')" name="CO_PERFIL">
                         <option value="" selected></option> 
-                        <option value="Medico">Médico</option> 
-                        <option value="Estudante" >Estudante</option>
-                        <option value="Demais_Profissionais_de_Saude">Demais Profissionais de Saúde</option>
+                        <option value="1">Médico</option> 
+                        <option value="2" >Estudante</option>
+                        <option value="3">Demais Profissionais de Saúde</option>
                       </select>
-                    <div *ngIf="verificarValidTouched('Perfil')" class="invalid-feedback">
+                    <div *ngIf="verificarValidTouched('CO_PERFIL')" class="invalid-feedback">
                         Campo é obrigatório.
                     </div>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="Especialidade" class="control-label">Especialidade</label>
-                    <select  class="form-control" id="Especialidade" formControlName="Especialidade" [ngClass]="aplicaCssErro('Especialidade')" name="Especialidade">
+                    <label for="CO_ESPECIALIDADE" class="control-label">Especialidade</label>
+                    <select  class="form-control" id="CO_ESPECIALIDADE" formControlName="CO_ESPECIALIDADE" [ngClass]="aplicaCssErro('CO_ESPECIALIDADE')" name="CO_ESPECIALIDADE">
                         <option value="" selected></option> 
-                        <option value="Radiologia">Radiologia</option> 
-                        <option value="Neurologia" >Neurologia</option>
-                        <option value="Neurocirurgia">Neurocirurgia</option>
-                        <option value="Psiquiatria">Psiquiatria</option>
-                        <option value="Geriatria">Geriatria</option>
-                        <option value="Outros">Outros</option>
+                        <option value="1">Radiologia</option> 
+                        <option value="2" >Neurologia</option>
+                        <option value="3">Neurocirurgia</option>
+                        <option value="4">Psiquiatria</option>
+                        <option value="5">Geriatria</option>
+                        <option value="6">Outros</option>
                       </select>
-                      <div *ngIf="verificarValidTouched('Especialidade')" class="invalid-feedback">
+                      <div *ngIf="verificarValidTouched('CO_ESPECIALIDADE')" class="invalid-feedback">
                         Campo é obrigatório.
                     </div>
                 </div>
             </div>
+             <div class="form-row ">
+              <div class="form-group col-md-3">
+                    <label for="NU_CPF" class="control-label">CPF</label>
+                    <input type="text" class="form-control" id="NU_CPF" formControlName="NU_CPF" [ngClass]="aplicaCssErro('NU_CPF')" >
+                    <div *ngIf="verificarValidTouched('NU_CPF')" class="invalid-feedback">
+                        Campo é obrigatório.
+                    </div>
+                </div>
+               <div class="form-group col-md-4">
+                    <label for="CO_PAPEL" class="control-label">Papel que deseja assumir no NeuroRad</label>
+                    <select  class="form-control" id="CO_PAPEL" formControlName="CO_PAPEL" [ngClass]="aplicaCssErro('CO_PAPEL')" name="CO_PAPEL">
+                             <option value="" selected></option> 
+                            <option value="1">Preceptor Adminstrador</option> 
+                            <option value="2" >Preceptor Colaborador</option>
+                            <option value="3">Residente Colaborador</option>
+                            <option value="4">Residente Adminstrador</option>
+                            <option value="5">Residente</option>
+                      </select>
+                      <div *ngIf="verificarValidTouched('CO_ESPECIALIDADE')" class="invalid-feedback">
+                        Campo é obrigatório.
+                    </div>
+                </div>
+             </div>
+             <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                  <label class="form-check-label" for="defaultCheck1">
+                    Termos de uso do NueroRad <a href=""> Visualisar o termo</a>
+                   </label>
+            </div>
     <button type="submit" class="btn btn-primary" >Submit</button>
+   
 </form>
 </section>

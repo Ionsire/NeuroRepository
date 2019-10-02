@@ -8,12 +8,14 @@ import { ViewCaseComponent } from './telas/view-case/view-case.component';
 import { HomologacaoComponent } from './telas/homologacao/homologacao.component';
 import { UsuarioFormComponent } from './telas/usuario-form/usuario-form.component';
 import { PendenciasUsuariosComponent } from './telas/pendencias-usuarios/pendencias-usuarios.component';
+import { PerfilComponent } from './telas/perfil/perfil.component';
 
 
 
 
 const routes: Routes = [
   { path: '', component: PaginaInicialComponent},
+  { path: 'perfil', component: PerfilComponent},
   { path: 'registrar', component: RegistrarCasosClinicosComponent},
   { path: 'casos', component: CasosClinicosComponent},
   { path: 'Homologacao', component: HomologacaoComponent},

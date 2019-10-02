@@ -1,5 +1,5 @@
 import { CasesService } from './../../services/Casos-Clinicos/cases.service';
-import { CasoClinico } from 'src/app/services/Casos-Clinicos/caso';
+import { CasoClinico } from 'src/app/services/Classes/caso';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -13,17 +13,35 @@ export class PaginaInicialComponent implements OnInit {
 
  private PrimaryCase: CasoClinico;
  private SecundaryCase: CasoClinico[] = [] ;
+ private selectCaso: CasoClinico[] = [] ;
   condicoes: boolean = false;
   Index: number[];
+  cont : number = 0;
 
   constructor( private service: CasesService, private router: Router) { }
+
+
+  hostApi: string = "http://localhost:8000/storage/images/";
+  ext: string = ".png";
+
+
 
   ngOnInit() {
 
     this.service.getCaseSemana().
     subscribe(
-      responser => this.Get(responser) ,
-      erro => console.log(erro)
+     // responser => this.Get(responser) ,
+     // erro => console.log(erro)
+     Response => {
+        for (let index = 0; index <  Response.length; index++) {
+          if ( Response[index].CO_STATUS == 4 && this.cont <= 2) {
+              this.selectCaso[this.cont] =  Response[index];
+              this.cont = this.cont + 1;
+          }
+        }
+        this.Get(this.selectCaso);
+     },
+     erro => console.log(erro)
     );
   }
 
@@ -42,8 +60,8 @@ export class PaginaInicialComponent implements OnInit {
 
 
 }
-VisualizarCaso(id){
-  this.router.navigate(['viewcase',id])
+VisualizarCaso(id) {
+  this.router.navigate(['viewcase', id ])
  }
 
 }

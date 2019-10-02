@@ -13,6 +13,8 @@ class StatusUsuarioSeeder extends Seeder
     {
         $data = [
             ['DS_DESCRICAO' => 'Ativo'],
+            ['DS_DESCRICAO' => 'Pendente'],
+            ['DS_DESCRICAO' => 'Homologado'],
             ['DS_DESCRICAO' => 'Inativo'],
             ['DS_DESCRICAO' => 'Excluido']
         ];
