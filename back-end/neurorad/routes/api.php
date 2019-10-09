@@ -51,3 +51,5 @@ Route::get('/disponibilizar/{id}', 'API\CasoClinicoController@tornar_caso_public
 
 Route::post('/acesso_especial', 'API\UsersController@acessoEspecial')->name('acessoEspecial');
 Route::get('/pendencias_usuarios', 'API\UsersController@pendencias_usuario')->name('pendenciasusuario');
+
+Route::get('/casoclinico', 'API\CasoClinicoController@index')->name('casosclinicos');

@@ -31,6 +31,10 @@ class CreateCasoClinicoTable extends Migration
             $table->unsignedBigInteger('CO_STATUS')->default(1);
             $table->foreign('CO_STATUS')->references('CO_SEQ_STATUS_CASO_CLINICO')->on('TB_STATUS_CASO_CLINICO');
             $table->date('DT_SEMANA')->nullable();
+
+            // modificado aki para armazenas o caminho da imagem
+            $table->string('CO_IMAGEM_CAPA')->nullable();
+
             $table->timestamp('DT_CRIACAO')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('DT_ATUALIZACAO')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('DT_EXCLUSAO')->nullable();

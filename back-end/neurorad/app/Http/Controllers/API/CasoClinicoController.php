@@ -15,6 +15,23 @@ class CasoClinicoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    private $checkList = array();
+
+    // Recebe o objeto retornado da consulta e verifica se ele ja esta na lista
+    public function checkList($obj)
+    {
+        //se sim nao faz nada 
+
+        
+        // if($checklist == $obj->)
+        // {
+
+        // }
+    }
+
+
+
     public function index_admin(Request $request) // Falta validar de verdade
     {
         $search = $request->get('busca', null);
@@ -61,10 +78,9 @@ class CasoClinicoController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function index(Request $request) // Funcionando
+    public function index(Request $request) // Funcionando com Erro no retorno, valores duplicados
     {
         $search = $request->get('busca', null);
-
 
         // Usa o ->get() pra nao dar error
         $casoclinico = CasoClinico::query();
@@ -76,31 +92,72 @@ class CasoClinicoController extends Controller
 
         // Erro semantico, os casos clinicos com status 5 significam que estão disponiveis na base geral(Arquivados)
                             // ->whereNotIn('CO_STATUS', [1,5,6]);
-        $casoclinico = $casoclinico->whereNotIn('CO_STATUS', [1,6]);
+
+        $casoclinico = $casoclinico->whereNotIn('CO_STATUS', [1,4,6]);
 
         $resultados = array();       
         
         if ($search != null) {
-            
-            if(array_key_exists('DS_DIAGNOSTICO', $search)){
-                $resultados['DS_DIAGNOSTICO'] = $casoclinico
-                                                    ->where('DS_DIAGNOSTICO', 'LIKE', '%'.$search['DS_DIAGNOSTICO'].'%')->get();
+
+            // if(array_key_exists('DS_DIAGNOSTICO', $search)){
+
+            //     // $resultados['DS_DIAGNOSTICO'] = $casoclinico
+            //     //                                      ->where('DS_DIAGNOSTICO', 'LIKE', '%'.$search['DS_DIAGNOSTICO'].'%')->get();
+
+
+            //     $test = $casoclinico->where('DS_DIAGNOSTICO', 'LIKE', '%'.$search['DS_DIAGNOSTICO'].'%')->where('CO_CATEGORIA', '=',$search['CO_CATEGORIA'])->get();
+                       
+            //     return response()->json($test, 200);
+            //     dd($test);
                                                     
-            }
-            if(array_key_exists('CO_CATEGORIA', $search)){
-                $resultados['CO_CATEGORIA'] = $casoclinico
-                                                    ->where('CO_CATEGORIA', '=',$search['CO_CATEGORIA'])->get();
+            // }
+            // if(array_key_exists('CO_CATEGORIA', $search)){
+            //     $resultados['CO_CATEGORIA'] = $casoclinico
+            //                                         ->where('CO_CATEGORIA', '=',$search['CO_CATEGORIA'])->get();
                                                     
-            }
-            if(array_key_exists('CO_SUBCATEGORIA', $search)){
-                $resultados['CO_SUBCATEGORIA'] = $casoclinico
-                                                    ->where('CO_SUBCATEGORIA', '=', $search['CO_SUBCATEGORIA'])->get();
+            // }
+            // if(array_key_exists('CO_SUBCATEGORIA', $search)){
+            //     $resultados['CO_SUBCATEGORIA'] = $casoclinico
+            //                                         ->where('CO_SUBCATEGORIA', '=', $search['CO_SUBCATEGORIA'])->get();
                                                     
+            // }
+
+            if(array_key_exists('DS_DIAGNOSTICO', $search)&& array_key_exists('CO_CATEGORIA', $search)&&array_key_exists('CO_SUBCATEGORIA', $search))
+            {
+                //dd('D,C,S');
+                $resultados = $casoclinico->where('DS_DIAGNOSTICO', 'LIKE', '%'.$search['DS_DIAGNOSTICO'].'%')->where('CO_CATEGORIA', '=',$search['CO_CATEGORIA'])->where('CO_SUBCATEGORIA', '=', $search['CO_SUBCATEGORIA'])->get();
+                return response()->json($resultados, 200);
+            } 
+            else if(array_key_exists('DS_DIAGNOSTICO', $search)&& array_key_exists('CO_CATEGORIA', $search))
+            {
+                //dd('D,C');
+                $resultados = $casoclinico->where('DS_DIAGNOSTICO', 'LIKE', '%'.$search['DS_DIAGNOSTICO'].'%')->where('CO_CATEGORIA', '=',$search['CO_CATEGORIA'])->get();
+                return response()->json($resultados, 200);
+                
+            } 
+            else if(array_key_exists('DS_DIAGNOSTICO', $search))
+            {
+                //dd('D');
+                $resultados = $casoclinico->where('DS_DIAGNOSTICO', 'LIKE', '%'.$search['DS_DIAGNOSTICO'].'%')->get();
+                return response()->json($resultados, 200);
             }
+            else if(array_key_exists('CO_CATEGORIA', $search)&&array_key_exists('CO_SUBCATEGORIA', $search))
+            {
+                //dd('C,S');
+                $resultados = $casoclinico->where('CO_CATEGORIA', '=',$search['CO_CATEGORIA'])->where('CO_SUBCATEGORIA', '=', $search['CO_SUBCATEGORIA'])->get();
+                return response()->json($resultados, 200);
+            }
+            else if(array_key_exists('CO_CATEGORIA', $search))
+            {
+                //dd('C');
+                $resultados = $casoclinico->where('CO_CATEGORIA', '=',$search['CO_CATEGORIA'])->get();
+                return response()->json($resultados, 200);
+            }
+
         }
         else{
             // Resultado recebe todos os casos clinicos que não sao 1 e 6
-            $resultados = $casoclinico->whereNotIn('CO_STATUS', [1,6])->get();
+            $resultados = $casoclinico->whereNotIn('CO_STATUS', [1,4,6])->get();
         }
         //dd($resultados['CO_CATEGORIA']->get());
         return response()->json($resultados, 200);
@@ -115,12 +172,21 @@ class CasoClinicoController extends Controller
      */
     public function casos_da_semana_home()
     {
-        $casos_da_semana = CasoClinico::all()->filter(function($caso_clinico) {
-            if (strtotime($caso_clinico->DT_SEMANA) <= strtotime('this week monday')) {
-                return $caso_clinico;
-            }
-        })->sortByDesc('DT_SEMANA');
-        return response()->json($casos_da_semana, 200);
+        // $casos_da_semana = CasoClinico::all()->filter(function($caso_clinico) {
+        //     if (strtotime($caso_clinico->DT_SEMANA) <= strtotime('this week monday')) {
+        //         return $caso_clinico;
+        //     }
+        // })->sortByDesc('DT_SEMANA');
+        // return response()->json($casos_da_semana, 200);
+
+        $casoclinico = CasoClinico::query();
+
+        // pega todos os casos com codigo Status 4: Casos da semana em andamento
+        $casoclinico = $casoclinico->where('CO_STATUS', 4)->get();
+
+        return response()->json($casoclinico, 200);
+
+
     }
 
     /**
@@ -299,12 +365,15 @@ class CasoClinicoController extends Controller
             $_imagem->save();
 
             $_filename = "{$_id_imagem}.{$_extension}";
+
+
             //Realiza o Upload na pasta do projeto: public/storage/images/filename
             $image->storeAs('images', $_filename);
 
             //Atualiza a imagem de capa
             if ($i == 0) {
-                $_caso_clinico->CO_IMAGEM_CAPA = $_id_imagem;
+                $_caso_clinico->CO_IMAGEM_CAPA = $_filename;
+                
                 $_caso_clinico->save();
             }
             $i++;
@@ -398,4 +467,5 @@ class CasoClinicoController extends Controller
             'message'=>'Caso clinico deletado com sucesso!'
         ],200);
     }
+    
 }

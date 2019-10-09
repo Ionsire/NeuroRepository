@@ -13,10 +13,10 @@ class AddFkToCasoClinicoTable extends Migration
      */
     public function up()
     {
-        Schema::table('TB_CASO_CLINICO', function (Blueprint $table) {
-            $table->unsignedBigInteger('CO_IMAGEM_CAPA')->nullable();
-            $table->foreign('CO_IMAGEM_CAPA')->references('CO_SEQ_IMAGEM')->on('TB_IMAGEM');
-        });
+        // Schema::table('TB_CASO_CLINICO', function (Blueprint $table) {
+        //     $table->string('CO_IMAGEM_CAPA')->nullable();
+        //     //$table->foreign('CO_IMAGEM_CAPA')->references('CO_SEQ_IMAGEM')->on('TB_IMAGEM');
+        // });
     }
 
     /**
@@ -26,9 +26,9 @@ class AddFkToCasoClinicoTable extends Migration
      */
     public function down()
     {
-        Schema::table('TB_CASO_CLINICO', function (Blueprint $table) {
-            $table->dropForeign('tb_caso_clinico_co_imagem_capa_foreign');
-            $table->dropColumn('CO_IMAGEM_CAPA');
-        });
+        // Schema::table('TB_CASO_CLINICO', function (Blueprint $table) {
+        //     $table->dropForeign('tb_caso_clinico_co_imagem_capa_foreign');
+        //     $table->dropColumn('CO_IMAGEM_CAPA');
+        // });
     }
 }
