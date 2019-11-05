@@ -1,10 +1,9 @@
 export  class Usuario{
 
-    CO_SEQ_USUARIO:number;
+    CO_SEQ_USUARIO:string;
     NU_CPF: string;
     DS_NOME: string;
     DS_EMAIL: string;
-    DS_SENHA: string;
     DT_NASCIMENTO: string;
     IM_FOTO:string;
     CO_PERFIL:string;

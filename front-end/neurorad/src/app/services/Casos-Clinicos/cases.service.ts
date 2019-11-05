@@ -1,7 +1,8 @@
 import { CasoClinico } from 'src/app/services/Classes/caso';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { take, delay } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -11,7 +12,13 @@ export class CasesService {
 
   private API = "http://localhost:3000/CasosClinicos/";
   private API2 = "http://localhost:3000/CasoSemana/";
+
+  // aqui esta recebendo todos os casos clinicos
   private APINeuro = "http://localhost:8000/api/casoclinico";
+
+  private APICasoSemana = "http://localhost:8000/api/casos_da_semana_home";
+
+
   private APINeuroHomo = "http://localhost:8000/api/list_homologar";
   private APIHomologar = "http://localhost:8000/api/homologar";
 
@@ -24,13 +31,45 @@ export class CasesService {
   private APIDisponibilizar = "http://localhost:8000/api/disponibilizar";
 
 
-
-
+      // params = params.append('busca[CO_CATEGORIA]', busca['CO_CATEGORIA']);
+      // params = params.append('busca[CO_SUBCATEGORIA]', busca['CO_SUBCATEGORIA']);
 
   constructor(private http: HttpClient) { }
 
-  getCase() {
-    return this.http.get<CasoClinico[]>(this.APINeuro)
+  getCase(busca): Observable<any>  {
+    let params = new HttpParams();
+      // Setup log namespace query parameter
+
+      if(busca['DS_DIAGNOSTICO'] != null &&  busca['CO_CATEGORIA'] != null && busca['CO_SUBCATEGORIA'] != null && busca['CO_SUBCATEGORIA']  !=0 && busca['CO_CATEGORIA'] != 0 ){
+
+        params = params.append('busca[DS_DIAGNOSTICO]', busca['DS_DIAGNOSTICO']);
+        params = params.append('busca[CO_CATEGORIA]', busca['CO_CATEGORIA']);
+        params = params.append('busca[CO_SUBCATEGORIA]', busca['CO_SUBCATEGORIA']);
+
+      }else if(busca['DS_DIAGNOSTICO'] != null &&  busca['CO_CATEGORIA'] != null  &&  busca['CO_CATEGORIA'] != 0 ){
+
+        params = params.append('busca[DS_DIAGNOSTICO]', busca['DS_DIAGNOSTICO']);
+        params = params.append('busca[CO_CATEGORIA]', busca['CO_CATEGORIA']);
+
+      
+      }else if(busca['DS_DIAGNOSTICO'] != null){
+
+        params = params.append('busca[DS_DIAGNOSTICO]', busca['DS_DIAGNOSTICO']);
+
+      }else if(busca['CO_CATEGORIA'] != null && busca['CO_SUBCATEGORIA'] != null &&  busca['CO_SUBCATEGORIA']  !=0 && busca['CO_CATEGORIA'] != 0){
+
+        params = params.append('busca[CO_CATEGORIA]', busca['CO_CATEGORIA']);
+        params = params.append('busca[CO_SUBCATEGORIA]', busca['CO_SUBCATEGORIA']);
+      }else if(busca['CO_CATEGORIA'] != null && busca['CO_CATEGORIA'] != 0 ){
+
+        params = params.append('busca[CO_CATEGORIA]', busca['CO_CATEGORIA']);
+
+      }else {
+        params = new HttpParams();
+      }
+      
+     
+    return this.http.get<CasoClinico[]>(`${this.APINeuro}`,{ params: params })
     .pipe(
       delay(1000),
     );
@@ -71,7 +110,7 @@ export class CasesService {
   }
 
   getCaseSemana() {
-    return this.http.get<CasoClinico[]>(this.APINeuro);
+    return this.http.get<CasoClinico[]>(this.APICasoSemana);
   }
   loadByID(id) {
 

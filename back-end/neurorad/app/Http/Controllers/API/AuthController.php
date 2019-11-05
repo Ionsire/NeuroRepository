@@ -67,11 +67,18 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        auth()->logout();
-        Cookie::queue(Cookie::forget('api_access_token'));
-        return response()->json([
-            'message' => 'Successfully logged out'
-        ]);
+        // $value = $request->token;
+        // $token= $request->user()->tokens->find($value);
+        // $token->revoke();
+
+        Auth::logout();
+
+        return response()->json('Deslogado com sucesso');
+        //auth('api')->logout();
+        // Cookie::queue(Cookie::forget('api_access_token'));
+        // return response()->json([
+        //     'message' => 'Successfully logged out'
+        // ]);
     }
 
     /**
@@ -82,5 +89,31 @@ class AuthController extends Controller
     public function user()
     {
         return response()->json(auth()->user());
+    }
+
+    public function teste()
+    {
+        return response(['message' => 'testando acessou']);
+    }
+
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60
+        ]);
+    }
+
+
+    public function login()
+    {
+        // $credentials = request(['email', 'password']);
+
+        // if (! $token = auth()->attempt($credentials)) {
+        //     return response()->json(['error' => 'Unauthorized'], 401);
+        // }
+
+        // return $this->respondWithToken($token);
     }
 }

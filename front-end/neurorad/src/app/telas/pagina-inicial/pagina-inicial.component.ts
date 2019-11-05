@@ -1,7 +1,8 @@
 import { CasesService } from './../../services/Casos-Clinicos/cases.service';
 import { CasoClinico } from 'src/app/services/Classes/caso';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/services/authentication/auth.service';
 
 @Component({
   selector: 'app-pagina-inicial',
@@ -17,17 +18,28 @@ export class PaginaInicialComponent implements OnInit {
   condicoes: boolean = false;
   Index: number[];
   cont : number = 0;
+  code : string;
+  private token;
 
-  constructor( private service: CasesService, private router: Router) { }
+  constructor( private service: CasesService, private router: Router,private route: ActivatedRoute, private auth: AuthService) { }
 
 
   hostApi: string = "http://localhost:8000/storage/images/";
-  ext: string = ".png";
+  
 
 
 
   ngOnInit() {
+// pegando responser do sabia com queryparams
+  if(this.route.snapshot.queryParamMap.get("code")) {
+   this.code = this.route.snapshot.queryParamMap.get("code")
+   this.route.queryParamMap.subscribe(queryParams =>{ this.code = queryParams.get("code")})
 
+  this.token = this.auth.Loginn(this.code);
+
+  this.router.navigate(['home']);
+
+  }
     this.service.getCaseSemana().
     subscribe(
      // responser => this.Get(responser) ,

@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SabiaEnterComponent implements OnInit {
 
+  const : string = "https://login.sabia.ufrn.br/oauth/authorize/?client_id=FLZ4MGe3BtQcDx0ddp06P1gPQtJZRbeF8r4bxs3w&redirect_uri=http://localhost:4200/home/&response_type=code";
+
   constructor( private _enter: AuthService) { }
 
   ngOnInit() {

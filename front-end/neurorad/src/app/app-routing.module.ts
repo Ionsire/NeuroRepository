@@ -9,19 +9,29 @@ import { HomologacaoComponent } from './telas/homologacao/homologacao.component'
 import { UsuarioFormComponent } from './telas/usuario-form/usuario-form.component';
 import { PendenciasUsuariosComponent } from './telas/pendencias-usuarios/pendencias-usuarios.component';
 import { PerfilComponent } from './telas/perfil/perfil.component';
+import { PagesError404Component } from './telas/pages-error404/pages-error404.component';
+import { ColaboradoresComponent } from './telas/colaboradores/colaboradores.component';
 
 
 
 
 const routes: Routes = [
-  { path: '', component: PaginaInicialComponent},
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: PaginaInicialComponent},
+  { path: 'home/?:id', component: PaginaInicialComponent},
   { path: 'perfil', component: PerfilComponent},
   { path: 'registrar', component: RegistrarCasosClinicosComponent},
   { path: 'casos', component: CasosClinicosComponent},
+  { path: 'casos/:id', component: CasosClinicosComponent},
   { path: 'Homologacao', component: HomologacaoComponent},
   { path: 'viewcase/:id', component: ViewCaseComponent},
   { path: 'perfil/formulario', component: UsuarioFormComponent},
   { path: 'usuariopendecias', component: PendenciasUsuariosComponent},
+  { path: 'colaboradores' , component: ColaboradoresComponent},
+
+  {
+    path: '**', component: PagesError404Component
+  }
 
 
 ];

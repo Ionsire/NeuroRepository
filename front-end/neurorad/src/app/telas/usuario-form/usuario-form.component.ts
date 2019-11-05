@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { UsuarioService } from 'src/app/services/UsuarioService/usuario.service';
 import { Location } from '@angular/common';
+import { Usuario } from 'src/app/services/Classes/usuario';
+import { AuthService } from 'src/app/services/authentication/auth.service';
 
 @Component({
   selector: 'app-usuario-form',
@@ -10,12 +12,13 @@ import { Location } from '@angular/common';
 })
 export class UsuarioFormComponent implements OnInit {
   formulario: FormGroup;
-  User = '1';
-  constructor(  private formBuilder: FormBuilder, private service: UsuarioService, private location: Location) { }
+  User : Usuario = new Usuario();
+  
+  constructor(  private formBuilder: FormBuilder, private service: UsuarioService, private location: Location, private Auth: AuthService) { }
   
   ngOnInit() {
     this.formulario = this.formBuilder.group({
-      DS_NOME:  'Inamar',
+      DS_NOME: [null, Validators.required],
       DS_EMAIL: [null, [Validators.required, Validators.email]],
       DT_NASCIMENTO: [null, Validators.required],
       CO_PERFIL: [null, Validators.required],
@@ -23,6 +26,9 @@ export class UsuarioFormComponent implements OnInit {
       CO_PAPEL: [null, Validators.required],
       NU_CPF: '700.600.00.00'
     });
+    this.User = this.Auth.User();
+    this.PopulaForms(this.User) 
+
   }
   onSubmit() {
     if (this.formulario.valid) {
@@ -32,7 +38,7 @@ export class UsuarioFormComponent implements OnInit {
       formData.append('CO_PERFIL', this.formulario.get('CO_PERFIL').value);
       formData.append('CO_ESPECIALIDADE', this.formulario.get('CO_ESPECIALIDADE').value);
       formData.append('CO_PAPEL', this.formulario.get('CO_PAPEL').value);
-      formData.append('CO_SEQ_USUARIO', this.User);
+      formData.append('CO_SEQ_USUARIO', this.User.CO_SEQ_USUARIO);
       this.service.solicitarAcesso(formData).subscribe(
         success => this.SucessoAlerta(),
         error => this.Erro(),
@@ -71,6 +77,15 @@ export class UsuarioFormComponent implements OnInit {
     alert('Formualrio com erro ou Formulario Invalido!')
     this.verificarValidacoeFrom(this.formulario);
   }
-
+  PopulaForms(User: Usuario) {
+    this.formulario.patchValue({
+      DS_NOME:User.DS_NOME,
+      DS_EMAIL: User.DS_EMAIL,
+      CO_PERFIL: User.CO_PERFIL,
+      CO_ESPECIALIDADE: User.CO_ESPECIALIDADE,
+      CO_PAPEL: User.CO_PAPEL,
+      NU_CPF: User.NU_CPF,
+  });
+  }
 
 }

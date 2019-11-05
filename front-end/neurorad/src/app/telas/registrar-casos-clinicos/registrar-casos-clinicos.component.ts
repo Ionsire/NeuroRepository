@@ -19,6 +19,8 @@ export class RegistrarCasosClinicosComponent implements OnInit {
   images: any[] =[]
   Categoria$: Categorias = new Categorias();
 
+  Letras: string[] = [ 'A' , 'B' , 'C' , 'D' , 'E' , 'F' , 'G' , 'H' , 'I' , 'J' , 'K' , 'L' , 'M' , 'N' , 'O' , 'P' , 'Q' , 'R' , 'S' , 'T' , 'U' , 'V' , 'W' , 'X' , 'Y']
+
 
   select: Array<File> = null;
 
@@ -108,17 +110,27 @@ export class RegistrarCasosClinicosComponent implements OnInit {
     };
   }
   detectFiles(event) {
+    var TR : boolean = true;
     let files = event.target.files;
     if (files && this.ArrayImagens.length < 25) {
       for (let file of files) {
-        if (this.ArrayImagens.length < 25) {
+      
           if (this.validations(file)) {
             if (file.size < 2000000) {
               let reader = new FileReader();
               reader.onload = (e: any) => {
-                this.ArrayImagens.push(file);
-                //aqui ele adiciona no vetor o item e
-                this.urls.push(e.target.result);
+                if (this.ArrayImagens.length < 25) {
+                  this.ArrayImagens.push(file);
+                  //aqui ele adiciona no vetor o item e
+                  this.urls.push(e.target.result);
+                } else {
+                  if( TR ){
+                    TR = false;
+                    return alert('Numero maxímo de imagens');
+                  }
+                 
+                }
+               
               };
               reader.readAsDataURL(file);
             } else {
@@ -128,9 +140,6 @@ export class RegistrarCasosClinicosComponent implements OnInit {
             alert('Imagem Invalidade');
           }
 
-        } else {
-          return alert('Numero maxímo de imagens');
-        }
       }
     } else {
 
@@ -138,6 +147,7 @@ export class RegistrarCasosClinicosComponent implements OnInit {
     }
   }
   ModalImg(x,y) {
+    console.log(this.ArrayImagens)
     this.image = x;
     this.CapaImg = y;
   }
@@ -165,8 +175,10 @@ export class RegistrarCasosClinicosComponent implements OnInit {
    SalvarCapa(capa) {
      this.CapaSalva = capa;
     alert('Capa salvar com sucesso');
+    this.Imgcapatopoview(capa)
    }
    imagensCapaTopo() {
+     // trocan a imagens antes de enviar para beck
     var auxi: string;
     auxi = this.ArrayImagens[this.CapaSalva];
     this.ArrayImagens[this.CapaSalva] = this.ArrayImagens[0];
@@ -174,5 +186,13 @@ export class RegistrarCasosClinicosComponent implements OnInit {
    }
   MiniCard(x) {
     this.image = x;
+  }
+  // trocando imagens na view
+  Imgcapatopoview(x){
+    var AX : any;
+    AX = this.urls[0];
+    this.urls[0] =  this.urls[x];
+    this.urls[x] = AX;
+
   }
 }

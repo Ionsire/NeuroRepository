@@ -454,21 +454,25 @@ nav#RegisterCases{
                 
             }
             div.Acoes{
-                width: 100%;
-                margin-bottom: 1em;
+               width: 100%;
+              margin-bottom: 1em;
              button{
-                &:nth-child(1){
+                &.btn-outline-danger{
                     @var: calc(100% - 290px);
                     margin-left: @var;
+                }
+                &.agendar{
+                    @var: calc(100% - 290px);
+                    margin-left: @var;
+                }
+                &.btn-outline-success{
+                    padding: 6px 12px;
                 }
                 margin-right: 1.5em;
                 
              }   
             }
-            button#HLG{
-                margin: 0 auto;
-                width: 40%;
-            }
+          
             
         }
        

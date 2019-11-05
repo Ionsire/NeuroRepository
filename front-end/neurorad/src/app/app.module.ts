@@ -10,6 +10,9 @@ import {HttpClientModule} from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { CasesService } from './services/Casos-Clinicos/cases.service';
 import { UsuarioService } from './services/UsuarioService/usuario.service';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 @NgModule({
@@ -23,6 +26,11 @@ import { UsuarioService } from './services/UsuarioService/usuario.service';
     TelasModule,
     HttpClientModule,
     NgxPaginationModule,
+    NgbModule,
+    NgbPaginationModule, 
+    NgbAlertModule,
+    Ng2SearchPipeModule
+  
   
 
   ],

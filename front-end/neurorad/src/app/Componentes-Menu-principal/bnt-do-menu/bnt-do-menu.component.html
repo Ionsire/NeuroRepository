@@ -22,23 +22,23 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
-              <a class="nav-link" routerLink="" routerLinActive="active">Home</a>
+              <a class="nav-link" routerLink="home/" routerLinActive="active">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link"  routerLink="casos" routerLinActive="active">Casos Clinicos</a>
-            </li>
-             <li class="nav-item">
+            </li >
+             <li class="nav-item" *ngIf="this.auth.RegistrarSwitch()">
               <a class="nav-link" routerLink="registrar" routerLinActive="active">Registrar</a>
             </li>
           </ul>
-          <form class="form-inline"  method="get" >
-            <input class="search " name="search" type="search" placeholder="Search..." aria-label="Search">
+          <form class="form-inline" [formGroup]="formularioBusca" (ngSubmit)="onSubmit()" >
+            <input formControlName="busca" class="search" type="search" placeholder="Search..." aria-label="Search">
             <button class="bnt-search "  type="submit"><img src="https://img.icons8.com/android/15/000000/search.png"></button>
-        </form>
+           </form>
 
-          <app-usuario-logado *ngIf="true"></app-usuario-logado>
+          <app-usuario-logado *ngIf="this.auth.AtivarLogado()"></app-usuario-logado>
 
-          <app-sabia-enter *ngIf="false" ></app-sabia-enter>
+          <app-sabia-enter *ngIf="!this.auth.AtivarLogado()" ></app-sabia-enter>
         
         </div>
  </nav>

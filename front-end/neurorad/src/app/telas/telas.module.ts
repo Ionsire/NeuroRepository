@@ -14,7 +14,11 @@ import { HomologacaoComponent } from './homologacao/homologacao.component';
 import { UsuarioFormComponent } from './usuario-form/usuario-form.component';
 import { PendenciasUsuariosComponent } from './pendencias-usuarios/pendencias-usuarios.component';
 import { PerfilComponent } from './perfil/perfil.component';
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+import { PagesError404Component } from './pages-error404/pages-error404.component';
+import { ColaboradoresComponent } from './colaboradores/colaboradores.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 
@@ -29,6 +33,8 @@ import { PerfilComponent } from './perfil/perfil.component';
     UsuarioFormComponent,
     PendenciasUsuariosComponent,
     PerfilComponent,
+    PagesError404Component,
+    ColaboradoresComponent,
   ],
   imports: [
     CommonModule,
@@ -36,7 +42,12 @@ import { PerfilComponent } from './perfil/perfil.component';
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule,
+    NgbPaginationModule, 
+    NgbAlertModule,
+    Ng2SearchPipeModule
+  
   ],
   exports: [
     PaginaInicialComponent,

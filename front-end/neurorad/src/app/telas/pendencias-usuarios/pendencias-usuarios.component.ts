@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/services/UsuarioService/usuario.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Usuario } from 'src/app/services/Classes/usuario';
+import { AtributosUser } from 'src/app/services/Classes/atributos';
 
 
 @Component({
@@ -15,18 +16,14 @@ export class PendenciasUsuariosComponent implements OnInit {
   formulario: FormGroup;
   Usuario$: Usuario = new Usuario();
   condicoes : boolean;
+  atributos : AtributosUser = new AtributosUser();
 
   constructor( private formBuilder: FormBuilder, private _http: UsuarioService) { }
 
   ngOnInit() {
     this.formulario = this.formBuilder.group({
-      id:[],
-      Nome: [null, [Validators.required, Validators.maxLength(50)]],
-      Email: [null, [Validators.required, Validators.email]],
-      Data_Nascimento: [null, Validators.required],
-      Perfil: [null, Validators.required],
-      Especialidade: [null, Validators.required],
-      Papel: [null, Validators.required],
+      CO_SEQ_USUARIO:[null, Validators.required],
+      CO_PAPEL: [null, Validators.required],
     });
       this._http.GET().subscribe(
         response => this.UsuariosPendentes = response,
@@ -34,14 +31,20 @@ export class PendenciasUsuariosComponent implements OnInit {
       )
   }
   onSubmit(){
-    if (this.formulario.valid) {
-      this._http.update(this.formulario.value).subscribe(
+    console.log(this.formulario.value);
+    
+     if (this.formulario.valid) {
+      const formData = new FormData();
+      formData.append('CO_PAPEL', this.formulario.get('CO_PAPEL').value);
+      formData.append('CO_SEQ_USUARIO', this.formulario.get('CO_SEQ_USUARIO').value);
+      this._http.update(formData).subscribe(
         success =>this.SucessoAlerta(),
-        error => this.Erro(),
+        error => this. ErroApi(),
       );
-    } else {
-      this.Erro();
-    }
+     } else {
+       this.Erro();
+     }
+     this.ngOnInit();
   }
   aplicaCssErro(campo) {
 
@@ -65,30 +68,24 @@ export class PendenciasUsuariosComponent implements OnInit {
 
   }
   PopulaForms(usuario: Usuario) {
-    this.Reset();
-    this.formulario.patchValue({
-      id : usuario.id,
-      Nome: usuario.Nome,
-      Email: usuario.Email,
-      Data_Nascimento: usuario.Data_Nascimento,
-      Perfil: usuario.Perfil,
-      Especialidade: usuario.Especialidade,
-    });
+   this.Reset();
    this.Usuario$ = usuario;
+   this.formulario.patchValue({
+    CO_SEQ_USUARIO: usuario.CO_SEQ_USUARIO,
+  });
+
   }
   Reset() {
     this.formulario.patchValue({
-      Nome: null,
-      Email: null,
-      Data_Nascimento: null,
-      Perfil: null,
-      Especialidade: null,
-      Papel: [null, Validators.required],
+      CO_SEQ_USUARIO: [null, Validators.required],
+      CO_PAPEL: [null, Validators.required],
     });
     this.Usuario$ = new Usuario();
   }
-  recusar(id){
-    this.condicoes =  confirm(
+  recusar(id) {
+    console.log(id)
+    if(id){
+this.condicoes =  confirm(
       'Deseja recusar esse Usuário'
     );
     if (this.condicoes) {
@@ -100,6 +97,10 @@ export class PendenciasUsuariosComponent implements OnInit {
     } else {
 
     }
+    }else{
+      alert('Usuario não selecionado');
+    }
+    
   }
   SucessoAlerta() {
     alert(' Enviado com Sucesso');
@@ -107,5 +108,8 @@ export class PendenciasUsuariosComponent implements OnInit {
   Erro(){
     alert('Formualrio com erro ou Formulario Invalido!')
     this.verificarValidacoeFrom(this.formulario);
+  }
+  ErroApi(){
+    alert('Erro ao tentar enviar!')
   }
 }

@@ -18,6 +18,6 @@ Route::get('/', function () {
 Route::group([
     'prefix' => 'sabia'
 ], function() {
-    Route::get('/', 'API\SabiaController@redirectToProvider');
-    Route::get('callback', 'API\SabiaController@handleProviderCallback');
+     Route::get('/', 'API\SabiaController@redirectToProvider');
+     Route::get('callback', 'API\SabiaController@handleProviderCallback');
 });

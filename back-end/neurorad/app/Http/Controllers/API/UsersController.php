@@ -49,23 +49,35 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+        // usado pelo preceptor administrador para homologar o usuario
         // No postman o tipo de formulario é x-www-form-urluncoded 
 
         $request->validate([
-            'CO_PERFIL'=>'required|int',
-            'CO_ESPECIALIDADE'=>'required|int',
+            'CO_SEQ_USUARIO'=>'required|int',
             'CO_PAPEL'=>'required|int',
-            'CO_STATUS'=>'required|int'    
+              
         ]);
-        
-        $user = User::find($id);
-        $user->fill($request->all());
-        $user->save();
-        return response()->json([
-            'message'=>'Dados atualizados com sucesso'
-        ],200);
+        $user = User::find($request->get('CO_SEQ_USUARIO'));
+
+        $user = $user->toArray(); // necessita converter em Array para dar o update
+
+        $user['CO_STATUS'] = 3; // vira homologado
+        $user['CO_PAPEL'] = $request->get('CO_PAPEL');
+
+
+        User::where('CO_SEQ_USUARIO', $request->get('CO_SEQ_USUARIO'))->update($user);
+
+        return response()->json(['message' => 'Usuario Homologado com sucesso'], 200);
+
+
+        // $user = User::find($id);
+        // $user->fill($request->all());
+        // $user->save();
+        // return response()->json([
+        //     'message'=>'Dados atualizados com sucesso'
+        // ],200);
     }
 
     /**
@@ -119,4 +131,23 @@ class UsersController extends Controller
 
         return response()->json($user, 200);
     }
+    public function recusar_usuario($id)
+    {
+        $user = User::find($id);
+        $user = $user->toArray(); // necessita converter em Array para dar o update
+
+        $user['CO_STATUS'] = 1; // vira somente ativo, 1 refere-se a ativo e papel default
+        $user['CO_PAPEL'] = 6;
+
+        User::where('CO_SEQ_USUARIO', $id)->update($user);
+        return response()->json(['message' => 'Solicitação de papel Recusada'], 200);
+    }
+
+    public function lista_usuarios()
+    {
+        $usuarios = User::query();
+        $usuarios = $usuarios->where('CO_STATUS', 3)->get();
+        return response()->json($usuarios, 200);
+    }
+
 }

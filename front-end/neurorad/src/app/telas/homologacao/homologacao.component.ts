@@ -4,18 +4,21 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Categorias } from 'src/app/services/Classes/Categorias';
 import { SubCategorias } from 'src/app/services/Classes/subcategorias';
+import {NgbDatepickerConfig, NgbCalendar, NgbDate, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-homologacao',
   templateUrl: './homologacao.component.html',
-  styleUrls: ['./homologacao.component.less']
+  styleUrls: ['./homologacao.component.less'],
+  providers: [NgbDatepickerConfig] // add NgbDatepickerConfig to the component providers
+
 })
 export class HomologacaoComponent implements OnInit {
 
   CasosPendentes: CasoClinico[];
   CasosHomolagados: CasoClinico[];
   CasosAgendados: CasoClinico[];
-
+  model: NgbDateStruct;
   formulario: FormGroup;
   ArrayImagens: string[] = [];
   image: string = "../../../assets/images/imgneuro.jpg";
@@ -30,7 +33,15 @@ export class HomologacaoComponent implements OnInit {
     false
   );
 
-  constructor(private formBuilder: FormBuilder, private _http: CasesService, ) { }
+  constructor(private formBuilder: FormBuilder, private _http: CasesService, config: NgbDatepickerConfig, calendar: NgbCalendar  ) {
+                                                                  config.minDate = {year: 1900, month: 1, day: 1};
+                                                                  config.maxDate = {year: 2099, month: 12, day: 31};
+                                                                  // days that don't belong to current month are not visible
+                                                                   config.outsideDays = 'hidden';
+
+                                                                   // weekends are disabled
+                                                                  config.markDisabled = (date: NgbDate) => calendar.getWeekday(date) >= 2;
+                            }
   classes: boolean[] = Array(
     true,
     false,
@@ -155,27 +166,30 @@ export class HomologacaoComponent implements OnInit {
   }
 
   Agendar() {
-
+    console.log(this.formulario.get('DT_SEMANA').value);
     if (this.formulario.get('DT_SEMANA').value) {
 
+      var aux = null;
+      aux = this.formulario.get('DT_SEMANA').value.year + '-' + this.formulario.get('DT_SEMANA').value.month + '-' + this.formulario.get('DT_SEMANA').value.day;
+      this.formulario.patchValue({
+        DT_SEMANA: aux
+      });
+      console.log(this.formulario.get('DT_SEMANA').value);
       if (this.formulario.get('CO_SEQ_CASO_CLINICO').value) {
 
         console.log(this.formulario.get('DT_SEMANA').value, this.formulario.get('CO_SEQ_CASO_CLINICO').value)
         this._http.agendarCaso(this.formulario.get('CO_SEQ_CASO_CLINICO').value, this.formulario.get('DT_SEMANA').value).subscribe(res => alert('Agendado com Sucesso'));
         this.ngOnInit()
-      
       } else {
-  
+
         alert('Nao a caso selecionado')
-        
       }
-      
     } else {
       alert('Data do agendamento e obrigatorio')
     }
 
   }
-  Desagendar(){
+  Desagendar() {
     let confi;
     confi = confirm( 'deseja mesmo Desagendar?')
     if (confi) {
@@ -187,10 +201,8 @@ export class HomologacaoComponent implements OnInit {
         alert('nenhum caso selecionado')
       }
     } else {
-      
+
     }
-   
-   
   }
 
   Disponibilizar(){

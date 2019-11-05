@@ -5,17 +5,11 @@
 
         <nav id="RegisterCases">
                 <ul>
-                        <li><button type="button" [class.active]="classes[0]"
-                                        (click)="toggle(classes, 0)"><span>1</span>História
-                                        Clínica</button></li>
-                        <li><button type="button" [class.active]="classes[1]"
-                                        (click)="toggle(classes, 1)"><span>2</span>Discussão</button></li>
-                        <li><button type="button" [class.active]="classes[2]"
-                                        (click)="toggle(classes, 2)"><span>3</span>Diagnóstico</button></li>
-                        <li><button type="button" [class.active]="classes[3]"
-                                        (click)="toggle(classes, 3)"><span>4</span>Imagens</button></li>
-                        <li><button type="button" [class.active]="classes[4]"
-                                        (click)="toggle(classes, 4)"><span>5</span>Revisão</button></li>
+                <li><button type="button" [class.active]="classes[0]" (click)="toggle(classes, 0)"><span>1</span>História Clínica</button></li>
+                <li><button type="button" [class.active]="classes[3]" (click)="toggle(classes, 3)"><span>2</span>Imagens</button></li>
+                <li><button type="button" [class.active]="classes[2]" (click)="toggle(classes, 2)"><span>3</span>Diagnóstico</button></li>
+                <li><button type="button" [class.active]="classes[1]" (click)="toggle(classes, 1)"><span>4</span>Discussão</button></li>
+                <li><button type="button" [class.active]="classes[4]" (click)="toggle(classes, 4)"><span>5</span>Revisão</button></li>
                 </ul>
 
                 <form id="toggleclasses" [formGroup]="formulario" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
@@ -94,6 +88,7 @@
                                         <div id="cards" [class.active]="classes[3] ">
                                                 <div [class.active]="classes[3]"
                                                         *ngFor="let url of urls;let index = index">
+                                                        <p>{{Letras[index]}}</p>
                                                         <img data-toggle="modal" data-target="#exampleModal"
                                                                 (click)="ModalImg(url,index)" class="card" [src]="url"
                                                                 alt="Card image cap">

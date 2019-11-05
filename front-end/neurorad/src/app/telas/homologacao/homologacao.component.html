@@ -287,24 +287,32 @@
                                                         </div>
                                                 </div>
                                         </div>
+                                        <div [class.active]="classes[4]" *ngIf="!tabela[0]" class="form-row ">
+                                                <div *ngIf="!tabela[2]" style="flex-direction: column; width: 100%;" [class.active]="classes[4]" class="form-group col-md-4 ">
+                                                <label for="DT_SEMANA" class="control-label">Data de Agendamento</label>
+                                                <div [class.active]="classes[4]" class="form-group">
+                                                        <div  [class.active]="classes[4]" class="input-group">
+                                                          <input type = "button" (click)="d.toggle()" class="form-control" placeholder="yyyy-mm-dd"
+                                                                formControlName="DT_SEMANA" ngbDatepicker #d="ngbDatepicker">
+                                                          <div [class.active]="classes[4]" class="input-group-append">
+                                                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><img src="https://img.icons8.com/ios-filled/18/000000/calendar.png"></button>
+                                                          </div>
+                                                        </div>
+                                                       
+                                                      </div>
+                                              
+                                                </div>
+                                        
+                                              </div>
                                         <button (click)="Desagendar()" type="button" *ngIf="tabela[2]" class="btn btn-outline-success" >Desagendar</button>
                                        <div class="Acoes" [class.active]="classes[4]" *ngIf="!tabela[2]">
                                         <button type="button" *ngIf="!tabela[1]" class="btn btn-outline-danger"> Deletar </button>
                                         <button type="button" *ngIf="!tabela[1]" class="btn btn-outline-warning"> Reenviar</button>
                                         <button type="submit" *ngIf="!tabela[1]" class="btn btn-outline-success" >Homologar</button>
-                                        
-
-                                         <div [class.active]="classes[4]" *ngIf="!tabela[0]" class="form-row ">
-                                                <div style="flex-direction: column" [class.active]="classes[4]" class="form-group col-md-12">
-                                                <label for="DT_SEMANA" class="control-label">Data de Agendamento</label>
-                                                <input type="date"  lass="form-control"
-                                                formControlName="DT_SEMANA" id="DT_SEMANA"  class="form-control"   >
-                                                </div>
-                                        </div>
-
-                                        
-                                        <button (click)="Agendar()" id="HLG" style="height:30px" type="button" *ngIf="!tabela[0]" class="btn btn-outline-success" >Agendar</button>
-                                        <button (click)="Disponibilizar()" type="button" *ngIf="!tabela[0]" class="btn btn-outline-success" >Disponibilizar</button>
+                                         <button (click)="Agendar()" type="button" *ngIf="!tabela[0]" class="btn btn-outline-success agendar" >Agendar</button>
+                                         <button (click)="Disponibilizar()"  type="button" *ngIf="!tabela[0]" class="btn btn-outline-success" >Disponibilizar</button>
+                                       
+                                   
                                        </div>
                                        
 

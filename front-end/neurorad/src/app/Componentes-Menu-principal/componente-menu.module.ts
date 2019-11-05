@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { UsuarioLogadoComponent } from './usuario-logado/usuario-logado.component';
 import { SabiaEnterComponent } from './sabia-enter/sabia-enter.component';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,10 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     BrowserModule,
-    RouterModule
+    RouterModule,
+    FormsModule, 
+    ReactiveFormsModule 
+
   ],
   exports: [
     BntDoMenuComponent,

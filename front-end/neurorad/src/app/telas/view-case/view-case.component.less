@@ -29,14 +29,23 @@ section{
              display: flex;
              flex-wrap: wrap;
              align-items: center;
-           img{
-               width: 20%;
-               border: solid 3px #ffffff;
-               margin-top: 1em;
-               margin-right: 1em;
-               &:hover{
-                cursor: pointer;
-            }
+             div{
+                display: flex;
+                width: 20%;
+                margin-top: 1em;
+                margin-right: 1em;
+                img{
+                    width: 100%;
+                    border: solid 3px #ffffff;
+                  
+                    &:hover{
+                     cursor: pointer;
+                 }
+             }
+           
+               
+        
+      
               
              }
              &:last-child {
@@ -61,5 +70,12 @@ section{
    div.modal-body{
        display: flex;
        justify-content: center;
+   }
+   img.modalnav:hover{
+    cursor: pointer;
+   }
+   div.modal-footer{
+       display: flex;
+       justify-content: space-between;
    }
 }

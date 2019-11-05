@@ -4,31 +4,42 @@
     <article *ngIf="CasosClinicos$ | async as Casos; else loadingError">
             <span>Resultado:  {{Casos.length}} Casos </span>
      <div class="flex">
-          
+          <div class="card-container">
             <div id="cards"  >
                     <div class="card-principal" *ngFor="let caso of Casos | paginate: { itemsPerPage: 12, currentPage: pag }; let i = index">
                              <div>
                                  <h5  class="card-title">{{caso.CO_CATEGORIA}}</h5>
-                                 <img  *ngIf="true" src="{{hostApi}}{{caso.CO_IMAGEM_CAPA}}{{ext}}" alt="">
-                                 <p> Caso: {{caso.CO_SEQ_CASO_CLINICO}}</p>
+                                 <img  *ngIf="true" src="{{hostApi}}{{caso.CO_IMAGEM_CAPA}}" alt="">
+                                 <p> Caso: {{caso.DS_DIAGNOSTICO}}</p>
                                  <button type="button" class="btn btn-outline-primary" (click)="VisualizarCaso(caso.CO_SEQ_CASO_CLINICO)">Ver Caso</button>
                              </div>
                      </div>
-                     <pagination-controls (pageChange)="pag = $event"></pagination-controls>
-                 </div>
+                    
+            </div>
+            <div class="pagination-controls">
+              <pagination-controls class="ola" (pageChange)="pag = $event"></pagination-controls>
+            </div>
+                
+        </div>
                  <div id="filtros" class="container">
                      <form class="form-group" [formGroup]="formulario" action="">
                              <h4> Filtros</h4>
+                             <div *ngIf ="formulario.value.DS_DIAGNOSTICO" class="form-group">
+
+                                    <label for="exampleInputEmail1">Busca:</label>
+                                    <p> {{ formulario.value.DS_DIAGNOSTICO }} <a routerLink="/casos"  > <img src="../../assets/images/cancel.png"></a> </p>
+                                </div>
+
                              <label for="">Categorias </label>
                              <select (change)="SubCategorias()" class="custom-select" formControlName="CO_CATEGORIA" name="CO_CATEGORIA" form="CO_CATEGORIA">
-                                 <option value=""></option>
+                                 <option ></option>
                                  <option value="{{cat.id}}" *ngFor="let cat of  Categorias.categorias">{{cat.classe1}}</option>
             
                              </select>
                              <br>
                              <label for="">SubCategoria</label>
-                             <select name="carlist" form="carform" class="custom-select" formControlName="CO_SUBCATEGORIA" name="CO_SUBCATEGORIA" form="CO_SUBCATEGORIA">
-                                     <option value=""></option>
+                             <select (change)="SubCategoriasFiltros()" name="carlist" form="carform" class="custom-select" formControlName="CO_SUBCATEGORIA" name="CO_SUBCATEGORIA" form="CO_SUBCATEGORIA">
+                                     <option  ></option>
                                      <option value="{{subcat.id}}" *ngFor="let subcat of auxiliar">{{subcat.classe}}</option>
                              </select>
                      </form>

@@ -24,6 +24,7 @@ Route::group([
     ], function() {
         Route::get('logout', 'API\AuthController@logout');
         Route::get('user', 'API\AuthController@user');
+        //Route::get('casoclinico', 'API\CasoClinicoController@index')->name('casosclinicos');
     });
 });
 Route::apiResources([
@@ -51,5 +52,16 @@ Route::get('/disponibilizar/{id}', 'API\CasoClinicoController@tornar_caso_public
 
 Route::post('/acesso_especial', 'API\UsersController@acessoEspecial')->name('acessoEspecial');
 Route::get('/pendencias_usuarios', 'API\UsersController@pendencias_usuario')->name('pendenciasusuario');
+Route::post('/homologar_usuario', 'API\UsersController@update')->name('homologarusuario');
+Route::get('/recusar_usuario/{id}', 'API\UsersController@recusar_usuario')->name('recusarusuario');
+Route::get('/lista_usuarios','API\UsersController@lista_usuarios')->name('listausuarios');
 
-Route::get('/casoclinico', 'API\CasoClinicoController@index')->name('casosclinicos');
+//Route::get('/casoclinico', 'API\CasoClinicoController@index')->name('casosclinicos');
+
+
+Route::get('/test', 'API\PublicacaoAutomaticaCasoController@publicarCaso');
+
+Route::get('/testauth/{code?}', 'API\SabiaController@teste');
+
+
+// PublicacaoAutomaticaCasoController

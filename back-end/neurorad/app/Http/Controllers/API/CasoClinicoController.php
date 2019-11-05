@@ -93,7 +93,7 @@ class CasoClinicoController extends Controller
         // Erro semantico, os casos clinicos com status 5 significam que estão disponiveis na base geral(Arquivados)
                             // ->whereNotIn('CO_STATUS', [1,5,6]);
 
-        $casoclinico = $casoclinico->whereNotIn('CO_STATUS', [1,4,6]);
+        $casoclinico = $casoclinico->whereNotIn('CO_STATUS', [1,2,3,4,6]); // atualizado
 
         $resultados = array();       
         

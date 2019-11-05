@@ -1,26 +1,30 @@
 <div id="container">
         <div id="sino">
-          <div class="notificacao" *ngIf = "UsuariosPendentes"><span>{{UsuariosPendentes+CasosPendentes }}</span></div>
+          <div class="notificacao" *ngIf="this.Service.PreceptorAdministrador()"><span>{{UsuariosPendentes+CasosPendentes }}</span></div>
          <img  src="../../../../assets/images/bell.png" alt="">
-          <div id="arrow-up" [class]="sino" ></div>
-          <ul>
-            <li><a routerLink="usuariopendecias">Usuarios : {{UsuariosPendentes}}</a></li>
-            <li><a routerLink="Homologacao">Casos : {{CasosPendentes}}</a></li>
+          <div *ngIf="this.Service.PreceptorAdministrador()" id="arrow-up" [class]="sino" ></div>
+          <ul *ngIf="this.Service.PreceptorAdministrador()" >
+            <li ><a routerLink="usuariopendecias">Usuarios : {{UsuariosPendentes}}</a></li>
+            <li ><a routerLink="Homologacao">Casos : {{CasosPendentes}}</a></li>
           </ul>
         </div>
-        <p>Rebeca Santos</p>
+        <p >{{usuario.DS_NOME}}</p>
       
         <div class="avatar" >
-            <img  src="https://cdn.pixabay.com/photo/2019/06/02/17/27/summer-4246927_960_720.jpg" alt="avatar">
+            <img  [src]="usuario.IM_FOTO" alt="avatar">
           <div id="arrow-up" ></div>
            <div id="perfilAvatar">
               <a  routerLink="perfil" routerLinActive="active">perfil</a>
                <hr>
+               <div *ngIf="this.Service.PreceptorAdministrador()">
                <a  routerLink="Homologacao" routerLinActive="active">Homologação pendentes:{{CasosPendentes}}</a>
                <hr>
                <a routerLink="usuariopendecias" routerLinActive="active">Usuarios pendentes: {{UsuariosPendentes}}</a>
-               <hr>          
-              <a href="">Sair</a>
+               <hr>
+               <a routerLink="/colaboradores" routerLinActive="active">Colaboradores</a>
+               <hr> 
+               </div>        
+              <a  (click)="Logout()">Sair</a>
          </div>    
        </div>
       
