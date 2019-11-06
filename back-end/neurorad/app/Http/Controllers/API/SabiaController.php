@@ -78,24 +78,27 @@ class SabiaController extends Controller
                 'DS_SENHA' => md5(rand(1, 10000)),
                 'DT_NASCIMENTO' => '2019-01-01', // valor Default
                 'IM_FOTO' => $usuario_sabia->user['avatar'],
-                'CO_PERFIL' => '1', 
+                //'CO_PERFIL' => '1', 
                 //'CO_ESPECIALIDADE' => '1', 
                 'CO_PAPEL' => '6', //Usuario Comum
                 'CO_STATUS' => '1', // ativo
             ]);
             $user->save();
             if($user){
-                return response()->json('novo usuario adicionado com sucesso', 200);
+                //return response()->json('novo usuario adicionado com sucesso', 200);
             }
             else{
-                return response()->json('ERROR no novo usuario');
+                //return response()->json('ERROR no novo usuario');
             }
-            
+            // criando o token
+            $token = auth('api')->login($user);
+
+            return response()->json($token, 200);
 
             //return response()->json('não autorizado', 401);
         }
 
-        return response()->json($usuario_sabia, 200);
+        //return response()->json($usuario_sabia, 200);
         // TODO: Mudar para uma Resource
     }
 }

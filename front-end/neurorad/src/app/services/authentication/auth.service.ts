@@ -62,7 +62,13 @@ export class AuthService {
     let params = new HttpParams();
     params = params.append('token', token);
 
-    this.http.get(`${this.APIloginUser}`,{ params: params }).subscribe(resp => this.GetdadosUser(resp))
+    // usando o Try para caso o Token seja invalido ou expirado
+    try {
+      this.http.get(`${this.APIloginUser}`,{ params: params }).subscribe(resp => this.GetdadosUser(resp))
+    }catch(error){
+      console.log('ocorreu um erro')
+    }
+    
     console.log(this.Token);
 
   }

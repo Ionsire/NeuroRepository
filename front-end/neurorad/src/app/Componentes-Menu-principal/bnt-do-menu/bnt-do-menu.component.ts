@@ -32,6 +32,7 @@ export class BntDoMenuComponent implements OnInit {
    // console.log(this.token)
     if(localStorage.getItem("token")){
      this.auth.acessotoken(localStorage.getItem("token"));
+     console.log('token')
     //  this.logado = true;
     }
     // estou escutando o evento testando me inscrevendo
