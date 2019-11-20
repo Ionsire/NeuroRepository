@@ -1,19 +1,19 @@
 <section id="perfil">
   
     <div class="media">
-        <img src="https://cdn.pixabay.com/photo/2019/06/02/17/27/summer-4246927_960_720.jpg" class="mr-3" alt="...">
+        <img [src]="userData.IM_FOTO" class="mr-3" alt="...">
         <div class="media-body">
           <h6 class="mt-0">Perfil</h6>
           <h6>Nome:</h6>
-          <span>Rebeca Santos</span>
+          <span>{{userData.DS_NOME}}</span>
           <h6>E-mail:</h6>
-            <span>Rebeca_Santos@hotmail.com</span>
-           <h6> CPF</h6>
-           <span>770.266.226-38</span>
-           <h6>Perfil Ativo:</h6>
-           <span>Estudante</span>
+            <span>{{userData.DS_EMAIL}}</span>
+           <h6> CPF:</h6>
+           <span>{{userData.NU_CPF}}</span>
+           <h6>Perfil:</h6>
+           <span>{{userData.CO_PERFIL}}</span>
            <h6>Papel no Sistema:</h6>
-           <span>Adm</span>
+           <span>{{atributos.Papeis[userData.CO_PAPEL]}}</span>
              
            <p>Deseja entrar como colaborador click <a routerLink="formulario">Aqui</a></p>
         </div>

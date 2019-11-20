@@ -13,7 +13,7 @@ export  class CasoClinico{
     DT_SEMANA: number;
     images: string[];
     NU_REJEICOES: number;
-    DS_CORRECOES: number;
+    DS_CORRECOES: string;
     CO_IMAGEM_CAPA: number;
     DT_CRIACAO: string;
     DT_ATUALIZACAO: string;

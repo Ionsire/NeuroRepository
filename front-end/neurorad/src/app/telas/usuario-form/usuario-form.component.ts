@@ -17,6 +17,12 @@ export class UsuarioFormComponent implements OnInit {
   constructor(  private formBuilder: FormBuilder, private service: UsuarioService, private location: Location, private Auth: AuthService) { }
   
   ngOnInit() {
+    if(localStorage.getItem("token")){
+      this.Auth.acessotoken(localStorage.getItem("token"));
+     }
+     AuthService.get('enviaUser').subscribe(data => this.PopulaForms(data));
+   
+    
     this.formulario = this.formBuilder.group({
       DS_NOME: [null, Validators.required],
       DS_EMAIL: [null, [Validators.required, Validators.email]],
@@ -24,10 +30,10 @@ export class UsuarioFormComponent implements OnInit {
       CO_PERFIL: [null, Validators.required],
       CO_ESPECIALIDADE: [null, Validators.required],
       CO_PAPEL: [null, Validators.required],
-      NU_CPF: '700.600.00.00'
+      NU_CPF: [null, Validators.required]
     });
-    this.User = this.Auth.User();
-    this.PopulaForms(this.User) 
+
+   
 
   }
   onSubmit() {
@@ -78,6 +84,7 @@ export class UsuarioFormComponent implements OnInit {
     this.verificarValidacoeFrom(this.formulario);
   }
   PopulaForms(User: Usuario) {
+      this.User = User;
     this.formulario.patchValue({
       DS_NOME:User.DS_NOME,
       DS_EMAIL: User.DS_EMAIL,

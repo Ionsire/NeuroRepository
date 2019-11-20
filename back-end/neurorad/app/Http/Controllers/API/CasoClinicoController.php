@@ -43,8 +43,6 @@ class CasoClinicoController extends Controller
                 $casoclinico = $casoclinico
                                     ->where('DS_DIAGNOSTICO', 'LIKE', '%'.$search['DS_DIAGNOSTICO'].'%')->get();
                 $resultados['DS_DIAGNOSTICO'] = $casoclinico;
-               
-                
             }
             if(array_key_exists('CO_CATEGORIA', $search)){
                 $casoclinico = $casoclinico
@@ -393,23 +391,57 @@ class CasoClinicoController extends Controller
      */
     public function show($id) // Funcionando
     {
-        $casoclinico = CasoClinico::find($id);
+        
+        $casoclinico = CasoClinico::query();
+
+        $casoclinico = $casoclinico->where('CO_STATUS', 5)->get(); // Casos da base publica
+
+        // buscando apenas o caso especifico
+        $casoclinico = $casoclinico->find($id);
+
+        //$casoclinico2 = CasoClinico::find($id);
+        // casoclinico2 nao tem array
+
+        //dd($casoclinico);
 
         // fazendo a consulta na tabela img
-        $imgcaso = Imagem::query();
+        if($casoclinico['CO_STATUS'] == 5)
+        {
+            $imgcaso = Imagem::query();
 
+            // pega as imagens que fazem parte desse caso clinico
+            $imgcaso = $imgcaso->where('CO_CASO_CLINICO', '=', $id)->get();
+
+            for($i=0;$i<sizeof($imgcaso);$i++){
+                //Array recebe imagem do caso
+                $array[$i] = $imgcaso[$i]->IM_IMAGEM;
+                
+            }
+
+            // em caso clinico é adcionado um campo array no Json
+            $casoclinico['images'] = $array;
+
+            return response()->json($casoclinico,200);
+        }
+        else{
+            return response()->json('Não autorizado',401);
+        }
+        
+    }
+
+    // Tem acesso todos os casos
+    public function adminShow($id){
+       // $casoclinico = CasoClinico::find($id);
+        // fazendo a consulta na tabela img
+        $imgcaso = Imagem::query();
         // pega as imagens que fazem parte desse caso clinico
         $imgcaso = $imgcaso->where('CO_CASO_CLINICO', '=', $id)->get();
-
         for($i=0;$i<sizeof($imgcaso);$i++){
             //Array recebe imagem do caso
-            $array[$i] = $imgcaso[$i]->IM_IMAGEM;
-            
+            $array[$i] = $imgcaso[$i]->IM_IMAGEM;  
         }
-
         // em caso clinico é adcionado um campo array no Json
         $casoclinico['images'] = $array;
-
         return response()->json($casoclinico,200);
     }
 
@@ -466,6 +498,71 @@ class CasoClinicoController extends Controller
         return response()->json([
             'message'=>'Caso clinico deletado com sucesso!'
         ],200);
+    }
+
+    /** 
+     * 
+     * Usado para atualizar o caso clinico 
+    */
+    public function reenviarCasoClinico(Request $request)
+    {
+        //DS_CORRECOES CO_SEQ_CASO_CLINICO
+        //Page::where('id', $id)->update(array('image' => 'asdasd'));
+        $id = $request['CO_SEQ_CASO_CLINICO'];
+
+        // buscando o caso para pegar o valor do numero de correções 
+        $casoclinico = CasoClinico::find($id);
+        $nuRejeicoes = $casoclinico->NU_REJEICOES;
+        // acrescentar mais 1 nesse numero
+        $nuRejeicoes += 1;
+
+        // Atualizar caso clinico
+        CasoClinico::where('CO_SEQ_CASO_CLINICO', $id)->update(array(
+            'DS_CORRECOES' => $request['DS_CORRECOES'], 
+            'NU_REJEICOES' => $nuRejeicoes,
+            'CO_STATUS' => 7, //Codigo de caso reenviado
+        ));
+
+        return response()->json('Caso clinico Reenviado com sucesso');
+    }
+    // Retornar todos os casos clinicos do usuario atual
+    public function MeusCasosClinicos($id)
+    {
+        $meusCasos = CasoClinico::where('CO_USUARIO', '=', $id)->get();
+        //dd($meusCasos);
+        return response()->json($meusCasos);
+
+    }
+    public function test($id)
+    {
+        return response()->json('teste');
+    }
+
+    public function deletarImagem(Request $request)//Request $request
+    {
+        // recebe o vetor com o nome das imagens
+        // segue a mesma ideia do filltro dos casos
+
+        
+        // o vetor deve ser assim: "   img[] = nome da imagem"
+        //                              caso[] = codigo do caso
+        $images = $request->get('IM_IMAGE', null); // recebe o vetor IM_IMAGE ou null, refere-se ao link ou nome da imagem
+        $caso = $request->get('CO_CASO_CLINICO', null); // CO_CASO_CLINICO
+
+        // Que tenha o codigo do caso clinico igual a $caso e  
+        // Deleta todos que tem o CO_SEQ_IMAGEM igual a algum dentro do vetor de nomes para deletar
+        $qResult = Imagem::where('CO_CASO_CLINICO', $caso)->whereIn('CO_SEQ_IMAGEM', $images)->delete();
+
+        // $qResult retorna a quantidade de campos afetados
+        // se nenhum foi afetado entao deu erro
+        if($qResult == 0){ 
+            return response()->json('Nenhuma imagem foi deletada');
+        }
+
+        return response()->json('Imagens deletadas');
+        
+            
+
     }
     
 }

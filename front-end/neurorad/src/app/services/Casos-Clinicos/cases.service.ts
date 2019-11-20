@@ -15,6 +15,7 @@ export class CasesService {
 
   // aqui esta recebendo todos os casos clinicos
   private APINeuro = "http://localhost:8000/api/casoclinico";
+  private APINeuroCasoAdm = "http://localhost:8000/api/auth/casesAdmin";
 
   private APICasoSemana = "http://localhost:8000/api/casos_da_semana_home";
 
@@ -29,6 +30,11 @@ export class CasesService {
   private APIDesagendar = "http://localhost:8000/api/desagendamento";
 
   private APIDisponibilizar = "http://localhost:8000/api/disponibilizar";
+  private APIReenvio = "http://localhost:8000/api/reenviar";
+  private APIdeletarCaso = "http://localhost:8000/api/deletar";
+  private APImeusCasos = "http://localhost:8000/api/meuscasos";
+
+  private Token;
 
 
       // params = params.append('busca[CO_CATEGORIA]', busca['CO_CATEGORIA']);
@@ -117,4 +123,28 @@ export class CasesService {
     return this.http.get<CasoClinico>(`${this.APINeuro}/${id}`).pipe(take((1)));
 
   }
+  casoAdm(id) {
+    this.Token = localStorage.getItem('token');
+
+    let params = new HttpParams();
+
+    params = params.append('token', this.Token);
+
+    return this.http.get<any>(`${this.APINeuroCasoAdm}/${id}`,{ params: params }).pipe(take((1)));
+
+  }
+  reenvioCase(caso){
+
+    return this.http.post(this.APIReenvio,caso);
+  }
+  deletarCaso(id){
+
+    return this.http.get(`${this.APIdeletarCaso}/${id}`).pipe(take((1)));
+  }
+  meusCasos(id){
+
+    return this.http.get<CasoClinico[]>(`${this.APImeusCasos}/${id}`);
+  }
+
+
 }

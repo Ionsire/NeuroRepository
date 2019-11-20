@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Input;
 use App\User;
 use Socialite;
 
+use Illuminate\Support\Facades\Auth;
+
 class SabiaController extends Controller
 {
 
@@ -49,15 +51,17 @@ class SabiaController extends Controller
             $usuario->DS_EMAIL = $usuario_sabia->email;
             $usuario->save();
 
-            $usuario_log = $usuario;
+            //$usuario_log = $usuario;
 
             
 
             $token = auth('api')->login($usuario);
 
+            
+
             // tentando adicionar ao usuario o token no objeto nao funciona ainda mas so oq precisa é juntar os dados
             // do usuario e o token JWT
-            $usuario_log->remember_token = $token;
+            //$usuario_log->remember_token = $token;
 
             //return response()->json($usuario_sabia, 200);
             return response()->json($token, 200);

@@ -11,6 +11,7 @@ import { PendenciasUsuariosComponent } from './telas/pendencias-usuarios/pendenc
 import { PerfilComponent } from './telas/perfil/perfil.component';
 import { PagesError404Component } from './telas/pages-error404/pages-error404.component';
 import { ColaboradoresComponent } from './telas/colaboradores/colaboradores.component';
+import { UsuarioCasosComponent } from './telas/usuario-casos/usuario-casos.component';
 
 
 
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'perfil/formulario', component: UsuarioFormComponent},
   { path: 'usuariopendecias', component: PendenciasUsuariosComponent},
   { path: 'colaboradores' , component: ColaboradoresComponent},
+  { path: 'perfil/meuscasos' , component: UsuarioCasosComponent},
 
   {
     path: '**', component: PagesError404Component

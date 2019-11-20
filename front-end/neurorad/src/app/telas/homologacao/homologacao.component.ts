@@ -1,16 +1,19 @@
 import { CasoClinico } from 'src/app/services/Classes/caso';
 import { CasesService } from './../../services/Casos-Clinicos/cases.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Categorias } from 'src/app/services/Classes/Categorias';
 import { SubCategorias } from 'src/app/services/Classes/subcategorias';
 import {NgbDatepickerConfig, NgbCalendar, NgbDate, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-homologacao',
   templateUrl: './homologacao.component.html',
   styleUrls: ['./homologacao.component.less'],
-  providers: [NgbDatepickerConfig] // add NgbDatepickerConfig to the component providers
+  providers: [NgbDatepickerConfig], // add NgbDatepickerConfig to the component providers
+  encapsulation: ViewEncapsulation.None,
 
 })
 export class HomologacaoComponent implements OnInit {
@@ -20,20 +23,22 @@ export class HomologacaoComponent implements OnInit {
   CasosAgendados: CasoClinico[];
   model: NgbDateStruct;
   formulario: FormGroup;
+  formularioRenvio: FormGroup;
   ArrayImagens: string[] = [];
   image: string = "../../../assets/images/imgneuro.jpg";
   Categorias: Categorias = new Categorias();
   SubCategoria: SubCategorias = new SubCategorias();
   Sub_aux: string;
   auxiliar: string[] = [];
-
+  NU_REJEICOES : any;
+  hostApi: string = "http://localhost:8000/";
   tabela: boolean[] = Array(
     true,
     false,
     false
   );
 
-  constructor(private formBuilder: FormBuilder, private _http: CasesService, config: NgbDatepickerConfig, calendar: NgbCalendar  ) {
+  constructor(private router: Router,private modalService: NgbModal, private formBuilder: FormBuilder, private _http: CasesService, config: NgbDatepickerConfig, calendar: NgbCalendar  ) {
                                                                   config.minDate = {year: 1900, month: 1, day: 1};
                                                                   config.maxDate = {year: 2099, month: 12, day: 31};
                                                                   // days that don't belong to current month are not visible
@@ -69,6 +74,10 @@ export class HomologacaoComponent implements OnInit {
       DT_SEMANA: null,
       // UPLOADCARE_PUB_KEY: ['demopublickey'],
     });
+    this.formularioRenvio = this.formBuilder.group({
+      DS_CORRECOES: [null, Validators.required],
+      CO_SEQ_CASO_CLINICO: [null, Validators.required],
+    });
   
     this._http.getCaseHomo()   // Editei para pegar os casos que estao pendentes de homologacao
       .subscribe(Response => this.CasosPendentes = Response,
@@ -86,7 +95,23 @@ export class HomologacaoComponent implements OnInit {
   verificarValidTouched(campo) {
     return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
   }
+
+  // validacao do reenvio
+  aplicaCssErroReenvio(campo) {
+
+    return {
+      'is-invalid': this.verificarValidTouchedReenvio(campo)
+    };
+  }
+  verificarValidTouchedReenvio(campo) {
+    return !this.formularioRenvio.get(campo).valid && this.formularioRenvio.get(campo).touched;
+  }
+
   PopulaForms(caso: CasoClinico) {
+   
+    this.NU_REJEICOES = caso.NU_REJEICOES;
+    console.log(this.NU_REJEICOES)
+   this._http.casoAdm(caso.CO_SEQ_CASO_CLINICO).subscribe(Response => this.populaIMG(Response.images));
     this.resep();
     this.formulario.patchValue({
       // troca id por CO_SEQ_CASO_CLINICO
@@ -98,8 +123,8 @@ export class HomologacaoComponent implements OnInit {
       CO_CATEGORIA: caso.CO_CATEGORIA,
       DS_ACHADOS_DAS_IMAGENS: caso.DS_ACHADOS_DAS_IMAGENS,
       CO_SUBCATEGORIA: caso.CO_SUBCATEGORIA,
-
     });
+
     this.SubCategorias();
   }
   resep() {
@@ -220,7 +245,48 @@ export class HomologacaoComponent implements OnInit {
       
     }
   }
+  populaIMG(imagens){
+    this.ArrayImagens = imagens;
+    console.log('ArrayImagens',this.ArrayImagens)
+  }
 
-  
+  verColaborador(content,id) {
+    console.log(id)
+    this.modalService.open(content, { centered: true });
+    this.formularioRenvio.patchValue({
+      CO_SEQ_CASO_CLINICO: id
+    }); 
+    console.log(this.CasosPendentes);
+   }
+  Reenviar(){
+    console.log(this.formularioRenvio.value);
+
+    if (this.formularioRenvio.valid ) {
+      const formDataReenvio = new FormData();
+      formDataReenvio.append('CO_SEQ_CASO_CLINICO', this.formularioRenvio.get('CO_SEQ_CASO_CLINICO').value);
+      formDataReenvio.append('DS_CORRECOES',this.formularioRenvio.get('DS_CORRECOES').value);
+      this._http.reenvioCase(formDataReenvio).subscribe (resp => console.log(resp));
+        this.ngOnInit ();
+      alert('Formulario enviado com sucesso')
+      var element = document.getElementById('close')
+      element.click()
+     
+    } else {
+      alert("Formulario invalido")
+      this.verificarValidacoeFrom(this.formularioRenvio);
+    }
+
+
+  }
+  DeletarCaso(id){
+    let conf = false;
+    conf = confirm('deseja deletar esse Caso?');
+
+    if(conf){
+      this._http.deletarCaso(id).subscribe( Responser => alert( 'Deletado com sucesso'),
+      err => alert('falha ao deletar'));
+    }
+    this.ngOnInit();
+  }
 
 }

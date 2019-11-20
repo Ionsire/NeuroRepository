@@ -19,6 +19,7 @@ import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 import { PagesError404Component } from './pages-error404/pages-error404.component';
 import { ColaboradoresComponent } from './colaboradores/colaboradores.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { UsuarioCasosComponent } from './usuario-casos/usuario-casos.component';
 
 
 
@@ -35,6 +36,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     PerfilComponent,
     PagesError404Component,
     ColaboradoresComponent,
+    UsuarioCasosComponent,
   ],
   imports: [
     CommonModule,

@@ -2,6 +2,9 @@ import { Categorias } from './../../services/Classes/Categorias';
 import { Component, OnInit, } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from 'src/app/services/authentication/auth.service';
+import { Usuario } from 'src/app/services/Classes/usuario';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registrar-casos-clinicos',
@@ -24,7 +27,7 @@ export class RegistrarCasosClinicosComponent implements OnInit {
 
   select: Array<File> = null;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) { }
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private service: AuthService,private router: Router) { }
 
   // esta metodo abixo e só para testa ainda vai ser configurado corretamente
   classes: boolean[] = Array(
@@ -41,7 +44,14 @@ export class RegistrarCasosClinicosComponent implements OnInit {
     this.classes[clicado] = true;
   }
 
+  userData: Usuario = new Usuario();
+
   ngOnInit() {
+    if(localStorage.getItem("token")){
+      this.service.acessotoken(localStorage.getItem("token"));
+     }
+     AuthService.get('enviaUser').subscribe(data => this.PopulaForms(data));
+     
 
     this.formulario = this.formBuilder.group({
 
@@ -51,13 +61,14 @@ export class RegistrarCasosClinicosComponent implements OnInit {
       DS_DIAGNOSTICO: [null, Validators.required],
       CO_CATEGORIA: [null, Validators.required],
       DS_ACHADOS_DAS_IMAGENS: [null, Validators.required],
-      CO_USUARIO: [1],
+      CO_USUARIO:[null, Validators.required],
       CO_STATUS: [1],
 
       // UPLOADCARE_PUB_KEY: ['demopublickey'],
-
+      
 
     });
+    
   }
   onSubmit() {
     if (this.formulario.valid && this.ArrayImagens.length >0) {
@@ -79,10 +90,10 @@ export class RegistrarCasosClinicosComponent implements OnInit {
       }
       this.http.post('http://localhost:8000/api/casoclinico', formData)
         .subscribe(
-          res => console.log(res),
-          err => console.log(err)
+          res => this.SucessoAlerta(),
+          err => this.Erro(),
+        
         );
-      alert("Enviado com sucesso!")
     } else {
       alert("Formulario invalido")
       this.verificarValidacoeFrom(this.formulario);
@@ -195,4 +206,18 @@ export class RegistrarCasosClinicosComponent implements OnInit {
     this.urls[x] = AX;
 
   }
+  PopulaForms(User: Usuario) {
+  this.formulario.patchValue({
+
+    CO_USUARIO: User.CO_SEQ_USUARIO,  
+});
+}
+SucessoAlerta() {
+  alert(' Enviado com Sucesso');
+  this.router.navigate(['home']);
+}
+Erro() {
+  alert('Formualrio com erro ou Formulario Invalido!')
+  this.verificarValidacoeFrom(this.formulario);
+}
 }

@@ -187,6 +187,9 @@
                                                 class="invalid-feedback">
                                                 Campo é obrigatório.
                                         </span>
+                                        <div [class.active]="classes[3]">
+                                        <img style="width:30px;" *ngFor=" let IMG of ArrayImagens"  src="{{hostApi}}{{IMG}}">
+                                        </div>
                                         <button id="proximo" type="button" class="btn btn-outline-primary" (click)="toggle(classes, 4)">proxima</button>
                                 </div>
                         </div>
@@ -273,8 +276,8 @@
                                                                         <p> {{ formulario.value.CO_CATEGORIA}}</p>
                                                                 </div>
                                                                 <div [class.active]="classes[4]">
-                                                                                <h5>Sub Categoria da Doença:</h5>
-                                                                                <p> {{ formulario.value.CO_SUBCATEGORIA}}</p>
+                                                                        <h5>Sub Categoria da Doença:</h5>
+                                                                        <p> {{ formulario.value.CO_SUBCATEGORIA}}</p>
                                                                 </div>
                                                                 <div [class.active]="classes[4]">
                                                                         <h5> Descrição dos Achados:</h5>
@@ -306,8 +309,8 @@
                                               </div>
                                         <button (click)="Desagendar()" type="button" *ngIf="tabela[2]" class="btn btn-outline-success" >Desagendar</button>
                                        <div class="Acoes" [class.active]="classes[4]" *ngIf="!tabela[2]">
-                                        <button type="button" *ngIf="!tabela[1]" class="btn btn-outline-danger"> Deletar </button>
-                                        <button type="button" *ngIf="!tabela[1]" class="btn btn-outline-warning"> Reenviar</button>
+                                        <button type="button" *ngIf="!tabela[1]" (click)="DeletarCaso(formulario.value.CO_SEQ_CASO_CLINICO)" class="btn btn-outline-danger"> Deletar </button>
+                                         <span *ngIf="this.NU_REJEICOES !=2" > <button type="button" *ngIf="!tabela[1]" (click)="verColaborador(content,formulario.value.CO_SEQ_CASO_CLINICO)" class="btn btn-outline-warning"> Reenviar</button></span>
                                         <button type="submit" *ngIf="!tabela[1]" class="btn btn-outline-success" >Homologar</button>
                                          <button (click)="Agendar()" type="button" *ngIf="!tabela[0]" class="btn btn-outline-success agendar" >Agendar</button>
                                          <button (click)="Disponibilizar()"  type="button" *ngIf="!tabela[0]" class="btn btn-outline-success" >Disponibilizar</button>
@@ -347,3 +350,34 @@
         </div>
 
 </section>
+      <!--modal-->
+
+        <ng-template #content let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title">Observações do caso</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div  class="modal-body">
+                
+                   <form [formGroup]="formularioRenvio"  (ngSubmit)="Reenviar()" enctype="multipart/form-data">
+                     <div class="form-container" >
+                                        <label for="DS_CORRECOES" class="control-label">Discussão:</label>
+                                        <textarea type="text" class="form-control" formControlName="DS_CORRECOES"
+                                                 [ngClass]="aplicaCssErroReenvio('DS_CORRECOES')"
+                                                style="max-height: 30vh " rows="20" cols="4"></textarea>
+                                        <span *ngIf="verificarValidTouchedReenvio('DS_CORRECOES')" class="invalid-feedback">
+                                                Campo é obrigatório.
+                                        </span>
+                         </div>
+                            <button style="margin-top: 1em;" type="submit" class="btn btn-outline-success">Reenviar Caso</button>
+          
+                </form>
+                 
+            
+            </div>
+            <div class="modal-footer">
+              <button  id="close" type="button" class="btn btn-light" (click)="modal.close('Close click')" >voltar</button>
+            </div>
+          </ng-template>
