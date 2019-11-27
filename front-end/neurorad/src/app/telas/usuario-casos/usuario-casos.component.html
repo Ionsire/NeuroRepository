@@ -2,9 +2,10 @@
 <article>
                 <div class="container" style="width:60%" >
                       <div style="display: flex; justify-content: space-around;">
+                       <button  type="button" class="btn btn-outline-primary" (click)="Aprovados()" >Aprovados</button>
                          <button type="button" class="btn btn-outline-primary" (click)="Casosenviados()" >Casos enviados</button>
                          <button type="button" class="btn btn-outline-primary" (click)="Retornados()" >Retornados</button>
-                         <button  type="button" class="btn btn-outline-primary" (click)="Aprovados()" >Aprovados</button>
+                        
                     
                       </div>
                     
@@ -23,13 +24,17 @@
                                             </tr>
                                     </thead>
                                     <tbody>
-                                            <tr *ngFor="let caso of casosclinicos"> 
+                                            <tr *ngFor="let caso of casoClinicosAxiliar "> 
                                                     <th scope="row"></th>
                                                     <td>{{caso.CO_SEQ_CASO_CLINICO}}</td>
                                                     <td>jdkbfkjbsdg</td>
                                                     <td >jfhbdsfjhsd</td>
-                                                    <td><button (click)="verColaborador(content,colaborador)" type="button" class="btn btn-outline-primary"
+                                                    <td  *ngIf="active != 2" ><button (click)="ViewCase(content,1)" type="button" class="btn btn-outline-primary"
                                                                    >Ver mais</button>
+                                    
+                                                    </td>
+                                                     <td  *ngIf="active == 2" ><button (click)="ViewCase(content,1)" type="button" class="btn btn-outline-primary"
+                                                                   >Reenviar</button>
                                     
                                                     </td>
                                             </tr>
@@ -44,24 +49,12 @@
 
          <ng-template #content let-modal>
             <div class="modal-header">
-              <h4 class="modal-title">Colaborador</h4>
+              <h4 class="modal-title">caso</h4>
               <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div *ngIf="VerColaborador" class="modal-body">
-                    <img  class=" rounded-circle"  style="width: 100px;height: 100px;  float: right;  " [src]="VerColaborador.IM_FOTO">
-
-                <p>Nome:  {{ VerColaborador.DS_NOME }}</p>
-                <p>Email:  {{ VerColaborador.DS_EMAIL }}</p>
-                <p>CPF:  {{ VerColaborador.NU_CPF }}</p>
-                <p>data de Nascimento:  {{ VerColaborador.DT_NASCIMENTO }}</p>
-                <p>Papel no sistema:  {{atributos.Papeis[VerColaborador.CO_PAPEL]}}</p>
-                <p>Especialidade:  {{atributos.Especialidades[VerColaborador.CO_ESPECIALIDADE]}}</p>
-                <p>Perfil:  {{atributos.Perfis[VerColaborador.CO_PERFIL]}}</p>
-                 
-            
-            </div>
+           
             <div class="modal-footer">
               <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
             </div>

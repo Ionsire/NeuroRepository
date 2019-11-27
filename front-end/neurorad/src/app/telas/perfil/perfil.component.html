@@ -11,11 +11,15 @@
            <h6> CPF:</h6>
            <span>{{userData.NU_CPF}}</span>
            <h6>Perfil:</h6>
-           <span>{{userData.CO_PERFIL}}</span>
+           <span>{{atributos.Perfis[userData.CO_PERFIL]}}</span>
            <h6>Papel no Sistema:</h6>
            <span>{{atributos.Papeis[userData.CO_PAPEL]}}</span>
-             
+             <div *ngIf="userData.CO_PAPEL == 6">
            <p>Deseja entrar como colaborador click <a routerLink="formulario">Aqui</a></p>
+           </div>
+           <div *ngIf="userData.CO_PAPEL != 6">
+           <p>Deseja alterar seu papel no sistema click <a routerLink="formulario">Aqui</a></p>
+           </div>
         </div>
       </div>
     

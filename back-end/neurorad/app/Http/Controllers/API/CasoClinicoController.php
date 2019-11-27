@@ -91,7 +91,7 @@ class CasoClinicoController extends Controller
         // Erro semantico, os casos clinicos com status 5 significam que estão disponiveis na base geral(Arquivados)
                             // ->whereNotIn('CO_STATUS', [1,5,6]);
 
-        $casoclinico = $casoclinico->whereNotIn('CO_STATUS', [1,2,3,4,6]); // atualizado
+        $casoclinico = $casoclinico->whereNotIn('CO_STATUS', [1,2,3,4,6,7]); // atualizado
 
         $resultados = array();       
         
@@ -389,12 +389,14 @@ class CasoClinicoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id) // Funcionando
+    public function verCaso($id) // Funcionando
     {
         
         $casoclinico = CasoClinico::query();
 
-        $casoclinico = $casoclinico->where('CO_STATUS', 5)->get(); // Casos da base publica
+        $casoclinico = $casoclinico->where('CO_STATUS', 4)->orWhere('CO_STATUS', 5)->get(); // Casos da base publica
+
+        //dd($casoclinico);
 
         // buscando apenas o caso especifico
         $casoclinico = $casoclinico->find($id);
@@ -405,7 +407,7 @@ class CasoClinicoController extends Controller
         //dd($casoclinico);
 
         // fazendo a consulta na tabela img
-        if($casoclinico['CO_STATUS'] == 5)
+        if($casoclinico['CO_STATUS'] == 4 || $casoclinico['CO_STATUS'] == 5)
         {
             $imgcaso = Imagem::query();
 
@@ -563,6 +565,10 @@ class CasoClinicoController extends Controller
         
             
 
+    }
+    public function aaaateste($id)
+    {
+        return response()->json('teste');
     }
     
 }

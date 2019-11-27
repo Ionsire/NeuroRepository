@@ -69,6 +69,9 @@ Route::get('/teste/{id}', 'API\CasoClinicoController@test');
 
 Route::get('/deletar', 'API\CasoClinicoController@deletarImagem');
 
+
+Route::get('/vercaso/{id}', 'API\CasoClinicoController@verCaso');
+
 //Route::get('/testauth/{code?}', 'API\SabiaController@teste');
 
 

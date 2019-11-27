@@ -2,7 +2,7 @@ export class AtributosUser{
 
     Perfis: string[]=[
         '',
-        'Medico',
+        'Médico',
         'Estudante',
         'Demais profissionais'
      ]
