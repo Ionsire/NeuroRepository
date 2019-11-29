@@ -3,23 +3,31 @@
   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
       <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-      <li *ngFor="let caso of SecundaryCase;let I = index" data-target="#carouselExampleIndicators" data-slide-to="I"></li>
+          <li *ngFor="let caso of SecundaryCase;let I = index" data-target="#carouselExampleIndicators" data-slide-to="I"></li>
     </ol>
     <div class="carousel-inner">
-      <h1 *ngIf="!condicoes" >Publicação da Semana </h1>
-      <h1 *ngIf="condicoes" >Publicações da Semana </h1>
+      <h2 *ngIf="!condicoes" >Publicação da Semana </h2>
+                  <hr *ngIf="!condicoes" >
+      <h2 *ngIf="condicoes" >Publicações da Semana </h2>
+      <hr *ngIf="condicoes" >
       <div  *ngIf="PrimaryCase"  class="carousel-item active">
         <article class="CaseSemana" >
           <div id="caso">
             <div class="img">
-              <a href=""><img src="{{hostApi}}{{PrimaryCase.CO_IMAGEM_CAPA}}" alt="diagnóstico"></a>
-              <h5>Descrição das imagens:</h5>
-              <p>{{PrimaryCase.DS_ACHADOS_DAS_IMAGENS}}</p>
+             <a href=""><img src="{{hostApi}}{{PrimaryCase.CO_IMAGEM_CAPA}}" alt="diagnóstico"></a>
+
             </div>
+            <span class="div" ></span>
             <div class="descricao">
-              <h3> Caso: #{{PrimaryCase.CO_SEQ_CASO_CLINICO}}</h3>
-              <p>{{PrimaryCase.DS_HISTORIA_CLINICA}}</p>
-              <button type="button" class="btn btn-outline-primary" (click)="VisualizarCaso(PrimaryCase.CO_SEQ_CASO_CLINICO)">Ver Caso</button>
+                <div class="idcaso"> <h5> Caso #0{{PrimaryCase.CO_SEQ_CASO_CLINICO}}</h5></div>
+                <div id="historia_clinica">
+                  <h5>História Clínica</h5>
+                  <p>{{PrimaryCase.DS_HISTORIA_CLINICA}}
+                    </p>
+
+                </div>
+            <a class="colaborador" >contributed by Dr Manoel</a>
+              <button type="button"  (click)="VisualizarCaso(PrimaryCase.CO_SEQ_CASO_CLINICO)">Ver Caso</button>
             </div>
           </div>
         </article>
@@ -29,13 +37,16 @@
           <article class="CaseSemana" >
               <div id="caso">
                 <div class="img">
-                  <a href=""><img src="{{hostApi}}{{caso.CO_IMAGEM_CAPA}}{{ext}}" alt="diagnóstico"></a>
-                  <h5>Descrição das imagens:</h5>
-                  <p >{{caso.DS_ACHADOS_DAS_IMAGENS}}</p>
+                <a href=""><img src="{{hostApi}}{{caso.CO_IMAGEM_CAPA}}{{ext}}" alt="diagnóstico"></a>
                 </div>
+                <span class="div" ></span>
                 <div class="descricao">
-                  <h3> Caso: #{{caso.CO_SEQ_CASO_CLINICO}}</h3>
-                  <p>{{caso.DS_HISTORIA_CLINICA}}</p>
+                    <div class="idcaso">  <h5> Caso: #{{caso.CO_SEQ_CASO_CLINICO}}</h5></div>
+                    <div id="historia_clinica">
+                        <h5>História Clínica</h5>
+                        <p>{{caso.DS_HISTORIA_CLINICA}}</p>
+                     </div>
+                     <a class="colaborador" >contributed by Dr Manoel</a>
                   <button type="button" class="btn btn-outline-primary" (click)="VisualizarCaso(caso.CO_SEQ_CASO_CLINICO)">Ver Caso</button>
 
                 </div>
@@ -43,15 +54,19 @@
             </article>
       </div>
     </div>
-    <a style=" width: 30px; height: 30px; margin-top: 27%" class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" >
-      <span  class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <a  class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" >
+     <!--<span  class="carousel-control-prev-icon seta" aria-hidden="true"></span>-->
+     <img src="../../../../assets/images/homeprev.png"  aria-hidden="true" >
+  
       <span class="sr-only">Previous</span>
     </a>
-    <a style=" width: 30px; height: 30px; margin-top: 27%" class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-      <span style=" width: 30px; height: 30px;"  class="carousel-control-next-icon" aria-hidden="true"></span>
+    <a  class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+   <!--<   <span   class="carousel-control-next-icon seta" aria-hidden="true"></span>-->
+   <img src="../../../../assets/images/homenext.png" ria-hidden="true">
       <span class="sr-only">Next</span>
     </a>
   </div>
     
   
 </section>
+

@@ -20,6 +20,7 @@ import { PagesError404Component } from './pages-error404/pages-error404.componen
 import { ColaboradoresComponent } from './colaboradores/colaboradores.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { UsuarioCasosComponent } from './usuario-casos/usuario-casos.component';
+import { FooterNeuroComponent } from './footer-neuro/footer-neuro.component';
 
 
 
@@ -37,6 +38,7 @@ import { UsuarioCasosComponent } from './usuario-casos/usuario-casos.component';
     PagesError404Component,
     ColaboradoresComponent,
     UsuarioCasosComponent,
+    FooterNeuroComponent,
   ],
   imports: [
     CommonModule,
@@ -56,7 +58,8 @@ import { UsuarioCasosComponent } from './usuario-casos/usuario-casos.component';
     RegistrarCasosClinicosComponent,
     CasosClinicosComponent,
     ViewCaseComponent,
-    HomologacaoComponent
+    HomologacaoComponent,
+    FooterNeuroComponent
   ]
 })
 export class TelasModule { }

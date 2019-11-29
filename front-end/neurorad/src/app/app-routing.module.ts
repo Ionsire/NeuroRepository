@@ -19,7 +19,7 @@ import { UsuarioCasosComponent } from './telas/usuario-casos/usuario-casos.compo
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: PaginaInicialComponent},
-  { path: 'home/?:id', component: PaginaInicialComponent},
+  //{ path: 'home/?:id', component: PaginaInicialComponent},
   { path: 'perfil', component: PerfilComponent},
   { path: 'registrar', component: RegistrarCasosClinicosComponent},
   { path: 'casos', component: CasosClinicosComponent},

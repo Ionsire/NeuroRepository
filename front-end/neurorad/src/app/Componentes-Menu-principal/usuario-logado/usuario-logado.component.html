@@ -1,10 +1,11 @@
 <div id="container">
         <div id="sino">
           <div class="notificacao" *ngIf="this.Service.PreceptorAdministrador()"><span>{{UsuariosPendentes+CasosPendentes }}</span></div>
-         <img  src="../../../../assets/images/bell.png" alt="">
+         <img  src="../../../../assets/images/sino-icone.png" alt="">
           <div *ngIf="this.Service.PreceptorAdministrador()" id="arrow-up" [class]="sino" ></div>
           <ul *ngIf="this.Service.PreceptorAdministrador()" >
             <li ><a routerLink="usuariopendecias">Usuarios : {{UsuariosPendentes}}</a></li>
+            
             <li ><a routerLink="Homologacao">Casos : {{CasosPendentes}}</a></li>
           </ul>
         </div>
@@ -13,19 +14,29 @@
         <div class="avatar" >
             <img  [src]="usuario.IM_FOTO" alt="avatar">
           <div id="arrow-up" ></div>
-           <div id="perfilAvatar">
-              <a  routerLink="perfil" routerLinActive="active">perfil</a>
-               <hr>
-               <div *ngIf="this.Service.PreceptorAdministrador()">
-               <a  routerLink="Homologacao" routerLinActive="active">Homologação pendentes:{{CasosPendentes}}</a>
-               <hr>
-               <a routerLink="usuariopendecias" routerLinActive="active">Usuarios pendentes: {{UsuariosPendentes}}</a>
-               <hr>
-               <a routerLink="/colaboradores" routerLinActive="active">Colaboradores</a>
-               <hr> 
-               </div>        
-              <a  (click)="Logout()">Sair</a>
-         </div>    
+           <ul id="perfilAvatar">
+                <li>
+                <a  routerLink="perfil" routerLinActive="active">perfil</a>
+                </li>
+              <hr>
+              <div *ngIf="this.Service.PreceptorAdministrador()">
+                  <li>
+                      <a  routerLink="Homologacao" routerLinActive="active">Homologação:{{CasosPendentes}}</a>
+                  </li>
+                <hr>
+                  <li>
+                     <a routerLink="usuariopendecias" routerLinActive="active">Solicitação Usuario: {{UsuariosPendentes}}</a>
+                  </li>
+                <hr>
+                  <li>
+                    <a routerLink="/colaboradores" routerLinActive="active">Colaboradores</a>
+                  </li>
+                <hr>
+              </div>
+              <li>       
+                  <a  (click)="Logout()">Sair</a>
+              </li>
+         </ul>    
        </div>
       
            

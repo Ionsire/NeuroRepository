@@ -15,6 +15,7 @@ import { ViewSubCategorias } from 'src/app/services/Classes/viewsubcategoria';
 export class ViewCaseComponent implements OnInit {
 
   CasoClinico: any = '';
+  autorCaso: any = 'Anônimo';
   MaxImg: number;
   cont : number = 0;
   Img: string[];
@@ -37,7 +38,21 @@ export class ViewCaseComponent implements OnInit {
                switchMap( id => this._http.loadByID(id))
              )
              .subscribe(response => this.get(response));
-             }
+      }
+
+      classes: boolean[] = Array(
+        true,
+        false,
+        false,
+        false,
+        false
+      );
+      toggle(arr_classes: boolean[], clicado) {
+        for (var i = 0; i < arr_classes.length; i++) {
+          this.classes[i] = false;
+        }
+        this.classes[clicado] = true;
+      }
 
 
 
@@ -45,6 +60,12 @@ export class ViewCaseComponent implements OnInit {
 
              
   get(caso){
+   
+
+   this._http.autorCaso(caso.CO_USUARIO).subscribe(resp => this.autorCaso = resp)
+
+
+
     this.CasoClinico = caso;
     this.auxilixacategorias = this.atributos.Chaves[caso.CO_CATEGORIA]
     this.CasoClinico.CO_CATEGORIA = this.atributos.Categorias[caso.CO_CATEGORIA]
@@ -62,5 +83,6 @@ export class ViewCaseComponent implements OnInit {
   Voltar() {
     this.location.back();
   }
+
 
 }

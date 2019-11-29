@@ -76,6 +76,18 @@ export class BntDoMenuComponent implements OnInit {
     busca: null
    });
  }
+ classes: boolean[] = Array(
+  true,
+  false,
+  false,
+  false
+);
+toggle(arr_classes: boolean[], clicado) {
+  for (var i = 0; i < arr_classes.length; i++) {
+    this.classes[i] = false;
+  }
+  this.classes[clicado] = true;
+}
 
 
 

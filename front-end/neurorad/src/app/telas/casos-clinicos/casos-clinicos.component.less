@@ -1,27 +1,56 @@
+@back-fundo:#393939;
+@text:#707070;
+@text-selct : #01E065;
+@option : #004560;
 section#casos{
-    min-height:93vh;
+    font-family: 'Lato', sans-serif !important ;
+    color: @text;
+    /// 90vh
+    min-height: 85vh;
     height: 100%;
     width: 100%;
-    background-image: url('https://estilo.online/wp-content/uploads/2018/08/naom_5b7213ce5ab2d.jpg');
-    background-attachment: fixed;
-    background-position: 50% 0%;
+    background-color: @back-fundo ;
+  padding: 1em;
+    //background-image: url('https://estilo.online/wp-content/uploads/2018/08/naom_5b7213ce5ab2d.jpg');
+    //background-attachment: fixed;
+   // background-position: 50% 0%;
     article{
         div.flex{
-            width: 100%;
+            width: 95%;
             height: 100%;
+            min-height: 85vh;
             display: flex;
+            margin: auto;
+            padding-bottom: 1px;
+            background-color: #ffffff;
+            border-radius: .5em;
+           
             div.card-container{
                 width: 100%;
+                padding-top: 2em;
+
+                span.resultado{
+                    margin: 0;
+                    font-family: 'Lato', sans-serif  ;
+                    color: @text;
+                    font-size: 15px;
+                    margin-left: 5em;
+                    
+                  
+                }
                 #cards{
                     width: 100%;
                     display: flex;
                     flex-wrap: wrap;
                     justify-content: space-around;
+                    margin-top: 1em;
+                    
                     div.card-principal{
-                        width: 20%;
+                        width: 210px;
+                        height: 260px;
                         background-color: #ffffff;
                         margin: 1em ;
-                        border: 0.5em solid #ffffff;
+                        border: 0.2em solid @text;
                         box-shadow: .1em .2em .2em #000000;
                         div{
                             text-align: center;
@@ -41,9 +70,40 @@ section#casos{
                 }
             }
            
-            #filtros{
+            div#filtros{
+                /// filtros
                 width: 30%;
-                background-color: aliceblue;
+               // background-color: #1992BF;
+                border-radius: .5em;
+                padding-right: 50px;
+                div.filter{
+                    color:@text;
+                    margin-top: 4.2em;
+                    display: flex;
+                    img{
+                        margin-right: .5em;
+                        width: 30px;
+                        height: 30px;
+                    }
+                  
+                }
+                hr{
+                    width: 100%;
+                   
+                    background-color:@text ;
+                    margin: 0;
+                    margin-top: 5px;
+                }
+                select{
+
+                    color: @text-selct;
+                    option {
+                        color: @option;
+                      
+                    }
+
+                }
+              
                 
              
             }

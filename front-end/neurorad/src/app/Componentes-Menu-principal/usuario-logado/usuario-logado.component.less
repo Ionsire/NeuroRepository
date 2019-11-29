@@ -1,22 +1,30 @@
+@text-nav2 : #004560;
+@text-nav : #01E065;
 div#container{
+    font-family: 'Lato', sans-serif ;
     margin-left: .9em;
-    margin-right: .5em;
+    //margin-right: .5em;
     display: flex;
     align-items: center;
     width: 250px;
-    height: 50px;
+    height: 40px;
     justify-content: space-between;
     p{
         padding: 0;
         margin: 0 0 0 0.6em;
-        color: #fff;
+        color: @text-nav2;
     }
     div#sino{
         display: flex;
-        height: 55px;
+        height: 50px;
+        width: 50px;
         align-items: center;
         justify-content: center;
         z-index: 1;
+        &:hover{
+            cursor: pointer;
+
+        }
         &:hover ul{
             display: inline ;
         }
@@ -27,37 +35,62 @@ div#container{
             width: 25px;
         }
         ul{
+            // sino
             width: 200px;
             display:none;
-            padding: 0;
+            padding: 0.5em 0px;
             text-align: center;
-            right: 6em;
+            right: 8em;
             position:absolute;
             text-align: center;
             background: #ffffff;
             border-radius: .3em;
-            border:1px solid #ffffff; 
+            border:1px solid @text-nav2; 
+            box-shadow: 0 .3em .3em #000;
             top: 4.1em;
            
                 li{
+                    width: 70%;
+                    margin: auto;
                     list-style: none;
+                    padding-bottom: 8px;
+                  
+                    border-bottom: 1px solid @text-nav2;
+                    
+                    &:last-child{
+                        padding-top: 4px;
+                        border: none;
+                    }
                    a{
                        padding:0 ;
                        text-decoration: none;
-                       color: #000;
+                       color: @text-nav2;
+                       &:hover{
+                           cursor: pointer;
+                           color: @text-nav;
+                       }
                    
                    }
                }
+               hr{
+                   margin: 3px auto ;
+                 
+                   width: 50%;
+                   background-color: @text-nav2;
+                   
+               }
         }
         #arrow-up{
+            //sino seta 
             display: none;
             width: 0;
             height: 0;
             position: absolute;
             border-left: 20px solid transparent;
             border-right: 20px solid transparent;
-            border-bottom: 20px solid #ffffff;
-            right: 15.1em ;
+            border-bottom: 20px solid @text-nav2;
+           
+            right: 15.9em ;
             top: 3.5em;
         }
         div.notificacao{
@@ -65,8 +98,8 @@ div#container{
             align-items: center;
             justify-content: center;
             z-index: 1;
-            top: .8em;
-            right: 15.1em;
+            top: .9em;
+            right: 15.7em;
             position: absolute;
             background-color: rgb(189, 35, 35);
             color: rgb(255, 255, 255);
@@ -77,15 +110,16 @@ div#container{
  }
     div.avatar{
         display: flex;
-        height: 60px;
-        width: 60px;
+        height: 80px;
+        width: 65px;
         align-items: center;
         justify-content: center;
         z-index: 1;
+        
 
         img{
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             &:hover{
                 cursor: pointer;
@@ -97,7 +131,7 @@ div#container{
         &:hover  #arrow-up {
             display: inline ;
         }
-    
+    // modal perfil
     #arrow-up{
         display: none;
         width: 0;
@@ -105,31 +139,34 @@ div#container{
         position: absolute;
         border-left: 20px solid transparent;
         border-right: 20px solid transparent;
-        border-bottom: 20px solid #757373;
-        right: 2.2em ;
-        top: 3.7em;
+        border-bottom: 20px solid @text-nav2;
+        right: 3.8em ;
+        top: 4em;
     } 
-    div#perfilAvatar{
+    ul#perfilAvatar{
+        color: @text-nav2;
         display: none;
         position: absolute;
         width: 180px;
+        border:1px solid @text-nav2; 
         border-radius: .3em;
         box-shadow: 0 .3em .3em #000;
         z-index: 1px;
-        background:#757373;
+        background:#ffffff;
         right: 2em ;
-        top: 4.2em;
+        top: 4.5em;
         padding: .7em;
         text-align: center;
         hr{
-            width: 50%;
-            background: #fff;
+            width: 80px;
+            background: @text-nav2;
         }
             a{
                 text-decoration: none;
-                color: #fff;
+                color: @text-nav2;
                 &:hover{
-                    font-weight: bold;
+                    cursor: pointer;
+                    color: @text-nav;
                 }
     
             }  

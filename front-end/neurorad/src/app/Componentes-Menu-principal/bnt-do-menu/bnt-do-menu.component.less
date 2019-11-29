@@ -1,31 +1,19 @@
-div.dropdown{
-    width: 100%;
-    height: 100%;
-    display: flex;
-} 
-ul.active{
-    display: none;
-}
-ul {
-    display: flex;
-    margin: 0;
-    padding: 0;
-   
-   li{
-       margin: auto;
-       list-style: none;
-      a{
-        margin-left: .7em;  
-       }
-   }
-   
-}
+@text-nav : #01E065;
+@bnt :#1992BF;
+@search:#DBDBDB;
+@borda-rad: 0.3em;
+@text-nav2 : #004560;
+ 
+ 
+ 
 input.search{
-    border-radius:0.3em 0 0 0.3em;
-    padding: 0.2em;
-   background-color: #ffffff;
+    border-radius:@borda-rad 0 0 @borda-rad;
+    padding: .5em ;
+    width: 9vw;
+  //  min-width: 90px;
+   background-color: @search;
    color: rgb(0, 0, 0);
-
+ 
 }
 input.search,button.bnt-search:focus{
     border: 0 none;
@@ -33,13 +21,93 @@ input.search,button.bnt-search:focus{
 }
 button.bnt-search{
     display: flex;
-    height: 30px;
+    height: 40px;
     justify-content: center;
-    border-radius:0 0.3em 0.3em 0;
-    background-color: #ffffff;
+    border-radius:0 @borda-rad @borda-rad 0;
+    background-color: @search;
     border: none;
     padding: 0.2em .4em;
 }
 button.bnt-search:hover{
     cursor: pointer;
 }
+nav{
+    margin: 0px;
+   
+    background-color: #ffffff;
+    width: 100%;
+    padding: 20px 50px;
+    
+    div.nav{
+        display: flex;
+        justify-content: space-between;
+    
+    ul {
+        font-family: 'Lato'  ;
+    
+        display: flex;
+        margin: 0;
+        padding: 0;
+        text-decoration:none;
+        li{
+            margin: auto;
+            list-style: none;
+            &.active{
+                a{
+                color: @text-nav ;
+                }
+            }
+        }
+            
+            a{
+                text-decoration:none;
+                color: @text-nav2;
+                margin-left: .7em;  
+                &:hover{
+                    color: @text-nav ;
+            }
+          
+        }
+        
+        }
+        // logo da navbar
+        img#logo{
+        
+            @var: calc(50% - 155px);
+        margin-left:   @var;
+            position: absolute; 
+            width: 170px; 
+            top: 0px;
+        &:hover{
+            cursor: pointer;
+        }
+        }
+    
+        div.nav-left{
+            display: flex;
+            align-items: center; 
+        
+        
+            button.acoes{
+                color: #ffffff ;
+            height: 40px;
+                padding: 8px 27px;
+                margin-left: 10px;
+                background-color:@bnt ;
+                border: none;
+                border-radius: 3px;
+                a{
+                    color: #ffffff ;
+                    &:hover{
+                        color: @text-nav ;
+                    }
+        
+                }
+            
+            }
+        
+        }
+    }
+}
+
+

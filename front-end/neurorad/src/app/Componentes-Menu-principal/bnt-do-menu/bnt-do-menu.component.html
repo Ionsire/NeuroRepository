@@ -14,31 +14,70 @@
         </ul>
 </div>
 --> 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
-        <a class="navbar-brand" routerLink="">NeuroRad</a>
+  <!--   <nav class="navbar navbar-expand-lg  " >
+        
+          <a [class.active]="classes[0]" (click)="toggle(classes, 0)"  class="nav-link" routerLink="home/">Início</a>
+       
+     
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item ">
-              <a class="nav-link" routerLink="home/" routerLinActive="active">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link"  routerLink="casos" routerLinActive="active">Casos Clinicos</a>
+            <li class="nav-item " [class.active]="classes[1]" (click)="toggle(classes, 1)">
+              <a class="nav-link"  routerLink="casos" routerLinActive="active">Casos Clínicos</a>
             </li >
-             <li class="nav-item" *ngIf="this.auth.RegistrarSwitch()">
-              <a class="nav-link" routerLink="registrar" routerLinActive="active">Registrar</a>
+            <li class="nav-item" *ngIf="this.auth.RegistrarSwitch()"  [class.active]="classes[2]" (click)="toggle(classes, 2)" >
+              <a class="nav-link " routerLink="registrar" routerLinActive="active">Registrar</a>
             </li>
+            <li class="nav-item"  [class.active]="classes[3]" (click)="toggle(classes, 3)">
+              <a class="nav-link "  routerLink="casos" routerLinActive="active">A Plataforma</a>
+           </li >
+            
           </ul>
+          <img id="logo"  src="../../../assets/images/neurorad_logo_1.png" alt="">
           <form class="form-inline" [formGroup]="formularioBusca" (ngSubmit)="onSubmit()" >
             <input formControlName="busca" class="search" type="search" placeholder="Search..." aria-label="Search">
-            <button class="bnt-search "  type="submit"><img src="https://img.icons8.com/android/15/000000/search.png"></button>
+            <button class="bnt-search "  type="submit"><img src="../../../assets/images/icons8-search-19.png"></button>
            </form>
 
           <app-usuario-logado *ngIf="this.auth.AtivarLogado()"></app-usuario-logado>
-
-          <app-sabia-enter *ngIf="!this.auth.AtivarLogado()" ></app-sabia-enter>
+          <button  *ngIf="!this.auth.AtivarLogado()" class="acoes"> <a href=""> Cadastrar </a></button>
+        <button class="acoes" *ngIf="!this.auth.AtivarLogado()"> <app-sabia-enter  ></app-sabia-enter> </button> 
+         
         
         </div>
  </nav>
+ -->
+<nav >
+  <div class="nav">
+    <ul >
+      <li [class.active]="classes[0]" (click)="toggle(classes, 0)">
+        <a  routerLink="home/">Início</a>
+      </li>
+      <li  [class.active]="classes[1]" (click)="toggle(classes, 1)">
+        <a  routerLink="casos" routerLinActive="active">Casos Clínicos</a>
+      </li>
+      <li *ngIf="this.auth.RegistrarSwitch()" [class.active]="classes[2]" (click)="toggle(classes, 2)">
+        <a  routerLink="registrar" routerLinActive="active">Registrar</a>
+      </li>
+      <li  [class.active]="classes[3]" (click)="toggle(classes, 3)">
+        <a  routerLink="casos" routerLinActive="active">A Plataforma</a>
+      </li>
+    </ul>
+    <img id="logo" src="../../../assets/images/neurorad_logo_1.png" alt="">
+    <div class="nav-left">
+        <form class="form-inline" [formGroup]="formularioBusca" (ngSubmit)="onSubmit()">
+          <input formControlName="busca" class="search" type="search" placeholder="Search..." aria-label="Search">
+          <button class="bnt-search " type="submit"><img src="../../../assets/images/icons8-search-19.png"></button>
+        </form>
+ 
+      <app-usuario-logado *ngIf="this.auth.AtivarLogado()"></app-usuario-logado>
+      <button class="acoes" *ngIf="!this.auth.AtivarLogado()"> <a href=""> Cadastrar </a></button>
+      <button class="acoes" *ngIf="!this.auth.AtivarLogado()">
+        <app-sabia-enter ></app-sabia-enter>
+      </button>
+ 
+    </div>
+  </div>
+</nav>

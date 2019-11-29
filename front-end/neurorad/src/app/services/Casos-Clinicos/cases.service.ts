@@ -15,6 +15,9 @@ export class CasesService {
 
   // aqui esta recebendo todos os casos clinicos
   private APINeuro = "http://localhost:8000/api/casoclinico";
+  //private APINeuro = "http://localhost:8000/api/vercaso";
+  private APINeuroViewCase = "http://localhost:8000/api/vercaso";
+
   private APINeuroCasoAdm = "http://localhost:8000/api/auth/casesAdmin";
 
   private APICasoSemana = "http://localhost:8000/api/casos_da_semana_home";
@@ -32,7 +35,8 @@ export class CasesService {
   private APIDisponibilizar = "http://localhost:8000/api/disponibilizar";
   private APIReenvio = "http://localhost:8000/api/reenviar";
   private APIdeletarCaso = "http://localhost:8000/api/deletar";
-  private APImeusCasos = "http://localhost:8000/api/meuscasos";
+  private APImeusCasos = "http://localhost:8000/api/meuscasos";  
+  private APIautorCasos = "http://localhost:8000/api/user_nome"
 
   private Token;
 
@@ -77,7 +81,7 @@ export class CasesService {
      
     return this.http.get<CasoClinico[]>(`${this.APINeuro}`,{ params: params })
     .pipe(
-      delay(1000),
+      delay(350),
     );
   }
 
@@ -120,7 +124,7 @@ export class CasesService {
   }
   loadByID(id) {
 
-    return this.http.get<CasoClinico>(`${this.APINeuro}/${id}`).pipe(take((1)));
+    return this.http.get<CasoClinico>(`${this.APINeuroViewCase}/${id}`).pipe(take((1)));
 
   }
   casoAdm(id) {
@@ -143,7 +147,11 @@ export class CasesService {
   }
   meusCasos(id){
 
-    return this.http.get<CasoClinico[]>(`${this.APImeusCasos}/${id}`);
+    return this.http.get<CasoClinico[]>(`${this.APImeusCasos}/${id}`).pipe(take((1)));;
+  }
+  autorCaso(id){ 
+    return this.http.get(`${this.APIautorCasos}/${id}`);
+
   }
 
 

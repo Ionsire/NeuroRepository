@@ -1,0 +1,38 @@
+@text:  #707070;
+@text-green: #01E065;
+nav#footer{
+    font-family: 'Lato'!important ;
+    height: 57px;
+    width: 100%;
+    background-color: #ffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    div#parceiras{
+        font-size: 20px;
+        margin-left: 25px;
+        a{
+            margin-right: 25px;
+            color:@text;
+            &:last-child{
+                margin-right: 0px;
+            }
+            &:hover{
+                color:@text-green;
+            }
+
+        }
+    }
+    p.informacoes{
+        font-size: 15px;
+        color: @text;
+        padding: 0;
+        margin: 0;
+    }
+    a.colabore{
+        font-size: 15px;
+        color: @text-green;
+        margin-right: 80px;
+    }
+
+}

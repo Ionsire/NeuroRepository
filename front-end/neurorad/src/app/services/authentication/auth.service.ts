@@ -117,7 +117,11 @@ export class AuthService {
     return this.AcessoRegistrar
   }
   PreceptorAdministrador(){
-     return this.GerenciaADM
+    if(this.Usuario.CO_STATUS ==2){
+      return false
+    }else{
+      return this.GerenciaADM
+    }
   }
   
 }
