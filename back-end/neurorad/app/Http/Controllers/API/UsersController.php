@@ -150,4 +150,11 @@ class UsersController extends Controller
         return response()->json($usuarios, 200);
     }
 
+    public function nome_user($id)
+    {
+        $user = User::find($id);
+        $nome = $user->DS_NOME;
+        return response()->json($nome, 200);
+    }
+
 }
