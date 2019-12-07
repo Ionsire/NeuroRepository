@@ -1,7 +1,7 @@
-<section style="padding: 3em;">
+<section >
 <article *ngIf="Colaboradores$ | async as Colaboradores; else loadingError">
                 <div class="container"  >
-                      <div style="display: flex; justify-content: space-around;">
+                      <div id="title" >
                             <h3> Lista de Colaboradores NeuroRad  </h3>
                             <form  [formGroup]="formulario" class="form-inline" >
                                     <input  formControlName="search" class="search" type="search" placeholder="Search..." aria-label="Search">
@@ -12,7 +12,7 @@
                   
                     <div class="tabela">
                             <table class="table">
-                                    <thead>
+                                    <thead class="thead-dark" >
                                             <tr>
                                                     <th scope="col">#</th>
                                                     <th scope="col">Nome</th>
@@ -24,7 +24,8 @@
                                             <tr *ngFor="let colaborador of Colaboradores |filter: formulario.value.search  ; let I = index "  > 
                                                     <th scope="row">{{I+1}}</th>
                                                     <td>{{colaborador.DS_NOME}}</td>
-                                                    <td >{{colaborador.CO_PAPEL}}</td>
+                                                    <td >{{atributos.Papeis[colaborador.CO_PAPEL]}}</td>
+                                                 
                                                     <td><button (click)="verColaborador(content,colaborador)" type="button" class="btn btn-outline-primary"
                                                                    >Ver mais</button>
                                     
@@ -64,16 +65,19 @@
               </button>
             </div>
             <div *ngIf="VerColaborador" class="modal-body">
-                    <img  class=" rounded-circle"  style="width: 100px;height: 100px;  float: right;  " [src]="VerColaborador.IM_FOTO">
-
-                <p>Nome:  {{ VerColaborador.DS_NOME }}</p>
-                <p>Email:  {{ VerColaborador.DS_EMAIL }}</p>
-                <p>CPF:  {{ VerColaborador.NU_CPF }}</p>
-                <p>data de Nascimento:  {{ VerColaborador.DT_NASCIMENTO }}</p>
-                <p>Papel no sistema:  {{atributos.Papeis[VerColaborador.CO_PAPEL]}}</p>
-                <p>Especialidade:  {{atributos.Especialidades[VerColaborador.CO_ESPECIALIDADE]}}</p>
-                <p>Perfil:  {{atributos.Perfis[VerColaborador.CO_PERFIL]}}</p>
-                 
+                <div class="IMG">
+                        <img   [src]="VerColaborador.IM_FOTO">
+                </div>
+                   
+                <div class="dados">
+                        <p> <span>Nome: </span>  {{ VerColaborador.DS_NOME }}  </p>
+                        <p> <span>Email:</span>  {{ VerColaborador.DS_EMAIL }}</p>
+                        <p> <span>CPF</span>:  {{ VerColaborador.NU_CPF }}</p>
+                        <p> <span>data de Nascimento:</span>  {{ VerColaborador.DT_NASCIMENTO }}</p>
+                        <p><span>Perfil:</span>  {{atributos.Perfis[VerColaborador.CO_PERFIL]}}</p>
+                        <p> <span>Especialidade:</span>  {{atributos.Especialidades[VerColaborador.CO_ESPECIALIDADE]}}</p>
+                        <p> <span>Papel no sistema:</span>  {{atributos.Papeis[VerColaborador.CO_PAPEL]}}</p>
+                </div>
             
             </div>
             <div class="modal-footer">

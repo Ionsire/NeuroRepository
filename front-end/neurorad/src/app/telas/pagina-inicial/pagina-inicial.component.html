@@ -1,3 +1,4 @@
+
 <section id="pagInicial">
 
   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -14,30 +15,29 @@
         <article class="CaseSemana" >
           <div id="caso">
             <div class="img">
-             <a href=""><img src="{{hostApi}}{{PrimaryCase.CO_IMAGEM_CAPA}}" alt="diagnóstico"></a>
+             <a (click)="VisualizarCaso(PrimaryCase.CO_SEQ_CASO_CLINICO)"><img src="{{hostApi}}{{PrimaryCase.CO_IMAGEM_CAPA}}" alt="diagnóstico"></a>
 
             </div>
             <span class="div" ></span>
             <div class="descricao">
-                <div class="idcaso"> <h5> Caso #0{{PrimaryCase.CO_SEQ_CASO_CLINICO}}</h5></div>
+                <div class="idcaso"> <h5>Caso #0{{PrimaryCase.CO_SEQ_CASO_CLINICO}}</h5></div>
                 <div id="historia_clinica">
                   <h5>História Clínica</h5>
-                  <p>{{PrimaryCase.DS_HISTORIA_CLINICA}}
-                    </p>
+                  <p>{{PrimaryCase.DS_HISTORIA_CLINICA}}</p>
 
                 </div>
-            <a class="colaborador" >contributed by Dr Manoel</a>
+            <a class="colaborador" >contributed by <span>{{autorprimary}}</span></a>
               <button type="button"  (click)="VisualizarCaso(PrimaryCase.CO_SEQ_CASO_CLINICO)">Ver Caso</button>
             </div>
           </div>
         </article>
       
       </div>
-      <div class="carousel-item" *ngFor="let caso of SecundaryCase">
+      <div class="carousel-item" *ngFor="let caso of SecundaryCase,let index = index">
           <article class="CaseSemana" >
               <div id="caso">
                 <div class="img">
-                <a href=""><img src="{{hostApi}}{{caso.CO_IMAGEM_CAPA}}{{ext}}" alt="diagnóstico"></a>
+                <a (click)="VisualizarCaso(caso.CO_SEQ_CASO_CLINICO)"><img src="{{hostApi}}{{caso.CO_IMAGEM_CAPA}}{{ext}}" alt="diagnóstico"></a>
                 </div>
                 <span class="div" ></span>
                 <div class="descricao">
@@ -46,7 +46,10 @@
                         <h5>História Clínica</h5>
                         <p>{{caso.DS_HISTORIA_CLINICA}}</p>
                      </div>
-                     <a class="colaborador" >contributed by Dr Manoel</a>
+                     <a class="colaborador">contributed by
+                        <span>{{autorsecondary[index]}}</span>
+                       
+                      </a>
                   <button type="button" class="btn btn-outline-primary" (click)="VisualizarCaso(caso.CO_SEQ_CASO_CLINICO)">Ver Caso</button>
 
                 </div>

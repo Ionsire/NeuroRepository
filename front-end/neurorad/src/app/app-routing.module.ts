@@ -19,18 +19,16 @@ import { UsuarioCasosComponent } from './telas/usuario-casos/usuario-casos.compo
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: PaginaInicialComponent},
-  //{ path: 'home/?:id', component: PaginaInicialComponent},
   { path: 'perfil', component: PerfilComponent},
+  { path: 'perfil/formulario', component: UsuarioFormComponent},
+  { path: 'perfil/meuscasos' , component: UsuarioCasosComponent},
   { path: 'registrar', component: RegistrarCasosClinicosComponent},
+  { path: 'Homologacao', component: HomologacaoComponent},
   { path: 'casos', component: CasosClinicosComponent},
   { path: 'casos/:id', component: CasosClinicosComponent},
-  { path: 'Homologacao', component: HomologacaoComponent},
   { path: 'viewcase/:id', component: ViewCaseComponent},
-  { path: 'perfil/formulario', component: UsuarioFormComponent},
   { path: 'usuariopendecias', component: PendenciasUsuariosComponent},
   { path: 'colaboradores' , component: ColaboradoresComponent},
-  { path: 'perfil/meuscasos' , component: UsuarioCasosComponent},
-
   {
     path: '**', component: PagesError404Component
   }

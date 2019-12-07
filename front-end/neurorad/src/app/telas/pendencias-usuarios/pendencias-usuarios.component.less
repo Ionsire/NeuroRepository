@@ -1,10 +1,13 @@
+@text-nav : #01E065;
+@back : #00CC5C;
+@bnt :#1992BF;
+@back-fundo:#393939;
+@color-danger:  #df1717;
 section{
     width: 100%;
-    min-height: 93vh;
+    background-color: @back-fundo;
+    min-height: 85.3vh;
     height: 100%;
-    
-    background-image: url('https://estilo.online/wp-content/uploads/2018/08/naom_5b7213ce5ab2d.jpg');
-    background-position: 50% 0%;
     padding: 1em; 
     display: flex;
     h3{
@@ -28,13 +31,51 @@ section{
         width: 100%;
         height: 100%;
        
+       
         margin-left: 2em;
         article{
-            background-color: rgb(252, 252, 252);
+            padding: 2em;
+            background-color: #fcfcfc;
+            border-radius: .8em;
         }
-        button{
+        button.enviar{
             margin: 1em;
+            color: @bnt ;
+            height: 40px;
+            padding: 8px 27px;
+            margin-left: 10px;
+            background-color:#fff ;
+            border: none;
+            border-radius:3px  ;
+            border: 1px solid  @bnt ;
+                    &:hover{
+                        color: #FFF;
+                        background-color: @bnt ;
+
+                    }
+        
+                
+            
+            }
+            button.danger{
+                margin: 1em;
+                color: @color-danger ;
+                height: 40px;
+                padding: 8px 27px;
+                margin-left: 10px;
+                background-color:#fff ;
+                border: none;
+                border-radius:3px  ;
+                border: 1px solid  @color-danger ;
+                        &:hover{
+                            color: #FFF;
+                            background-color: @color-danger ;
+    
+                        }
+            
+                    
+                
+                }
         }
 
     }
-}

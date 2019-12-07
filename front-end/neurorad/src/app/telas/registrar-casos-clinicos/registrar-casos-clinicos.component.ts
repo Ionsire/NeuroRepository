@@ -1,3 +1,4 @@
+import { ViewCategorias } from './../../services/Classes/viewcategorias';
 import { Categorias } from './../../services/Classes/Categorias';
 import { Component, OnInit, } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -15,16 +16,18 @@ export class RegistrarCasosClinicosComponent implements OnInit {
   formulario: FormGroup;
   ArrayImagens: string[] = [];
   urls = new Array<string>();
-  image: string = "../../../assets/images/imgneuro.jpg";
+  image: string = "";
   ImgsObjct = Array<any>();
   CapaImg: any;
   CapaSalva: number = 0;
   images: any[] =[]
+  img_Capa_OK : boolean = false;
   Categoria$: Categorias = new Categorias();
-
+  ViewCategorias : ViewCategorias = new  ViewCategorias();
+  letra: string = '';
   Letras: string[] = [ 'A' , 'B' , 'C' , 'D' , 'E' , 'F' , 'G' , 'H' , 'I' , 'J' , 'K' , 'L' , 'M' , 'N' , 'O' , 'P' , 'Q' , 'R' , 'S' , 'T' , 'U' , 'V' , 'W' , 'X' , 'Y']
-
-
+  MaxImg: number;
+  cont : number = 0;
   select: Array<File> = null;
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private service: AuthService,private router: Router) { }
@@ -71,33 +74,35 @@ export class RegistrarCasosClinicosComponent implements OnInit {
     
   }
   onSubmit() {
-    if (this.formulario.valid && this.ArrayImagens.length >0) {
-      //enviar para o servidor
-      const formData = new FormData();
-      formData.append('DS_HISTORIA_CLINICA', this.formulario.get('DS_HISTORIA_CLINICA').value);
-      formData.append('DS_DISCUSSAO', this.formulario.get('DS_DISCUSSAO').value);
-      formData.append('DS_REFERENCIAS', this.formulario.get('DS_REFERENCIAS').value);
-      formData.append('DS_DIAGNOSTICO', this.formulario.get('DS_DIAGNOSTICO').value);
-      formData.append('CO_CATEGORIA', this.formulario.get('CO_CATEGORIA').value);
-      formData.append('DS_ACHADOS_DAS_IMAGENS', this.formulario.get('DS_ACHADOS_DAS_IMAGENS').value);
-      formData.append('CO_USUARIO', this.formulario.get('CO_USUARIO').value);
-      formData.append('CO_STATUS', this.formulario.get('CO_STATUS').value);
-      this.imagensCapaTopo();
-      console.log(this.formulario.get('CO_CATEGORIA').value);
-    
-      for (var i = 0; i < this.ArrayImagens.length; i++) {
-      formData.append('images[]', this.ArrayImagens[i]);
-      }
-      this.http.post('http://localhost:8000/api/casoclinico', formData)
-        .subscribe(
-          res => this.SucessoAlerta(),
-          err => this.Erro(),
+  
+        if (this.formulario.valid && this.ArrayImagens.length >0) {
+          //enviar para o servidor
+          const formData = new FormData();
+          formData.append('DS_HISTORIA_CLINICA', this.formulario.get('DS_HISTORIA_CLINICA').value);
+          formData.append('DS_DISCUSSAO', this.formulario.get('DS_DISCUSSAO').value);
+          formData.append('DS_REFERENCIAS', this.formulario.get('DS_REFERENCIAS').value);
+          formData.append('DS_DIAGNOSTICO', this.formulario.get('DS_DIAGNOSTICO').value);
+          formData.append('CO_CATEGORIA', this.formulario.get('CO_CATEGORIA').value);
+          formData.append('DS_ACHADOS_DAS_IMAGENS', this.formulario.get('DS_ACHADOS_DAS_IMAGENS').value);
+          formData.append('CO_USUARIO', this.formulario.get('CO_USUARIO').value);
+          formData.append('CO_STATUS', this.formulario.get('CO_STATUS').value);
+          this.imagensCapaTopo();
+          console.log(this.formulario.get('CO_CATEGORIA').value);
         
-        );
-    } else {
-      alert("Formulario invalido")
-      this.verificarValidacoeFrom(this.formulario);
-    }
+          for (var i = 0; i < this.ArrayImagens.length; i++) {
+          formData.append('images[]', this.ArrayImagens[i]);
+          }
+          this.http.post('http://localhost:8000/api/casoclinico', formData)
+            .subscribe(
+              res => this.SucessoAlerta(),
+              err => this.Erro(),
+            
+            );
+        } else {
+          alert("Formulario invalido, verifique se todos os campos estãos preenchido juntos com as imgens, todos são obrigatorios! ")
+          this.verificarValidacoeFrom(this.formulario);
+        }
+
   }
   // validaçoes de formularios completos para todos os formularios
   verificarValidacoeFrom(formGroup: FormGroup) {
@@ -157,10 +162,12 @@ export class RegistrarCasosClinicosComponent implements OnInit {
       alert('numero maximo de imagens');
     }
   }
-  ModalImg(x,y) {
-    console.log(this.ArrayImagens)
+  ModalImg(x,y, index) {
+    this.letra = index;
     this.image = x;
     this.CapaImg = y;
+    this.cont = y;
+    this.MaxImg = this.urls.length - 1;
   }
   validations(file) {
     var imagemJPG = ".jpg";
@@ -187,6 +194,7 @@ export class RegistrarCasosClinicosComponent implements OnInit {
      this.CapaSalva = capa;
     alert('Capa salvar com sucesso');
     this.Imgcapatopoview(capa)
+    this.img_Capa_OK = true;
    }
    imagensCapaTopo() {
      // trocan a imagens antes de enviar para beck
@@ -217,7 +225,7 @@ SucessoAlerta() {
   this.router.navigate(['home']);
 }
 Erro() {
-  alert('Formualrio com erro ou Formulario Invalido!')
+  alert(' back-end Formualrio com erro ou Formulario Invalido!')
   this.verificarValidacoeFrom(this.formulario);
 }
 }

@@ -21,13 +21,14 @@ export class ViewCaseComponent implements OnInit {
   Img: string[];
   imagem: string;
   auxilixacategorias : any = '';
+  letra: string = '';
   Letras: string[] = [ 'A' , 'B' , 'C' , 'D' , 'E' , 'F' , 'G' , 'H' , 'I' , 'J' , 'K' , 'L' , 'M' , 'N' , 'O' , 'P' , 'Q' , 'R' , 'S' , 'T' , 'U' , 'V' , 'W' , 'X' , 'Y']
 
   atributos: ViewCategorias = new ViewCategorias();
   atributoSUb: ViewSubCategorias =  new ViewSubCategorias();
 
   hostApi: string = "http://localhost:8000/";
-  ext: string = ".png";
+  
 
   constructor( private route: ActivatedRoute,private location: Location, private _http: CasesService, ) { }
 
@@ -73,11 +74,11 @@ export class ViewCaseComponent implements OnInit {
 
     this.Img = caso.images[0];
   }
-  ModalImg(imagems,i) {
+  ModalImg(imagems,i,index) {
     this.cont = i;
     this.imagem = imagems;
     this.MaxImg = this.CasoClinico.images.length - 1;
-    
+    this.letra = index;
    
   }
   Voltar() {

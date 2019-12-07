@@ -1,6 +1,7 @@
+<div id="viewcase">
 <section>
     <div id="principal" >
-        <div class="idcaso"> <h5  >Caso: #{{CasoClinico.CO_SEQ_CASO_CLINICO}}</h5></div>
+        <div class="idcaso"> <h5>Caso: # <span>{{CasoClinico.CO_SEQ_CASO_CLINICO}}999999</span></h5></div>
 
             <div id="titulo">
                 <div id="Historia">
@@ -15,13 +16,7 @@
                     </div>
                     <div  class="Historiatext">
                     <h6> <strong>História Clínica</strong></h6>
-                    <p>{{CasoClinico.DS_HISTORIA_CLINICA}}  Laravel's database query builder provides a convenient, fluent interface to creating and running database queries. It can be used to perform most database operations in your application and works on all supported database systems.
-
-                    The Laravel query builder uses PDO parameter binding to protect your application against SQL injection attacks. There is no need to clean strings being passed as bindings.
-                    Laravel's database query builder provides a convenient, fluent interface to creating and running database queries. It can be used to perform most database operations in your application and works on all supported database systems.
-
-                    The Laravel query builder uses PDO parameter binding to protect your application against SQL injection attacks. There is no need to clean strings being passed as bindings. </p>
-                    </div>
+                    <p>{{CasoClinico.DS_HISTORIA_CLINICA}}    </div>
                 </div>
     </div>
 
@@ -43,23 +38,14 @@
                 <div id="toggleclasses"  enctype="multipart/form-data">
                         <div id="BNT0"  [class.active]="classes[0]">
                                 <div  [class.active]="classes[0]">
-                                    <p> {{CasoClinico.DS_ACHADOS_DAS_IMAGENS}}  Suspendisse nec tincidunt nulla. Aliquam et urna magna.
-                                            Suspendisse et tortor libero. Mauris risus tellus, auctor eu
-                                            placerat at, auctor a lacus. Nunc porta urna vel luctus porta.
-                                            Pellentesque vulputate tortor velit, non sodales sapien dictum at.
-                                            Mauris cursus, neque vel egestas posuere, felis ligula mollis
-                                            leo, id scelerisque neque dui sed elit. Maecenas in purus sed
-                                            massa semper elementum. Nunc id bibendum dolor, imperdiet blandit
-                                            urna. Vestibulum ultrices sem nisl, et tincidunt tortor imperdiet
-                                            eget. Maecenas faucibus nisl nec mi aliquam pellentesque eget et ex.
-                                            In ut turpis eget dui maximus volutpat id a arcu. </p>
+                                    <p> {{CasoClinico.DS_ACHADOS_DAS_IMAGENS}} . </p>
 
                                     <div  [class.active]="classes[0]" id="Cards">
                                                 <div [class.active]="classes[0]" class="imagens">
                                                     <div [class.active]="classes[0]" *ngFor="let url of  CasoClinico.images; let index = index">
-                                                        {{  Letras[index]}}
+                                                       <span>{{Letras[index]}}</span> 
                                                         
-                                                        <img data-toggle="modal" data-target="#exampleModal"  (click)="ModalImg(url, index)"  src="{{hostApi}}{{url}}" alt="">
+                                                        <img data-toggle="modal" data-target="#exampleModal"  (click)="ModalImg(url, index,Letras[index])"  src="{{hostApi}}{{url}}" alt="">
                                                     </div>
                                                 </div>
                                     </div>
@@ -67,18 +53,16 @@
                         </div>
                         <div id="BNT1" [class.active]="classes[1]" >
                                 <div [class.active]="classes[1]">
-                                     <p>{{CasoClinico.DS_DIAGNOSTICO}} descricao dos achados Suspendisse nec tincidunt nulla. Aliquam et urna magna. Suspendisse et tortor libero. Mauris risus tellus, auctor eu placerat at, auctor a lacus. Nunc porta urna vel luctus porta. Pellentesque vulputate tortor velit, non sodales sapien dictum at. Mauris cursus, neque vel egestas posuere, felis ligula mollis leo, id scelerisque neque dui sed elit. Maecenas in purus sed massa semper elementum. Nunc id bibendum dolor, imperdiet blandit urna. Vestibulum ultrices sem nisl, et tincidunt tortor imperdiet eget. Maecenas faucibus nisl nec mi aliquam pellentesque eget et ex. In ut turpis eget dui maximus volutpat id a arcu. </p>
-                                </div>
+                                     <p>{{CasoClinico.DS_DIAGNOSTICO}}  
+                                 </div>
                         </div>
                         <div id="BNT2" [class.active]="classes[2] " >
                                 <div  [class.active]="classes[2]">
-                                        <p>{{CasoClinico.DS_DISCUSSAO}} descricao dos achados Suspendisse nec tincidunt nulla. Aliquam et urna magna. Suspendisse et tortor libero. Mauris risus tellus, auctor eu placerat at, auctor a lacus. Nunc porta urna vel luctus porta. Pellentesque vulputate tortor velit, non sodales sapien dictum at. Mauris cursus, neque vel egestas posuere, felis ligula mollis leo, id scelerisque neque dui sed elit. Maecenas in purus sed massa semper elementum. Nunc id bibendum dolor, imperdiet blandit urna. Vestibulum ultrices sem nisl, et tincidunt tortor imperdiet eget. Maecenas faucibus nisl nec mi aliquam pellentesque eget et ex. In ut turpis eget dui maximus volutpat id a arcu.</p>
-                                </div>
+                                        <p>{{CasoClinico.DS_DISCUSSAO}}                               </div>
                         </div>
                         <div id="BNT3" [class.active]="classes[3] ">
                                 <div  [class.active]="classes[3]">
-                                       <p>{{CasoClinico.DS_REFERENCIAS}} descricao dos achados Suspendisse nec tincidunt nulla. Aliquam et urna magna. Suspendisse et tortor libero. Mauris risus tellus, auctor eu placerat at, auctor a lacus. Nunc porta urna vel luctus porta. Pellentesque vulputate tortor velit, non sodales sapien dictum at. Mauris cursus, neque vel egestas posuere, felis ligula mollis leo, id scelerisque neque dui sed elit. Maecenas in purus sed massa semper elementum. Nunc id bibendum dolor, imperdiet blandit urna. Vestibulum ultrices sem nisl, et tincidunt tortor imperdiet eget. Maecenas faucibus nisl nec mi aliquam pellentesque eget et ex. In ut turpis eget dui maximus volutpat id a arcu.</p>
-                                    
+                                       <p>{{CasoClinico.DS_REFERENCIAS}}                               
                                 </div>
                         </div>
 
@@ -87,13 +71,14 @@
  <button type="button" class="voltar" (click)="Voltar()">Voltar</button>
  
 </section>
+</div>
  <!-- modal-->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div  class="modal-dialog" role="document" >
           <div  class="modal-content" >
                   <div  class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Imagens</h5>
+                          <h5 class="modal-title" id="exampleModalLabel">Imagens: {{letra}}</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                   <span aria-hidden="true">&times;</span>
                           </button>
@@ -104,9 +89,9 @@
                   </div>
                   <div  class="modal-footer">
                   <div>
-                    <img class="modalnav" src="assets/images/prev.png" (click)="ModalImg(CasoClinico.images[cont-1], cont-1)" *ngIf="cont > 0">
-                    {{cont+1}} of {{MaxImg+1}}
-                    <img class="modalnav"  src="assets/images/next.png" (click)="ModalImg(CasoClinico.images[cont+1], cont+1)"  *ngIf="cont < MaxImg" >
+                    <img class="modalnav" src="assets/images/prev.png" (click)="ModalImg(CasoClinico.images[cont-1], cont-1,Letras[cont-1])" *ngIf="cont > 0">
+                   <span> {{cont+1}} of {{MaxImg+1}}</span>
+                    <img class="modalnav"  src="assets/images/next.png" (click)="ModalImg(CasoClinico.images[cont+1], cont+1,Letras[cont+1])"  *ngIf="cont < MaxImg" >
                     </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
                   </div>

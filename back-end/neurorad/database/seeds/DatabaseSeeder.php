@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoriaCasoClinicoSeeder::class);
         $this->call(SubCategoriaCasoClinicoSeeder::class);
         $this->call(StatusCasoClinicoSeeder::class);
+        $this->call(UsuarioSeeder::class);
     }
 }

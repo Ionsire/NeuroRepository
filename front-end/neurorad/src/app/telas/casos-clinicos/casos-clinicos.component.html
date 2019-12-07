@@ -10,10 +10,10 @@
             <div id="cards"  >
                     <div class="card-principal" *ngFor="let caso of Casos | paginate: { itemsPerPage: 15, currentPage: pag }; let i = index">
                              <div>
-                                 <h5  class="card-title">{{caso.CO_CATEGORIA}}</h5>
-                                 <img  *ngIf="true" src="{{hostApi}}{{caso.CO_IMAGEM_CAPA}}" alt="">
-                                 <p> Caso: {{caso.DS_DIAGNOSTICO}}</p>
-                                 <button type="button" class="btn btn-outline-primary" (click)="VisualizarCaso(caso.CO_SEQ_CASO_CLINICO)">Ver Caso</button>
+                                 <img   src="{{hostApi}}{{caso.CO_IMAGEM_CAPA}}" alt="">
+                                 <div class="text-card" >
+                                 <span (click)="VisualizarCaso(caso.CO_SEQ_CASO_CLINICO)" >{{caso.DS_DIAGNOSTICO}}</span>
+                                </div>
                              </div>
                      </div>
                     

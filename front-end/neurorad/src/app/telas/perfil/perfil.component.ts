@@ -16,7 +16,8 @@ export class PerfilComponent implements OnInit {
   casoClinicosEnviados: Array<CasoClinico> = []
   casoClinicosAprovados: Array<CasoClinico> = []
   casoClinicosRetornados: Array<CasoClinico> = []
-  active: number = 1;
+   active: number = 1;
+   asstesAviso : boolean = false;
 
   casoClinicosAxiliar: CasoClinico = null;
 
@@ -41,7 +42,7 @@ export class PerfilComponent implements OnInit {
 
   getuser(usuario:Usuario){
 
-    if(usuario.CO_STATUS ==2) {
+    if(usuario.CO_STATUS == 2) {
       this.userData = usuario;
       this.userData.CO_PAPEL = '6';
     }else{
@@ -54,17 +55,19 @@ export class PerfilComponent implements OnInit {
     }
   }
 getCasos(casos: CasoClinico[]){
+  console.log(casos[0])
 
   this.casosclinicos = casos;
   
 
   for (let index = 0; index < this.casosclinicos.length; index++) {
-    if (this.casosclinicos[index].CO_STATUS == 2) {
+    if (this.casosclinicos[index].CO_STATUS >= 2 && this.casosclinicos[index].CO_STATUS <= 5 ) {
   
       this.casoClinicosAprovados.push(this.casosclinicos[index])
       
     } else if (this.casosclinicos[index].CO_STATUS == 7){
       
+      this.asstesAviso = true;
       this.casoClinicosRetornados.push(this.casosclinicos[index])
       
     }else if(this.casosclinicos[index].CO_STATUS == 1){

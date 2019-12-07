@@ -3,6 +3,7 @@ import { CasoClinico } from 'src/app/services/Classes/caso';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/authentication/auth.service';
+import { typeWithParameters } from '@angular/compiler/src/render3/util';
 
 @Component({
   selector: 'app-pagina-inicial',
@@ -18,7 +19,10 @@ export class PaginaInicialComponent implements OnInit {
   condicoes: boolean = false;
   Index: number[];
   cont : number = 0;
+  cont2 : number = 0;
   code : string;
+  autorprimary: any = 'Anônimo';
+  autorsecondary: any[] = ['Anônimo','Anônimo'];
   private token;
 
   constructor( private service: CasesService, private router: Router,private route: ActivatedRoute, private auth: AuthService) { }
@@ -60,17 +64,30 @@ export class PaginaInicialComponent implements OnInit {
   Get( caso: CasoClinico[] ) {
 
     for ( var i = 0; i < caso.length; i++) {
-
+     
      if (i==0) {
+      this.service.autorCaso(caso[i].CO_USUARIO).subscribe(resp => this.autorprimary = resp)
        this.PrimaryCase = caso[i];
-
+       if( this.PrimaryCase.DS_HISTORIA_CLINICA.length > 235){
+       this.PrimaryCase.DS_HISTORIA_CLINICA = this.PrimaryCase.DS_HISTORIA_CLINICA.slice(0, 240) + '...';
+      }
      } else {
+      this.service.autorCaso(caso[i].CO_USUARIO).subscribe(resp => this.populaAutor(resp))
        this.SecundaryCase[(i-1)] = caso[i];
-       this.condicoes = true;
+       if( this.SecundaryCase[(i-1)].DS_HISTORIA_CLINICA.length > 235){
+       this.SecundaryCase[(i-1)].DS_HISTORIA_CLINICA = this.SecundaryCase[(i-1)].DS_HISTORIA_CLINICA.slice(0, 240) + '...';
+       }
      }
   }
-
-
+}
+populaAutor(autor){
+  if (this.cont2 == 0) {
+    this.cont2 = this.cont2 +1;
+    this.autorsecondary[0] = autor;
+  } else {
+    this.autorsecondary[1] = autor;
+  }
+ 
 }
 VisualizarCaso(id) {
   this.router.navigate(['viewcase', id ])

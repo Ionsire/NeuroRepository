@@ -2,10 +2,10 @@
 @text:#707070;
 @text-selct : #01E065;
 @option : #004560;
+@card-bnt:#00678E;
 section#casos{
     font-family: 'Lato', sans-serif !important ;
     color: @text;
-    /// 90vh
     min-height: 85vh;
     height: 100%;
     width: 100%;
@@ -15,6 +15,7 @@ section#casos{
     //background-attachment: fixed;
    // background-position: 50% 0%;
     article{
+        width: 100%;
         div.flex{
             width: 95%;
             height: 100%;
@@ -28,6 +29,7 @@ section#casos{
             div.card-container{
                 width: 100%;
                 padding-top: 2em;
+             
 
                 span.resultado{
                     margin: 0;
@@ -50,23 +52,80 @@ section#casos{
                         height: 260px;
                         background-color: #ffffff;
                         margin: 1em ;
-                        border: 0.2em solid @text;
-                        box-shadow: .1em .2em .2em #000000;
+                        border-radius: 0 0 .8em .8em;
+                        box-shadow: .1em .2em .2em @text;
                         div{
                             text-align: center;
                             img{
-                                width: 100%;
+                                border: 0.2em solid #ffff;
+                                margin: 0px;
+                                width:210px;
+                                height: 205px;
+                               
+                            }
+                            div.text-card{
+                                margin: 0px;
+                                width: 210px;
+                                height: 55px;
+                                background-color: @card-bnt;
+                                vertical-align: middle;
+                                border-radius: 0 0 .4em .4em;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                &:hover{
+                                   
+                                    background-color: #1992BF;
+                                }
+                                span{
+                                    white-space: nowrap; 
+                                    width: 180px; 
+                                    overflow: hidden;
+                                    text-overflow: ellipsis; 
+                                    cursor: pointer;
+                                    margin: 0px;
+                                    font-size: 15px;
+                                    color: #ffffff;
+                                }
                             }
                         }
                         
                     }
                    
                 }
+                @media screen and(max-width: 1024px){
+                    #cards{
+                        div.card-principal{
+                            width: 170px;
+                            height: 220px;
+                            div{
+                                img{
+                                    width:170px;
+                                    height:180px;
+                                }
+                                div.text-card{
+                                    margin: 0px;
+                                    width: 170px;
+                                    height: 40px;
+                                    span{
+                                        width: 150px; 
+                                    
+                                    }
+                                }
+                            }
+                            
+                        }
+                       
+                    }
+
+                }
                 div.pagination-controls{
                     margin: auto;
+                margin-top: 10%;
                 background-color: #ffffff;
                 width: 300px;
                 border-radius: .8em;
+               
                 }
             }
            
@@ -107,6 +166,14 @@ section#casos{
                 
              
             }
+            @media screen and(max-width: 1024px){
+                div#filtros{
+                    /// filtros
+                    width: 40%;
+                }
+            }
+
+
         }
      
     }

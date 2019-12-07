@@ -6,8 +6,8 @@
           <li> <button [class.active]="classes[0]" (click)="toggle(classes, 0)"  >Meu perfil  </button></li>
         <span *ngIf="userData != null">
           <span *ngIf="userData.CO_PAPEL != 6">
-              <li > <button  [class.active]="classes[1]" (click)="toggle(classes, 1)"  >Casos submetidos <span><img src="../../../assets/images/Icon-alert.png"></span></button> </li>
-              <li> <button  [class.active]="classes[2]"  (click)="toggle(classes, 2)" >Casos retornados <span></span></button> </li>
+              <li > <button  [class.active]="classes[1]" (click)="toggle(classes, 1)"  >Casos submetidos </button> </li>
+              <li> <button  [class.active]="classes[2]"  (click)="toggle(classes, 2)" >Casos retornados <span *ngIf="asstesAviso"><img src="../../../assets/images/Icon-alert.png"></span> <span></span></button> </li>
               <li> <button   [class.active]="classes[3]"  (click)="toggle(classes, 3)" >Casos aprovados</button> </li>
           </span>
 

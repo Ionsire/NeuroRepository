@@ -7,6 +7,8 @@ import { SubCategorias } from 'src/app/services/Classes/subcategorias';
 import {NgbDatepickerConfig, NgbCalendar, NgbDate, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { ViewCategorias } from 'src/app/services/Classes/viewcategorias';
+import { ViewSubCategorias } from 'src/app/services/Classes/viewsubcategoria';
 
 @Component({
   selector: 'app-homologacao',
@@ -17,6 +19,12 @@ import { Router } from '@angular/router';
 
 })
 export class HomologacaoComponent implements OnInit {
+  
+  Letras: string[] = [ 'A' , 'B' , 'C' , 'D' , 'E' , 'F' , 'G' , 'H' , 'I' , 'J' , 'K' , 'L' , 'M' , 'N' , 'O' , 'P' , 'Q' , 'R' , 'S' , 'T' , 'U' , 'V' , 'W' , 'X' , 'Y']
+  letra: string = '';
+  MaxImg: number;
+  cont : number = 0;
+  imagem: string;
 
   CasosPendentes: CasoClinico[];
   CasosHomolagados: CasoClinico[];
@@ -37,15 +45,27 @@ export class HomologacaoComponent implements OnInit {
     false,
     false
   );
+  atributos: ViewCategorias = new ViewCategorias();
+  atributoSUb: ViewSubCategorias =  new ViewSubCategorias();
+  textCategoria : any = '';
+  textSubcategoria: any = '';
+  auxilixacategorias : any = '';
+
+  date : Date = new Date();
+  dia : any = this.date.getDate()
+  month: any = this.date.getMonth() +1;
+  year: any = this.date.getUTCFullYear()
+
+  
 
   constructor(private router: Router,private modalService: NgbModal, private formBuilder: FormBuilder, private _http: CasesService, config: NgbDatepickerConfig, calendar: NgbCalendar  ) {
-                                                                  config.minDate = {year: 1900, month: 1, day: 1};
+                                                                  config.minDate = {year: this.year, month: this.month, day: this.dia};
                                                                   config.maxDate = {year: 2099, month: 12, day: 31};
                                                                   // days that don't belong to current month are not visible
                                                                    config.outsideDays = 'hidden';
 
                                                                    // weekends are disabled
-                                                                  config.markDisabled = (date: NgbDate) => calendar.getWeekday(date) >= 2;
+                                                                  config.markDisabled = (date: NgbDate) => calendar.getWeekday(date) !=2;
                             }
   classes: boolean[] = Array(
     true,
@@ -62,6 +82,9 @@ export class HomologacaoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.auxilixacategorias = null;
+    this.textCategoria = null;
+    this.textSubcategoria =  null;
     this.formulario = this.formBuilder.group({
       CO_SEQ_CASO_CLINICO: [null, Validators.required],
       DS_HISTORIA_CLINICA: [null, Validators.required],
@@ -108,9 +131,13 @@ export class HomologacaoComponent implements OnInit {
   }
 
   PopulaForms(caso: CasoClinico) {
+
+    this.auxilixacategorias = this.atributos.Chaves[caso.CO_CATEGORIA]
+    this.textCategoria = this.atributos.Categorias[caso.CO_CATEGORIA]
+    this.textSubcategoria= this.atributoSUb[this.auxilixacategorias][caso.CO_SUBCATEGORIA]
    
     this.NU_REJEICOES = caso.NU_REJEICOES;
-    console.log(this.NU_REJEICOES)
+  //  console.log(this.NU_REJEICOES)
    this._http.casoAdm(caso.CO_SEQ_CASO_CLINICO).subscribe(Response => this.populaIMG(Response.images));
     this.resep();
     this.formulario.patchValue({
@@ -152,7 +179,7 @@ export class HomologacaoComponent implements OnInit {
       formData.append('CO_SEQ_CASO_CLINICO',this.formulario.get('CO_SEQ_CASO_CLINICO').value);
       formData.append('CO_SUBCATEGORIA',this.formulario.get('CO_SUBCATEGORIA').value);
 
-      this._http.homologar(formData).subscribe (resp => console.log(resp));
+      this._http.homologar(formData).subscribe (resp =>alert('Envidao com sucesso'), error =>alert('erro ao enviar') );
 
       this.ngOnInit ();
     } else {
@@ -191,7 +218,7 @@ export class HomologacaoComponent implements OnInit {
   }
 
   Agendar() {
-    console.log(this.formulario.get('DT_SEMANA').value);
+   // console.log(this.formulario.get('DT_SEMANA').value);
     if (this.formulario.get('DT_SEMANA').value) {
 
       var aux = null;
@@ -199,7 +226,7 @@ export class HomologacaoComponent implements OnInit {
       this.formulario.patchValue({
         DT_SEMANA: aux
       });
-      console.log(this.formulario.get('DT_SEMANA').value);
+    //  console.log(this.formulario.get('DT_SEMANA').value);
       if (this.formulario.get('CO_SEQ_CASO_CLINICO').value) {
 
         console.log(this.formulario.get('DT_SEMANA').value, this.formulario.get('CO_SEQ_CASO_CLINICO').value)
@@ -245,13 +272,14 @@ export class HomologacaoComponent implements OnInit {
       
     }
   }
+  // pegando as imagens dos casos direto do response do servidor
   populaIMG(imagens){
     this.ArrayImagens = imagens;
-    console.log('ArrayImagens',this.ArrayImagens)
+    //console.log('ArrayImagens',this.ArrayImagens)
   }
 
   verColaborador(content,id) {
-    console.log(id)
+    //console.log(id)
     this.modalService.open(content, { centered: true });
     this.formularioRenvio.patchValue({
       CO_SEQ_CASO_CLINICO: id
@@ -259,7 +287,7 @@ export class HomologacaoComponent implements OnInit {
     console.log(this.CasosPendentes);
    }
   Reenviar(){
-    console.log(this.formularioRenvio.value);
+   // console.log(this.formularioRenvio.value);
 
     if (this.formularioRenvio.valid ) {
       const formDataReenvio = new FormData();
@@ -287,6 +315,15 @@ export class HomologacaoComponent implements OnInit {
       err => alert('falha ao deletar'));
     }
     this.ngOnInit();
+  }
+  ModalImg(imagems,i,index) {
+
+    this.MaxImg = this.ArrayImagens.length - 1;
+    this.ArrayImagens
+    this.cont = i;
+    this.imagem = imagems; 
+    this.letra = index;
+   
   }
 
 }

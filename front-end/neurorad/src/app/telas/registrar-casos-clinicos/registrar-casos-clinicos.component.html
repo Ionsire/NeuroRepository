@@ -1,6 +1,7 @@
 <section>
         <div class="header">
-                <h3>Casos Clinicos </h3>
+                <h2>Registrar Caso Clínico</h2>
+                <hr>
         </div>
 
         <nav id="RegisterCases">
@@ -17,13 +18,13 @@
                                 <div class="form-container" [class.active]="classes[0]">
                                         <label for="DS_HISTORIA_CLINICA" class="control-label">Resumo:</label>
                                         <textarea type="text" class="form-control" formControlName="DS_HISTORIA_CLINICA" id="resumo"
-                                                [ngClass]="aplicaCssErro('DS_HISTORIA_CLINICA')" style="max-height: 20vh " rows="4"
+                                                [ngClass]="aplicaCssErro('DS_HISTORIA_CLINICA')" style="max-height: 30vh " rows="8"
                                                 cols="4"></textarea>
                                         <span *ngIf="verificarValidTouched('DS_HISTORIA_CLINICA')" class="invalid-feedback">
                                                 Campo é obrigatório.
                                         </span>
 
-                                        <button type="button" (click)="toggle(classes, 1)">proxima</button>
+                                        <button type="button" (click)="toggle(classes, 3)">proxíma</button>
                                 </div>
                         </div>
                         <div id="BNT1" [class.active]="classes[1]" class="form-group">
@@ -31,7 +32,7 @@
                                         <label for="DS_DISCUSSAO" class="control-label">Discussão:</label>
                                         <textarea type="text" class="form-control" formControlName="DS_DISCUSSAO"
                                                 id="discussao" [ngClass]="aplicaCssErro('DS_DISCUSSAO')"
-                                                style="max-height: 20vh " rows="4" cols="4"></textarea>
+                                                style="max-height: 30vh " rows="7" cols="4"></textarea>
                                         <span *ngIf="verificarValidTouched('DS_DISCUSSAO')" class="invalid-feedback">
                                                 Campo é obrigatório.
                                         </span>
@@ -39,13 +40,13 @@
                                                 class="control-label">Referências:</label>
                                         <textarea type="text" class="form-control" formControlName="DS_REFERENCIAS"
                                                 id="referecias" [ngClass]="aplicaCssErro('DS_REFERENCIAS')"
-                                                style="max-height: 20vh " rows="4" cols="4"></textarea>
+                                                style="max-height: 30vh " rows="7" cols="4"></textarea>
                                         <span *ngIf="verificarValidTouched('DS_REFERENCIAS')" class="invalid-feedback">
                                                 Campo é obrigatório.
                                         </span>
 
 
-                                        <button type="button" (click)="toggle(classes, 2)">proxíma</button>
+                                        <button type="button" (click)="toggle(classes, 4)">proxíma</button>
                                 </div>
                         </div>
                         <div id="BNT2" [class.active]="classes[2] " class="form-group">
@@ -70,27 +71,30 @@
                                                 Campo é obrigatório.
                                         </span>
 
-                                        <button type="button" (click)="toggle(classes, 3)">proxima</button>
+                                        <button type="button" (click)="toggle(classes, 1)">proxíma</button>
                                 </div>
                         </div>
                         <div id="BNT3" [class.active]="classes[3] ">
                                 <div class="form-container" [class.active]="classes[3]">
-                                        <label for="DS_ACHADOS_DAS_IMAGENS" class="control-label">Descrição dos
-                                                Achados:</label>
-                                        <textarea type="text" class="form-control"
-                                                formControlName="DS_ACHADOS_DAS_IMAGENS" id="referecias"
-                                                [ngClass]="aplicaCssErro('DS_ACHADOS_DAS_IMAGENS')"
-                                                style="max-height: 20vh " rows="4" cols="4"></textarea>
-                                        <span *ngIf="verificarValidTouched('DS_ACHADOS_DAS_IMAGENS')"
-                                                class="invalid-feedback">
-                                                Campo é obrigatório.
+                                        <span > <strong> A entrada do texto sera disponibilizada após inserir as imagens é escolher a imagens de capa, pos a ordem se autera</strong></span>
+                                        <span *ngIf="img_Capa_OK">
+                                                <label for="DS_ACHADOS_DAS_IMAGENS" class="control-label">Descrição dos
+                                                        Achados:</label>
+                                                <textarea type="text" class="form-control"
+                                                        formControlName="DS_ACHADOS_DAS_IMAGENS" id="referecias"
+                                                        [ngClass]="aplicaCssErro('DS_ACHADOS_DAS_IMAGENS')"
+                                                        style="max-height: 30vh " rows="8" cols="4"></textarea>
+                                                <span *ngIf="verificarValidTouched('DS_ACHADOS_DAS_IMAGENS')"
+                                                        class="invalid-feedback">
+                                                        Campo é obrigatório.
+                                                </span>
                                         </span>
                                         <div id="cards" [class.active]="classes[3] ">
                                                 <div [class.active]="classes[3]"
                                                         *ngFor="let url of urls;let index = index">
-                                                        <p>{{Letras[index]}}</p>
+                                                        <span class="letras" >{{Letras[index]}}</span>
                                                         <img data-toggle="modal" data-target="#exampleModal"
-                                                                (click)="ModalImg(url,index)" class="card" [src]="url"
+                                                                (click)="ModalImg(url,index,Letras[index])" class="card" [src]="url"
                                                                 alt="Card image cap">
                                                         <img id="bntdelete" (click)="Delete(index)"
                                                                 src="https://img.icons8.com/color/20/000000/close-window.png"
@@ -111,7 +115,7 @@
                                                 
                                         </div>
 
-                                        <button type="button" (click)="toggle(classes, 4)">proxima</button>
+                                        <button type="button" (click)="toggle(classes, 2)">proxíma</button>
                                 </div>
                         </div>
 
@@ -125,39 +129,10 @@
 
                                             
                                                 <div id="resumofotos" [class.active]="classes[4]">
-                                                                <!-- segundo estilo-->
-                                                                <div id="carouselExampleControls" [class.active]="classes[4]" class="carousel slide" data-ride="carousel">
-                                                                        <div [class.active]="classes[4]"  id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                                                                                 <ol class="carousel-indicators">
-                                                                                        <li  data-slide-to="0"></li> 
-                                                                                        <li *ngFor="let url of urls;let index = index" data-slide-to="index+1"></li>      
-                                                                                 </ol>
-                                                                                        <ul   class="carousel-inner">
-                                                                                                <li class="carousel-item active">
-                                                                                                        <img class="d-block w-100"  src="../../../assets/images/doctor-1149149_1920.jpg" alt="First slide">
-                                                                                                </li>
-                                                                                                <li *ngFor="let url of urls" class="carousel-item ">
-                                                                                                        <img class="d-block w-100" [src]="url" alt="imagem">
-                                                                                                </li>
-                                                                                        </ul>
-                                                                                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                                                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                                                        <span class="sr-only">Previous</span>
-                                                                                </a>
-                                                                                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                                                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                                                        <span class="sr-only">Next</span>
-                                                                                </a>
-                                                                        </div>
-                                                                 </div>
-
-
-
-
-                                                         <!--
-                                                             primeiro estlo
+                                                       
+                                                        <div class="IMGFUL" [class.active]="classes[4]">
                                                         <img class="imgfull" [src]="image" alt="">
-
+                                                        </div>
                                                         <div id="minCards" [class.active]="classes[4]">
                                                                 <div [class.active]="classes[4]"
                                                                         *ngFor="let url of urls">
@@ -166,7 +141,7 @@
                                                                                 alt="Card image cap">
                                                                 </div>
                                                         </div>
-                                                            -->
+                                                           
                                                 </div>
 
                                                 <div id="resumos" [class.active]="classes[4]">
@@ -194,7 +169,7 @@
                                                                 </div>
                                                                 <div [class.active]="classes[4]">
                                                                         <h5>Categoria da Doença:</h5>
-                                                                        <p> {{ formulario.value.CO_CATEGORIA}}</p>
+                                                                        <p> {{   ViewCategorias.Categorias[formulario.value.CO_CATEGORIA]}}</p>
                                                                 </div>
                                                                 <div [class.active]="classes[4]">
                                                                         <h5> Descrição dos Achados:</h5>
@@ -208,7 +183,7 @@
                                                 </div>
                                         </div>
 
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button type="submit" class="btn btn-outline-primary">Submit</button>
                                 </div>
                         </div>
 
@@ -219,22 +194,29 @@
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div [class.active]="classes[3]" class="modal-dialog" role="document"
-                        style="margin-top: 5%; padding: 0 50vw 0 0;">
-                        <div [class.active]="classes[3]" class="modal-content" style="width: 50vw !important">
+                       >
+                        <div [class.active]="classes[3]" class="modal-content" >
                                 <div [class.active]="classes[3]" class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Imagens: {{CapaImg+1}}</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Imagen : {{letra}}</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                         </button>
                                 </div>
                                 <div [class.active]="classes[3]" class="modal-body">
-                                        <img [src]="image" style="width: 100%;" alt="">
+                                        <img [src]="image" style="width: 80%;" alt="">
 
                                 </div>
                                 <div [class.active]="classes[3]" class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
+                                                <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal">Voltar</button>
-                                        <button type="button" (click)="SalvarCapa(CapaImg)" class="btn btn-primary" data-dismiss="modal">Salvar como
+
+                                <div [class.active]="classes[3]" >
+                                        <img class="modalnav" src="assets/images/prev.png" (click)="ModalImg(urls[cont-1],cont-1,Letras[cont-1])" *ngIf="cont > 0">
+                                        <span> {{cont+1}} of {{MaxImg+1}}</span>
+                                        <img class="modalnav"  src="assets/images/next.png" (click)="ModalImg(urls[cont+1],cont+1,Letras[cont+1])"  *ngIf="cont < MaxImg" >
+                                </div>
+                                       
+                                        <button type="button" (click)="SalvarCapa(CapaImg)" class="btn btn-info" data-dismiss="modal">Salvar como
                                                 Capa</button>
                                 </div>
                         </div>

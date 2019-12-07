@@ -1,17 +1,36 @@
+@text-nav : #01E065;
+@back : #00CC5C;
+@bnt :#1992BF;
+@back-fundo:#393939;
 
 section{
     width: 100%;
-    min-height: 93vh;
+    min-height: 85.3vh;
     height: 100%;
-    background-image: url("../../../assets/images/analysis-2030266_1920.jpg");
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: auto;
-    padding-bottom: 2em;
+  //  background-image: url("../../../assets/images/analysis-2030266_1920.jpg");
+   // background-attachment: fixed;
+  //  background-repeat: no-repeat;
+  //  background-size: auto;
+  //  padding-bottom: 2em;
+  background-color:@back-fundo ;
+  padding: 1em 0px ;
     
     div.header{
-        width: 90%;
-        margin: auto;
+        h2{
+            color: aliceblue;
+          
+            margin-bottom: .2em;
+            text-align: center;
+        }
+        hr{
+            width: 270px;
+            height: 2px;
+            background-color: @text-nav ;
+            margin: auto;
+            margin-bottom: 3em;
+
+            
+        }
     }
 }
 @media screen and(min-width: 2000px) {
@@ -129,14 +148,18 @@ nav#RegisterCases{
                 min-height: 80px;
                }
                button{
+                color: #FFF;
                 @var: calc(100% - 100px);
                 width: 100px;
                 height: 40px;
                 margin-top: 1em;
                 border: none;
-                background-color: #6d6a6a;
+                background-color: @bnt;
                 border-radius: .3em;
                 margin-left: @var;
+                &:hover{
+                    color: @text-nav;
+                }
 
                 @media(max-width:700px){
                   width: 80px;
@@ -193,9 +216,23 @@ nav#RegisterCases{
                     box-shadow: 0.1em 0.15em .4em 0px #000000;
                 }
                }
+               span.letras{
+                padding-left: 3px;
+                width: 20px;
+                height: 23px;
+                background-color: #FFF;
+                border-radius: 1px solid #ffffff;
+                box-shadow: 1px 3px 5px 0px #000000;
+                z-index: 2px;
+                position: relative;
+                left: 19px;
+                top: 2px;
+              
+                
+               }
                img#bntdelete{
-                width: 10%;
-                height: 12%;
+                width: 20px;
+                height: 20px;
                 background-color: #FFF;
                 border-radius: 1px solid #ffffff;
                 border-radius: .3em;
@@ -248,41 +285,45 @@ nav#RegisterCases{
                
         }
         div#BNT4{
-        /*
-        primeiro estilo
+        
             div{
                 #Resumocontainer{
                     display: flex;
                    width: 100%;
                    height: 100%;
-                 //  flex-direction: column;
+                  flex-direction: column;
                   // justify-content: center;
                     #resumofotos{
-                        flex-direction: column;
-                        width: 39%;
-                        height: 70%;
+                        //flex-direction: column;
+                        width: 100%;
+                        height: 100%;
                         margin-right: .7em;
-                        img.imgfull{
-                            min-width: 300px;
-                            min-height: 274px;
-                            width: 100%;
-                            border: 2px solid rgb(131, 130, 130);
-                            object-fit: cover;
-                            object-position: 100% 0;
-                        }
-                        #minCards{
-                            min-width: 300px;
+                        padding-bottom:2em ;
+                        div.IMGFUL{
+                            width: 90%;
+                            max-height: 410px;
                             display: flex;
-                            flex-wrap: nowrap;
-                            overflow-x: auto;
-                            flex-direction: row;
+                            justify-content: space-around;
+                            img.imgfull{
+                                width:400px;
+                                border: 5px solid #838282;
+                            }
+                        }
+                        div#minCards{
                             width: 100%;
                             height: 100%;
-                            margin-top: 1em;
+                            max-height:410px;
+                            margin-left: 1em;
+                            overflow: auto;
+                            display: flex;
+                            flex-wrap: wrap;
                             padding: 0.2em;
-                            background: rgb(0, 247, 33);  
+                            background-color: #707070;
+                            border: 5px solid #2c2c2c36;
+                          
                         div{
-                            border: 2px solid rgb(0, 0, 0);
+                            margin: .3em;
+                            border: 2px solid rgb(255, 255, 255);
                             img{
                                 width: 100px;
                                 &:hover{
@@ -293,16 +334,19 @@ nav#RegisterCases{
                         }
                     }
                     #resumos{
-                        margin-left: 1em;
                         display: flex;
                         width: 100%;
+                        p{
+                            text-indent:3em;
+                            text-align: justify;
+                           text-justify: inter-word;
+                        }
                         div.RDR{
                             display: block;
                             padding: 0.5em;
                             width: 100%;
                             height: 100%;
                             overflow-y: auto;
-                            border: solid 1px red;
                         div{
                             display: block;
                         }
@@ -314,7 +358,6 @@ nav#RegisterCases{
                             width: 100%;
                             height: 100%;
                             overflow-y: auto;
-                            border: solid 1px rgb(233, 250, 0);
                         div{
                             display: block;
                         }
@@ -325,83 +368,68 @@ nav#RegisterCases{
                 }
                 
             }
-            */
+          
             // segundo estilo
-            div{
-                #Resumocontainer{
-                    display: flex;
-                   width: 100%;
-                   height: 100%;
-                   flex-direction: column;
-                   
-                    #resumofotos{
-                        margin:  0 auto;
-                        div#carouselExampleControls{
-                            height: 50vh;
-                            min-height: 300px;
-                            @media screen and(max-width:800px){
-                            }
-                            div#carouselExampleIndicators{
-                                background-color: #8b8b8b;
-                                    margin:  0 auto;
-                                    width: 45%;
-                                    min-width: 300px;
-                                    max-width: 1200px;
-                                    min-height: 300px;
-                                    max-height: 400px;
-                                    ol{
-                                        li:hover{
-                                            cursor:inherit !important ;
-                                        }
-                                    }
-                                    ul.carousel-inner{
-                                        li.carousel-item{
-                                          //  margin: auto 0;
-
-                                        }
-
-                                    }
-
-                            }
-                        }
-                       
-                       margin-bottom: 2em;
-                    }
-                    #resumos{
-                        display: flex;
-                        width: 100%;
-                        div.RDR{
-                            display: block;
-                            padding: 0.5em;
-                            width: 100%;
-                            height: 100%;
-                            overflow-y: auto;
-                        div{
-                            display: block;
-                        }
-                            
-                        }
-                        div.DCD{
-                            display: block;
-                            padding: 0.5em;
-                            width: 100%;
-                            height: 100%;
-                            overflow-y: auto;
-                        div{
-                            display: block;
-                        }
-                           
-                        }
-
-                    }
-                }
-                
-            }
+         
             
         }
        
     }
     
 }
-
+div.modal-dialog{
+    margin-top: 20px; 
+    padding: 0 40vw 0 0;
+    div.modal-content{
+      width: 40vw !important;
+      
+                div.modal-body{
+                    width: 100%;
+                    background-color: #393939;
+                    display: flex;
+                    justify-content: center;
+                    margin: auto;
+                }
+        img.modalnav:hover{
+                 cursor: pointer;
+        }
+        div.modal-footer{
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
+@media screen and(max-width: 1424px){
+    div.modal-dialog{
+        margin-top: 20px; 
+        padding: 0 40vw 0 0;
+        div.modal-content{
+          width: 50vw !important;
+        
+          
+        }
+    }
+}
+@media screen and(max-width: 1124px){
+    div.modal-dialog{
+        margin-top: 20px; 
+        padding: 0 50vw 0 0;
+        div.modal-content{
+          width: 60vw !important;
+        
+          
+        }
+    }
+}
+@media screen and(max-width: 900px){
+    div.modal-dialog{
+        margin-top: 20px; 
+        padding: 0 55vw 0 0;
+        div.modal-content{
+          width: 70vw !important;
+        
+          
+        }
+    }
+}
    
