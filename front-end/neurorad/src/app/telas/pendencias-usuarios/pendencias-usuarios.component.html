@@ -1,63 +1,86 @@
 <section>
-    <div id="Pendencias" class="active">
-        <h3>Pendências De Usuários</h3>
-        <div class="tabela">
-                 <table class="table">
-                                 <thead >
-                                   <tr>
-                                     <th scope="col">Nome</th>
-                                     <th scope="col">Perfil</th>
-                                     <th scope="col">Especialidade</th>
-                                     <th scope="col">Click</th>
-                                   </tr>
-                                 </thead>
-                                 <tbody>
-                                   <tr *ngFor="let usuario of  UsuariosPendentes">
-                                     <td>{{usuario.DS_NOME}}</td>
-                                     <td>{{usuario.CO_PERFIL}}</td>
-                                     <td>{{usuario.CO_ESPECIALIDADE}}</td>
-                                     <th scope="row"><button type="button" class="btn btn-outline-primary" (click)=" PopulaForms(usuario)">Ver</button></th>
-                                   </tr>
-                                 </tbody>
-                         </table>
+  <div id="Pendencias" class="active">
+    <h3>Pendências De Usuários</h3>
+    <div class="tabela">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Perfil</th>
+            <th scope="col">Especialidade</th>
+            <th scope="col">Click</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of  UsuariosPendentes">
+            <td class="nome">{{usuario.DS_NOME}}</td>
+            <td>{{atributos.Perfis[usuario.CO_PERFIL]}}</td>
+            <td>{{atributos.Especialidades[usuario.CO_ESPECIALIDADE]}}</td>
+            <th scope="row"><button type="button" class="btn btn-outline-primary"
+                (click)=" PopulaForms(usuario)">Ver</button></th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <div id="Informacao">
+    <h3>Dados do Usuário</h3>
+    <article class="container">
+      <div class="fotoTOP">
+        <img  *ngIf="Usuario$.IM_FOTO" [src]="Usuario$.IM_FOTO" alt="">
+      </div>
+      <div id="dados">
+        <div class="texto">
+          <h6>Nome:</h6>
+          <p>{{Usuario$.DS_NOME}}</p>
         </div>
-    
-    </div>
-    <div id="Informacao">
-        <h3>Dados do Usuário</h3>
-        <article class="container">
-            <h6>Nome:</h6>
-            <p>{{Usuario$.DS_NOME}}</p>
-            <h6>Email:</h6>
-            <p>{{Usuario$.DS_EMAIL}}</p>
-            <h6>Data_Nascimento:</h6>
-            <p>{{Usuario$.DT_NASCIMENTO}}</p>
-            <h6>Perfil:</h6>
-            <p> {{atributos.Perfis[Usuario$.CO_PERFIL]}}</p>
-            <h6>Especialidade:</h6>
-            <p> {{atributos.Especialidades[Usuario$.CO_ESPECIALIDADE]}}</p>
-            <h6>Preferencia de Papel no NeuroRad:</h6>
-              <p>{{atributos.Papeis[Usuario$.CO_PAPEL]}}</p>
-          
-           <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
-                <div class="form-group col-md-6">
-                        <label for="CO_PAPEL" class="control-label">Papel do Usuário </label>
-                        <select  class="form-control" id="CO_PAPEL" formControlName="CO_PAPEL" [ngClass]="aplicaCssErro('CO_PAPEL')" name="CO_PAPEL">
-                            <option value="" selected></option> 
-                            <option value="1">Preceptor Adminstrador</option> 
-                            <option value="2" >Preceptor Colaborador</option>
-                            <option value="3">Residente Colaborador</option>
-                            <option value="4">Residente Adminstrador</option>
-                            <option value="5">Residente</option>
-                          </select>
-                          <div *ngIf="verificarValidTouched('CO_PAPEL')" class="invalid-feedback">
-                            Campo é obrigatório.
-                        </div>
-                    </div>
-                    <button type="submit" class="enviar" >Submit</button>
-                    <button type="button" class="danger" (click)="recusar(Usuario$.CO_SEQ_USUARIO)" >Recursar</button>
-           </form>
-        </article>
-     
-    </div>
+        <div class="texto">
+          <h6>Email:</h6>
+          <p>{{Usuario$.DS_EMAIL}}</p>
+        </div>
+        <div class="texto">
+          <h6>Data_Nascimento:</h6>
+          <p>{{formatDate(Usuario$.DT_NASCIMENTO)}}</p>
+        </div>
+        <div class="texto">
+          <h6>Perfil:</h6>
+          <p> {{atributos.Perfis[Usuario$.CO_PERFIL]}}</p>
+        </div>
+        <div class="texto">
+          <h6>Especialidade:</h6>
+          <p> {{atributos.Especialidades[Usuario$.CO_ESPECIALIDADE]}}</p>
+        </div>
+        <div class="texto">
+          <h6>Preferencia de Papel no NeuroRad:</h6>
+          <p>{{atributos.Papeis[Usuario$.CO_PAPEL]}}</p>
+        </div>
+
+        <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+          <div class="form-group col-md-6">
+            <label for="CO_PAPEL" class="control-label">Papel do Usuário </label>
+            <select class="form-control" id="CO_PAPEL" formControlName="CO_PAPEL" [ngClass]="aplicaCssErro('CO_PAPEL')"
+              name="CO_PAPEL">
+              <option value="" selected></option>
+              <option value="1">Preceptor Adminstrador</option>
+              <option value="2">Preceptor Colaborador</option>
+              <option value="3">Residente Colaborador</option>
+              <option value="4">Residente Adminstrador</option>
+              <option value="5">Residente</option>
+            </select>
+            <div *ngIf="verificarValidTouched('CO_PAPEL')" class="invalid-feedback">
+              Campo é obrigatório.
+            </div>
+          </div>
+          <button type="submit" class="enviar">Submit</button>
+          <button type="button" class="danger" (click)="recusar(Usuario$.CO_SEQ_USUARIO)">Recursar</button>
+        </form>
+      </div>
+      <div class="fotoRight">
+        <img  *ngIf="Usuario$.IM_FOTO" [src]="Usuario$.IM_FOTO" alt="">
+      </div>
+    </article>
+   
+
+  </div>
 </section>

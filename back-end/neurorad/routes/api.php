@@ -75,5 +75,5 @@ Route::get('/user_nome/{id}','API\UsersController@nome_user');
 
 //Route::get('/testauth/{code?}', 'API\SabiaController@teste');
 
-
+Route::post('/reenviar/{id}', 'API\CasoClinicoController@update');
 // PublicacaoAutomaticaCasoController

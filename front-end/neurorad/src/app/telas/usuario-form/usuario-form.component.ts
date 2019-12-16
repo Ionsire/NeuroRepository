@@ -1,20 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,ViewEncapsulation, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { UsuarioService } from 'src/app/services/UsuarioService/usuario.service';
 import { Location } from '@angular/common';
 import { Usuario } from 'src/app/services/Classes/usuario';
 import { AuthService } from 'src/app/services/authentication/auth.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-usuario-form',
   templateUrl: './usuario-form.component.html',
-  styleUrls: ['./usuario-form.component.less']
+  styleUrls: ['./usuario-form.component.less'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class UsuarioFormComponent implements OnInit {
   formulario: FormGroup;
   User : Usuario = new Usuario();
   
-  constructor(  private formBuilder: FormBuilder, private service: UsuarioService, private location: Location, private Auth: AuthService) { }
+  constructor(  private formBuilder: FormBuilder, private service: UsuarioService, private location: Location, private Auth: AuthService, private modalService: NgbModal) { }
   
   ngOnInit() {
     if(localStorage.getItem("token")){
@@ -30,7 +32,8 @@ export class UsuarioFormComponent implements OnInit {
       CO_PERFIL: [null, Validators.required],
       CO_ESPECIALIDADE: [null, Validators.required],
       CO_PAPEL: [null, Validators.required],
-      NU_CPF: [null, Validators.required]
+      NU_CPF: [null, Validators.required],
+      DS_TERMO:[null, Validators.required]
     });
 
    
@@ -85,13 +88,21 @@ export class UsuarioFormComponent implements OnInit {
   }
   PopulaForms(User: Usuario) {
       this.User = User;
-    this.formulario.patchValue({
+      this.formulario.patchValue({
       DS_NOME:User.DS_NOME,
       DS_EMAIL: User.DS_EMAIL,
       CO_PERFIL: User.CO_PERFIL,
       CO_ESPECIALIDADE: User.CO_ESPECIALIDADE,
       CO_PAPEL: User.CO_PAPEL,
       NU_CPF: User.NU_CPF,
+  });
+  }
+
+  openXl(content) { this.modalService.open(content, {size: 'xl'}); }
+
+  test(){
+    this.formulario.patchValue({
+      DS_TERMO: true
   });
   }
 

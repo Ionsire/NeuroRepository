@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Http\Controllers\API\ScheduleController;
+use App\Http\Controllers\API\PublicacaoAutomaticaCasoController;
 class agendamento extends Command
 {
     /**
@@ -37,7 +37,9 @@ class agendamento extends Command
      */
     public function handle()
     {
-        $scheduleController = new ScheduleController;
-          $scheduleController -> busca();
+        $autoPublic = new PublicacaoAutomaticaCasoController;
+        $autoPublic->publicarCaso();
+        // $scheduleController = new ScheduleController;
+        // $scheduleController -> busca();
     }
 }

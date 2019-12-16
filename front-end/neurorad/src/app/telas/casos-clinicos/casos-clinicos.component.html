@@ -8,11 +8,12 @@
           <div class="card-container">
               <span class="resultado">Resultado:  {{Casos.length}} Casos </span>
             <div id="cards"  >
-                    <div class="card-principal" *ngFor="let caso of Casos | paginate: { itemsPerPage: 15, currentPage: pag }; let i = index">
+                    <div class="card-principal" *ngFor="let caso of Casos.slice().reverse() | paginate: { itemsPerPage: 15, currentPage: pag }; let i = index">
                              <div>
-                                 <img   src="{{hostApi}}{{caso.CO_IMAGEM_CAPA}}" alt="">
-                                 <div class="text-card" >
-                                 <span (click)="VisualizarCaso(caso.CO_SEQ_CASO_CLINICO)" >{{caso.DS_DIAGNOSTICO}}</span>
+                             <span class="date">{{formatDate(caso.DT_ATUALIZACAO)}}</span>
+                                 <img  (click)="VisualizarCaso(caso.CO_SEQ_CASO_CLINICO)"   src="{{hostApi}}{{caso.CO_IMAGEM_CAPA}}" alt="">
+                                 <div (click)="VisualizarCaso(caso.CO_SEQ_CASO_CLINICO)"  class="text-card" >
+                                 <span>{{caso.DS_DIAGNOSTICO}}</span>
                                 </div>
                              </div>
                      </div>

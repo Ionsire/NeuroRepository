@@ -2,8 +2,8 @@
         <div id="Homolog" class="active">
        
                 <div class="button">
-                                <button [class.active]="tabela[0]"  (click)="mostratabelas( tabela, 0)" class="M">Não Homolagados</button>
-                                <button [class.active]="tabela[1]"  (click)="mostratabelas( tabela, 1)" class="V">Homolagados</button>
+                                <button [class.active]="tabela[0]"  (click)="mostratabelas( tabela, 0)" class="M">Não Homologados</button>
+                                <button [class.active]="tabela[1]"  (click)="mostratabelas( tabela, 1)" class="V">Homologados</button>
                                 <button [class.active]="tabela[2]"  (click)="mostratabelas( tabela, 2)" class="A">Agendados</button>
                 </div>
                 <div id="tabelas">
@@ -20,8 +20,8 @@
                                         </thead>
                                         <tbody>
                                                 <tr *ngFor="let caso of CasosPendentes;let index = index">
-                                                        <td class="DS_DIA">{{caso.DS_DIAGNOSTICO}} oi oi oi oi oi oi oi oi oi oi oi oi oi oi oi oi oi oi oi oi oi oi oi</td>
-                                                        <td class="date">{{caso.DT_CRIACAO}}</td>
+                                                        <td class="DS_DIA">{{caso.DS_DIAGNOSTICO}} </td>
+                                                        <td class="date">{{ formatDate(caso.DT_CRIACAO)}}</td>
                                                         <td><button type="button" class="btn btn-outline-info"
                                                                         (click)="PopulaForms(caso)">Visualizar</button>
                                                         </td>
@@ -45,7 +45,7 @@
                                         <tbody>
                                                 <tr *ngFor="let caso of CasosHomolagados;let index = index">
                                                         <td class="DS_DIA" >{{caso.DS_DIAGNOSTICO}}</td>
-                                                        <td class="date">{{caso.DT_CRIACAO}}</td>
+                                                        <td class="date">{{formatDate(caso.DT_CRIACAO)}}</td>
                                                         <td><button type="button" class="btn btn-outline-info"
                                                                         (click)="PopulaForms(caso)">Visualizar</button>
                                                         </td>
@@ -68,8 +68,8 @@
                                         <tbody>
                                                 <tr *ngFor="let caso of CasosAgendados;let index = index">
                                                         <td class="DS_DIA" >{{caso.DS_DIAGNOSTICO}}</td>
-                                                        <td class="date">{{caso.DT_CRIACAO}}</td>
-                                                        <td class="date">{{caso.DT_SEMANA}}</td>
+                                                        <td class="date">{{formatDate(caso.DT_CRIACAO)}}</td>
+                                                        <td class="date">{{formatDate(caso.DT_SEMANA)}}</td>
                                                         <td><button type="button" class="btn btn-outline-info"
                                                                         (click)="PopulaForms(caso)">Visualizar</button>
                                                         </td>
@@ -83,7 +83,7 @@
            
         </div>
 
-        <nav id="homologarCases">
+        <nav  *ngIf="tabela[0]" id="homologarCases">
                 <div class="header">
                 
                 </div>
@@ -203,48 +203,19 @@
 
                                             
                                                 <div id="resumofotos" [class.active]="classes[4]">
-                                                                <!-- segundo estilo-->
-                                                                <div id="carouselExampleControls" [class.active]="classes[4]" class="carousel slide" data-ride="carousel">
-                                                                        <div [class.active]="classes[4]"  id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                                                                                 <ol class="carousel-indicators">
-                                                                                        <li  data-slide-to="0"></li> 
-                                                                                        <li *ngFor="let url of urls;let index = index" data-slide-to="index+1"></li>      
-                                                                                 </ol>
-                                                                                        <ul   class="carousel-inner">
-                                                                                                <li class="carousel-item active">
-                                                                                                        <img class="d-block w-100"  src="../../../assets/images/doctor-1149149_1920.jpg" alt="First slide">
-                                                                                                </li>
-                                                                                                <li *ngFor="let url of urls" class="carousel-item ">
-                                                                                                        <img class="d-block w-100" [src]="url" alt="imagem">
-                                                                                                </li>
-                                                                                        </ul>
-                                                                                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                                                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                                                        <span class="sr-only">Previous</span>
-                                                                                </a>
-                                                                                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                                                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                                                        <span class="sr-only">Next</span>
-                                                                                </a>
-                                                                        </div>
-                                                                 </div>
-
-
-
-
-                                                         <!--
-                                                             primeiro estlo
+                                                       
+                                                        <div class="IMGFUL" [class.active]="classes[4]">
                                                         <img class="imgfull" [src]="image" alt="">
-
+                                                        </div>
                                                         <div id="minCards" [class.active]="classes[4]">
                                                                 <div [class.active]="classes[4]"
-                                                                        *ngFor="let url of urls">
+                                                                        *ngFor="let url of ArrayImagens">
                                                                         <img class="card" [id]="id"
-                                                                                (click)="MiniCard(url)" [src]="url"
+                                                                                (click)="MiniCard(url)" src="{{hostApi}}{{url}}"
                                                                                 alt="Card image cap">
                                                                 </div>
                                                         </div>
-                                                            -->
+                                                           
                                                 </div>
 
                                                 <div id="resumos" [class.active]="classes[4]">
@@ -276,7 +247,7 @@
                                                                 </div>
                                                                 <div [class.active]="classes[4]">
                                                                         <h5>Sub Categoria da Doença:</h5>
-                                                                        <p> {{ textSubcategoria}}</p>
+                                                                        <p> {{textSubcategoria[formulario.value.CO_SUBCATEGORIA]}}</p>
                                                                 </div>
                                                                 <div [class.active]="classes[4]">
                                                                         <h5> Descrição dos Achados:</h5>
@@ -289,14 +260,12 @@
                                                         </div>
                                                 </div>
                                         </div>
-                                     
-                                        <button (click)="Desagendar()" type="button" *ngIf="tabela[2]" class="btn btn-outline-success" >Desagendar</button>
+                                      
                                        <div class="Acoes" [class.active]="classes[4]" *ngIf="!tabela[2]">
                                         <button type="button" *ngIf="!tabela[1]" (click)="DeletarCaso(formulario.value.CO_SEQ_CASO_CLINICO)" class="btn btn-outline-danger"> Deletar </button>
                                          <span *ngIf="this.NU_REJEICOES !=2" > <button type="button" *ngIf="!tabela[1]" (click)="verColaborador(content,formulario.value.CO_SEQ_CASO_CLINICO)" class="btn btn-outline-warning"> Reenviar</button></span>
                                         <button type="submit" *ngIf="!tabela[1]" class="btn btn-outline-success" >Homologar</button>
-                                        
-                                         <button (click)="Disponibilizar()"  type="button" *ngIf="!tabela[0]" class="btn btn-outline-success" >Disponibilizar</button>
+                
                                        
                                    
                                        </div>
@@ -305,36 +274,96 @@
                                 </div>
                         </div>
                 </form>
-                <form [formGroup]="formulario">
-                <div  [class.active]="classes[4]" *ngIf="!tabela[0]" class="form-row Agendamento ">
-                                <div *ngIf="!tabela[2]"  [class.active]="classes[4]" class="form-group col-md-5 container ">
-                                <label for="DT_SEMANA" class="control-label">Data de Agendamento:</label>
-                                <div [class.active]="classes[4]" class="form-group">
-                                        <div  [class.active]="classes[4]" class="input-group">
-                                          <input type = "button" (click)="d.toggle()" class="form-control" placeholder="yyyy-mm-dd"
-                                                formControlName="DT_SEMANA" ngbDatepicker #d="ngbDatepicker">
-                                          <div [class.active]="classes[4]" class="input-group-append">
-                                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><img src="https://img.icons8.com/ios-filled/18/000000/calendar.png"></button>
-                                          </div>
-                                          <button (click)="Agendar()" type="button" *ngIf="!tabela[0]" class="btn btn-outline-success agendar" >Agendar</button>
-                                        </div>
-                                       
-                                </div>
-                           
-                              
-                                </div>
-                        
-                        </div>
-                </form>
         </nav>
+        <div *ngIf="!tabela[0]" class="container homologadoos">
+
+                <div class="container">
+          
+                        <div class="textoforms">
+                                <h5>Resumo :</h5>
+                                <p>{{formulario.value.DS_HISTORIA_CLINICA}} </p>
+                        </div>
+                                          
+                        <div class="imagensCarrosel">
+                                        <!--imagens tenho que ajeitar-->
+                                        <div  *ngFor=" let IMG of ArrayImagens,let index = index">
+                                                <span>{{Letras[index]}}</span>
+                                                <img   data-toggle="modal" data-target="#exampleModal"  (click)="ModalImg(IMG,index,Letras[index])"   src="{{hostApi}}{{IMG}}" label="Letras[index]">
+                                        </div>
+                        </div>
+                        <div class="textoforms">
+                                <h5>Descrição dos Achados:</h5>
+                                <p>{{formulario.value.DS_ACHADOS_DAS_IMAGENS}} </p>
+                        </div>
+                        <div class="textoforms">
+                                <h5>Diagnóstico:</h5>
+                                <p>{{formulario.value.DS_DIAGNOSTICO}} </p>
+                        </div>
+                        <div class="textoforms">
+                                <h5>Categoria da Doença:</h5>
+                                <p> {{textCategoria}}</p>
+                               
+                        </div>
+                        <div class="textoforms">
+                                <h5> Sub-Categoria da Doença:</h5>
+                                <p> {{textSubcategoria[formulario.value.CO_SUBCATEGORIA]}}</p>
+                        </div>
+                        <div class="textoforms">
+                                <h5>Discussão:</h5>
+                                <p>{{formulario.value.DS_DISCUSSAO}} </p>
+                        </div>
+                        <div class="textoforms">
+                                <h5>Referências:</h5>
+                                <p>{{formulario.value.DS_REFERENCIAS}} </p>
+                        </div>
+
+
+
+                        <div class="Acoes">
+                          <button (click)="Desagendar()" *ngIf="tabela[2]" type="button"  class="btn btn-outline-success">Desagendar</button>
+                        
+                       
+                                <button *ngIf="tabela[1]" (click)="Disponibilizar()"  type="button"  class="btn btn-outline-success" >Disponibilizar</button>
+                               
+                        </div>
+
+
+                        <form [formGroup]="formulario">
+                                        <div   class="form-row Agendamento ">
+                                                        <div *ngIf="tabela[1]"  class="form-group col-md-8 container ">
+                                                        <label for="DT_SEMANA" class="control-label">Data de Agendamento:</label>
+                                                        <div  class="form-group">
+                                                                <div   class="input-group">
+                                                                  <input type = "button" (click)="d.toggle()" class="form-control" placeholder="yyyy-mm-dd"
+                                                                        formControlName="DT_SEMANA" ngbDatepicker #d="ngbDatepicker">
+                                                                  <div  class="input-group-append">
+                                                                    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><img src="https://img.icons8.com/ios-filled/18/000000/calendar.png"></button>
+                                                                  </div>
+                                                                  <button (click)="Agendar()" type="button" *ngIf="tabela[1]" class="btn btn-outline-success agendar" >Agendar</button>
+                                                                </div>  
+                                                        </div>
+                                                        </div>
+                                                
+                                        </div>
+                        </form>
+                            
+                                
+                </div>
+
+                     
+        </div>
+
+
+
+        
        
 
 </section>
 
         <!-- modal IMG-->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        <div class="modal fade modal1" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div  class="modal-dialog modal1" role="document" >
+        <div  class="modal-dialog" role="document" >
                 <div  class="modal-content" >
                         <div  class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Imagens: {{letra}}</h5>
@@ -347,12 +376,15 @@
       
                         </div>
                         <div  class="modal-footer">
+                                <button  id="close" type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
                         <div>
-                          <img class="modalnav" src="assets/images/prev.png" (click)="ModalImg(ArrayImagens[cont-1], cont-1,Letras[cont-1])" *ngIf="cont > 0">
-                         <span> {{cont+1}} of {{MaxImg+1}}</span>
-                          <img class="modalnav"  src="assets/images/next.png" (click)="ModalImg(ArrayImagens[cont+1], cont+1,Letras[cont+1])"  *ngIf="cont < MaxImg" >
-                          </div>
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
+                        
+                                <img class="modalnav" src="assets/images/prev.png" (click)="ModalImg(ArrayImagens[cont-1], cont-1,Letras[cont-1])" *ngIf="cont > 0">
+                                <span> {{cont+1}} of {{MaxImg+1}}</span>
+                                <img class="modalnav"  src="assets/images/next.png" (click)="ModalImg(ArrayImagens[cont+1], cont+1,Letras[cont+1])"  *ngIf="cont < MaxImg" >
+                        </div>
+                         
+                          <button type="button" *ngIf="tabela[0]" (click)="deletarImagem(imagem)" class="btn btn-danger" >Deletar imagem</button>
                         </div>
                 </div>
         </div>
@@ -365,33 +397,35 @@
       <!--modal reenviar-->
 
         <ng-template #content let-modal>
-            <div class="modal-header">
-              <h4 class="modal-title">Observações do caso</h4>
-              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div  class="modal-body">
-                
-                   <form [formGroup]="formularioRenvio"  (ngSubmit)="Reenviar()" enctype="multipart/form-data">
-                     <div class="form-container" >
-                                        <label for="DS_CORRECOES" class="control-label">Discussão:</label>
-                                        <textarea type="text" class="form-control" formControlName="DS_CORRECOES"
-                                                 [ngClass]="aplicaCssErroReenvio('DS_CORRECOES')"
-                                                style="max-height: 30vh " rows="20" cols="4"></textarea>
-                                        <span *ngIf="verificarValidTouchedReenvio('DS_CORRECOES')" class="invalid-feedback">
-                                                Campo é obrigatório.
-                                        </span>
-                         </div>
-                            <button style="margin-top: 1em;" type="submit" class="btn btn-outline-success">Reenviar Caso</button>
-          
-                </form>
-                 
-            
-            </div>
-            <div class="modal-footer">
-              <button  id="close" type="button" class="btn btn-light" (click)="modal.close('Close click')" >voltar</button>
-            </div>
+                <div id="reenviar" >
+                         <div class="modal-header ">
+                        <h4 class="modal-title">Observações do caso</h4>
+                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div  class="modal-body">
+                                
+                                <form [formGroup]="formularioRenvio"  (ngSubmit)="Reenviar()" enctype="multipart/form-data">
+                                <div class="form-container" >
+                                                        <label for="DS_CORRECOES" class="control-label">Observações:</label>
+                                                        <textarea type="text" class="form-control" formControlName="DS_CORRECOES"
+                                                                [ngClass]="aplicaCssErroReenvio('DS_CORRECOES')"
+                                                                style="max-height: 30vh " rows="20" cols="4"></textarea>
+                                                        <span *ngIf="verificarValidTouchedReenvio('DS_CORRECOES')" class="invalid-feedback">
+                                                                Campo é obrigatório.
+                                                        </span>
+                                        </div>
+                                        <button style="margin-top: 1em;" type="submit" class="btn btn-outline-success">Reenviar Caso</button>
+                        
+                                </form>
+                                
+                        
+                        </div>
+                        <div class="modal-footer">
+                        <button  id="closee" type="button" class="btn btn-light" (click)="modal.close('Close click')" >voltar</button>
+                        </div>
+        </div>
           </ng-template>
 
 

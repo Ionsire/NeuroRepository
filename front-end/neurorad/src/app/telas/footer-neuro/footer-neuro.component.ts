@@ -11,5 +11,14 @@ export class FooterNeuroComponent implements OnInit {
 
   ngOnInit() {
   }
+  LAIS(){
+    window.open('https://lais.huol.ufrn.br/','_blank')
+  }
+  UFRN(){
+    window.open('https://www.ufrn.br/','_blank')
+  }
+  HUOL(){
+    window.open('http://www2.ebserh.gov.br/web/huol-ufrn','_blank') 
+  }
 
 }

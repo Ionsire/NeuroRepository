@@ -1,5 +1,6 @@
 <section >
 <form  class="container" [formGroup]="formulario" (ngSubmit)="onSubmit()">
+
     <!--[formGroup]="formulario" para sicronizar com o formulario do TS-->
     <div class="form-group">
         <label for="DS_NOME" class="control-label">NOME</label>
@@ -20,7 +21,7 @@
         </div>
     </div>
 
-            <div class="form-row ">
+    <div class="form-row ">
                 <div class="form-group col-md-3">
                     <label for="DT_NASCIMENTO" class="control-label">Data de Nascimento</label>
                     <input  type="date" class="form-control" id="DT_NASCIMENTO" formControlName="DT_NASCIMENTO" [ngClass]="aplicaCssErro('DT_NASCIMENTO')" >
@@ -55,11 +56,11 @@
                         Campo é obrigatório.
                     </div>
                 </div>
-            </div>
-             <div class="form-row ">
+    </div>
+    <div class="form-row ">
               <div class="form-group col-md-3">
                     <label for="NU_CPF" class="control-label">CPF</label>
-                    <input type="text" class="form-control" id="NU_CPF" formControlName="NU_CPF" [ngClass]="aplicaCssErro('NU_CPF')" >
+                    <input disabled type="text" class="form-control" id="NU_CPF" formControlName="NU_CPF" [ngClass]="aplicaCssErro('NU_CPF')" >
                     <div *ngIf="verificarValidTouched('NU_CPF')" class="invalid-feedback">
                         Campo é obrigatório.
                     </div>
@@ -78,14 +79,68 @@
                         Campo é obrigatório.
                     </div>
                 </div>
-             </div>
-             <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                  <label class="form-check-label" for="defaultCheck1">
-                    Termos de uso do NeuroRad <a href=""> Visualisar o termo</a>
-                   </label>
-            </div>
-    <button type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+    <div id="termoNR">  
+                
+        <p> Termos de uso do NeuroRad <span class="termo" (click)="openXl(content)"> Visualisar o termo</span></p>
+               
+                
+    </div>
+    <button type="submit" class="btn btn-info" >Submit</button>
    
 </form>
 </section>
+
+<!-- modal termo-->
+<ng-template #content let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title">Modal title</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body container termo">
+
+                <h6>NORMAS DE PUBLICAÇÃO DE CASOS NA PLATAFORMA NEURORAD POR USUÁRIOS COLABORADORES:</h6>
+
+                <p>	•	Serão aceitos como usuários colaboradores, mediante cadastro na plataforma,  médicos especialistas ou residentes nas áreas de radiologia e diagnóstico por imagem, neurologia, neurocirurgia e psiquiatria ou estudantes de medicina sob supervisão de um médico especialista.</p>
+                <p> •	Os casos precisam ser interessantes, educacionais e com diagnóstico confirmado por biópsia e/ou exames laboratoriais ou ainda nos casos com imagens patognomônicas ou achados típicos (ex. Uma malformação com aspectos típicos) . Eles não precisam ser raros. A aceitação do caso é inteiramente baseada no critério do administrador/revisor da plataforma. Ao receber o caso, uma notificação será enviada.</p>
+                <p> 
+	               •	Ao ser avaliado pelo revisor, o caso poderá ser homologado, devolvido para correções ou excluído. Em qualquer uma dessas hipóteses o autor será notificado.</p>
+                <p> •	Nos casos devolvidos, após efetuar as correções o colaborador deverá reenviar o caso para nova revisão, onde o mesmo será homologado ou poderá ser devolvido uma segunda vez para nova correção. Neste caso, após a nova correção e reenvio, o caso será homologado ou excluído, não sendo possível devolver uma terceira vez.</p>
+                <p>•	As imagens deverão ser anonimizadas. Nenhum dado de identificação do paciente poderá ser exibido.</p>
+                <p> •	O caso poderá ser editado pelo administrador e devolvido para o colaborador para a sua reavaliação e reenvio. </p>
+
+                    <h6>CASO</h6>
+                <p>•	Resumo da história clínica, contendo sexo e idade do paciente</p>
+                <p>•	Nome(s) do(s) autor(es)</p>
+                <p>Imagens do caso (6, 9 ou 12 imagens) no formato JPG ou PNG. (excluir dados de identificação do paciente e nome do serviço) </p>
+                <p>Descrição das imagens: As legendas devem ser escritas no tempo presente (por exemplo, "A imagem de RM ponderada em T1 mostra ...") e devem descrever os principais achados de imagem (achados negativos positivos e pertinentes). As setas devem ser colocadas a critério do autor. Nenhuma discussão sobre o diagnóstico final ou o diagnóstico diferencial deve ser incluída nas legendas.</p>
+                <p>•	Diagnóstico</p>
+                <p>•	Discussão sucinta e atualizada (1–2 linhas cada), incluindo 1) histórico, 2) informações clínicas relevantes, 3) principais recursos de diagnóstico, 4) uma lista de diagnósticos diferenciais e 5) opções de tratamento se achar necessário. Solicita-se aos autores que expandam a seção de diagnóstico diferencial, observando os recursos de imagem que ajudam a diferenciar cada um dos diagnósticos diferenciais mencionados.</p>
+                <p>•	Duas a três referências bibliográficas relevantes e atuais. </p>
+                <p>	•	O caso homologado para publicação poderá ser utilizado como um caso da semana ou ir direto para o arquivo geral de casos da plataforma, sendo arquivado conforme a categoria e subcategoria da qual ele pertença.</p>
+                <p>•	As informações fornecidas sobre o caso são de inteira responsabilidade do autor colaborador. </p>
+
+
+            <form class="container" [formGroup]="formulario" >
+                <div  class="form-group mb-2">
+                    <div class=" form-check" >
+                        
+                                <input type="radio" class=" form-check-input radioBtn" formControlName="DS_TERMO" id="DS_TERMO"  value="ok" [ngClass]="aplicaCssErro('DS_TERMO')"
+                                placeholder="Nome" > 
+                                <label class="form-check-label" for="exampleRadios1">Concordo com as normas de Publicação </label>
+                            
+                        <div *ngIf="verificarValidTouched('DS_TERMO')" class="invalid-feedback">
+                        Campo é obrigatório.
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+         
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        </div>
+      </ng-template>

@@ -27,6 +27,7 @@ export class CasosClinicosComponent implements OnInit {
   Sub_aux: string;
   auxiliar: string[] = [];
   cont:  number = 1;
+  data : Date = new Date();
 
   hostApi: string = "http://localhost:8000/storage/images/";
   
@@ -56,10 +57,8 @@ export class CasosClinicosComponent implements OnInit {
 
      }
     });
-  
-    
-  }
 
+  }
 
   Atualizar() {
 
@@ -67,20 +66,40 @@ export class CasosClinicosComponent implements OnInit {
     //   responser => console.log(responser),
       
     // )
+    
+
     this.busca['CO_CATEGORIA'] = this.formulario.get('CO_CATEGORIA').value;
     this.busca['CO_SUBCATEGORIA'] = this.formulario.get('CO_SUBCATEGORIA').value;
 
     this.CasosClinicos$ = this._http.getCase(this.busca)
       .pipe(
         catchError(error => {
-          console.log(error);
+          alert('Erro, tente novamente mais tarde');
           this.erro$.next(true);
           return empty();
         })
       );
-      ;
-      
+     // this.CasosClinicos$.subscribe(resp => console.log(resp))
   }
+  formatDate(date: string){
+    let day;
+    let month;
+    let year;
+    let dateBR;
+          year = date.slice(0,-15)
+          day =  date.slice(8,-9)
+          month = date.slice(5,-12)
+
+    let DATE : Date = new Date(year, month -1, day  )
+
+    month = DATE.toLocaleString('default', {month: 'long'})
+     
+     dateBR  =   day + ' ' + month  + ' ' +year
+    return dateBR;
+  }
+
+
+
   VisualizarCaso(id) {
     this.router.navigate(['viewcase', id])
   }
@@ -107,9 +126,7 @@ export class CasosClinicosComponent implements OnInit {
     // this.busca['CO_SUBCATEGORIA'] = this.formulario.get('CO_SUBCATEGORIA').value;
     this.Atualizar()
   }
-  teste() {
-    console.log(this.busca)
-  }
+ 
 }
 
 

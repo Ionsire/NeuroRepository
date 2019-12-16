@@ -1,3 +1,5 @@
+import { environment } from './../../../environments/environment';
+
 import { CasoClinico } from 'src/app/services/Classes/caso';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -10,33 +12,35 @@ import { Observable } from 'rxjs';
 })
 export class CasesService {
 
-  private API = "http://localhost:3000/CasosClinicos/";
-  private API2 = "http://localhost:3000/CasoSemana/";
-
   // aqui esta recebendo todos os casos clinicos
-  private APINeuro = "http://localhost:8000/api/casoclinico";
-  //private APINeuro = "http://localhost:8000/api/vercaso";
-  private APINeuroViewCase = "http://localhost:8000/api/vercaso";
+  private APINeuro = `${environment.API}casoclinico`;
+  //private APINeuro = `${environment.API}vercaso";
+  private APINeuroViewCase = `${environment.API}vercaso`;
 
-  private APINeuroCasoAdm = "http://localhost:8000/api/auth/casesAdmin";
+  private APINeuroCasoAdm = `${environment.API}auth/casesAdmin`;
 
-  private APICasoSemana = "http://localhost:8000/api/casos_da_semana_home";
+  private APICasoSemana = `${environment.API}casos_da_semana_home`;
 
 
-  private APINeuroHomo = "http://localhost:8000/api/list_homologar";
-  private APIHomologar = "http://localhost:8000/api/homologar";
+  private APINeuroHomo = `${environment.API}list_homologar`;
+  private APIHomologar = `${environment.API}homologar`;
 
-  private APIHomologados = "http://localhost:8000/api/lista_homologados";
-  private APIAgendados = "http://localhost:8000/api/lista_agendados";
+  private APIHomologados = `${environment.API}lista_homologados`;
+  private APIAgendados = `${environment.API}lista_agendados`;
 
-  private APIAgendar = "http://localhost:8000/api/agendamento";
-  private APIDesagendar = "http://localhost:8000/api/desagendamento";
+  private APIAgendar = `${environment.API}agendamento`;
+  private APIDesagendar = `${environment.API}desagendamento`;
 
-  private APIDisponibilizar = "http://localhost:8000/api/disponibilizar";
-  private APIReenvio = "http://localhost:8000/api/reenviar";
-  private APIdeletarCaso = "http://localhost:8000/api/deletar";
-  private APImeusCasos = "http://localhost:8000/api/meuscasos";  
-  private APIautorCasos = "http://localhost:8000/api/user_nome"
+  private APIDisponibilizar = `${environment.API}disponibilizar`;
+  private APIReenvio = `${environment.API}reenviar`;
+  private APIdeletarCaso = `${environment.API}deletar`;
+  private APImeusCasos = `${environment.API}meuscasos`;  
+  private APIautorCasos = `${environment.API}user_nome`;
+
+  private APIdeletarImages = `${environment.API}deletar`;
+
+  private APIReenviarCasoUser = `${environment.API}reenviar`;
+  private APICreatCaso = `${environment.API}casoclinico`
 
   private Token;
 
@@ -152,6 +156,24 @@ export class CasesService {
   autorCaso(id){ 
     return this.http.get(`${this.APIautorCasos}/${id}`);
 
+  }
+  deletarImagens( imagns:any[], id){
+
+    let params = new HttpParams();
+
+      for (let index = 0; index < imagns.length; index++) {
+        params = params.append('IM_IMAGE[]',imagns[index] );
+      }
+      params= params.append('CO_CASO_CLINICO',id);
+     
+      return this.http.get(`${this.APIdeletarImages}`,{ params: params }) // APIdeletarImages
+  }
+  reenviarCasoUser(id: number , formdate: any){
+
+    return this.http.post(`${this.APIReenviarCasoUser}/${id}`,formdate);
+  }
+  creatCaso(formdate: any){
+    return this.http.post(this.APICreatCaso,formdate);
   }
 
 

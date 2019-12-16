@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { environment } from './../../../environments/environment';
+
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -15,8 +17,8 @@ export class AuthService {
   title: any
 
   private APILogin = "http://localhost:8000/sabia/callback";
-  private APIloginUser = "http://localhost:8000/api/auth/user";
-  private APILogout = "http://localhost:8000/api/auth/logout";
+  private APIloginUser = `${environment.API}auth/user`;
+  private APILogout = `${environment.API}auth/logout`;
   private Usuario: Usuario;
 
   acesso : boolean = false
@@ -63,26 +65,28 @@ export class AuthService {
     params = params.append('token', token);
 
     // usando o Try para caso o Token seja invalido ou expirado
-    try {
-      this.http.get(`${this.APIloginUser}`,{ params: params }).subscribe(resp => this.GetdadosUser(resp))
-    }catch(error){
-      console.log('ocorreu um erro')
-    }
     
-    console.log(this.Token);
-
+      this.http.get(`${this.APIloginUser}`,{ params: params }).subscribe(resp => this.GetdadosUser(resp), erro => {this.Logoff(), alert("Token Invalido")});
   }
-
   GetdadosUser(user){
-    console.log('cheguei');
+
+     // codigo para renovar o token
+        //var intervalo = window.setInterval(lerolero, 30000);
+           //function lerolero() {
+              // window.alert("Token esta quase expirando deseja renovar?");
+          // }
+
+
     // estou dando o Emit para todos que estao inscritos no evento testando
     AuthService.get('enviaUser').emit(user)
+    localStorage.setItem('CO_PAPEL', user.CO_PAPEL );
+    localStorage.setItem('CO_STATUS', user.CO_STATUS );
     //console.log(user)
     this.Usuario = user
     if (this.Usuario) {
       this.acesso = true
       this.AtivarLogado();
-      if(this.Usuario.CO_PAPEL !='6'){
+      if(this.Usuario.CO_PAPEL !='6' && this.Usuario.CO_STATUS == 3){
         this.AcessoRegistrar = true;
         this.RegistrarSwitch();
         if (this.Usuario.CO_PAPEL == '1'){
@@ -91,11 +95,12 @@ export class AuthService {
         }
       }
     }
-    console.log();
   }
 
   Logoff() {
     localStorage.removeItem('token');
+    localStorage.removeItem('CO_STATUS');
+    localStorage.removeItem('CO_PAPEL');
     this.acesso = false;
     this.AtivarLogado();
 

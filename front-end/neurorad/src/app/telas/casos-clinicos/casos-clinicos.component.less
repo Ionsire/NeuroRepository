@@ -11,9 +11,6 @@ section#casos{
     width: 100%;
     background-color: @back-fundo ;
   padding: 1em;
-    //background-image: url('https://estilo.online/wp-content/uploads/2018/08/naom_5b7213ce5ab2d.jpg');
-    //background-attachment: fixed;
-   // background-position: 50% 0%;
     article{
         width: 100%;
         div.flex{
@@ -48,12 +45,18 @@ section#casos{
                     margin-top: 1em;
                     
                     div.card-principal{
-                        width: 210px;
-                        height: 260px;
-                        background-color: #ffffff;
+                        width: 215px;
+                        height: 280px;
+                        background-color: @card-bnt;
                         margin: 1em ;
                         border-radius: 0 0 .8em .8em;
                         box-shadow: .1em .2em .2em @text;
+                        span.date{
+                            margin: auto;
+                            text-align: center;
+                            color: #ffffff;
+                            font-size:.8em;
+                        }
                         div{
                             text-align: center;
                             img{
@@ -61,31 +64,29 @@ section#casos{
                                 margin: 0px;
                                 width:210px;
                                 height: 205px;
-                               
+                                &:hover{
+                                    cursor: pointer;
+                                }
                             }
                             div.text-card{
-                                margin: 0px;
-                                width: 210px;
-                                height: 55px;
-                                background-color: @card-bnt;
-                                vertical-align: middle;
-                                border-radius: 0 0 .4em .4em;
                                 display: flex;
                                 justify-content: center;
                                 align-items: center;
+                                padding: 15px 7px;
+                                border-radius: 0 0 0.8em .8em;
                                 &:hover{
-                                   
+                                    cursor: pointer;
                                     background-color: #1992BF;
                                 }
                                 span{
                                     white-space: nowrap; 
-                                    width: 180px; 
+                                    width: 160px; 
                                     overflow: hidden;
                                     text-overflow: ellipsis; 
-                                    cursor: pointer;
                                     margin: 0px;
                                     font-size: 15px;
                                     color: #ffffff;
+                                    
                                 }
                             }
                         }
@@ -96,8 +97,8 @@ section#casos{
                 @media screen and(max-width: 1024px){
                     #cards{
                         div.card-principal{
-                            width: 170px;
-                            height: 220px;
+                            width: 175px;
+                            height: 250px;
                             div{
                                 img{
                                     width:170px;
@@ -141,8 +142,8 @@ section#casos{
                     display: flex;
                     img{
                         margin-right: .5em;
-                        width: 30px;
-                        height: 30px;
+                        width: 25px;
+                        height: 27px;
                     }
                   
                 }

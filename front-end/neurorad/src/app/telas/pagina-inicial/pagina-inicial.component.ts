@@ -34,6 +34,7 @@ export class PaginaInicialComponent implements OnInit {
 
 
   ngOnInit() {
+  
 // pegando responser do sabia com queryparams
   if(this.route.snapshot.queryParamMap.get("code")) {
    this.code = this.route.snapshot.queryParamMap.get("code")
@@ -57,7 +58,7 @@ export class PaginaInicialComponent implements OnInit {
         }
         this.Get(this.selectCaso);
      },
-     erro => console.log(erro)
+     erro =>alert('Erro, tente novamente mais tarde')
     );
   }
 
@@ -92,5 +93,6 @@ populaAutor(autor){
 VisualizarCaso(id) {
   this.router.navigate(['viewcase', id ])
  }
+ 
 
 }

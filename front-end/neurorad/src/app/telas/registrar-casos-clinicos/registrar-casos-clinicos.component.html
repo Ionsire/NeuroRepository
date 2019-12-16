@@ -75,8 +75,9 @@
                                 </div>
                         </div>
                         <div id="BNT3" [class.active]="classes[3] ">
+                                     <div [class.active]="classes[3]"  id="informacao" >  <span > <strong> A entrada do texto será disponibilizada após inserir as imagens</strong></span></div> 
                                 <div class="form-container" [class.active]="classes[3]">
-                                        <span > <strong> A entrada do texto sera disponibilizada após inserir as imagens é escolher a imagens de capa, pos a ordem se autera</strong></span>
+                                      
                                         <span *ngIf="img_Capa_OK">
                                                 <label for="DS_ACHADOS_DAS_IMAGENS" class="control-label">Descrição dos
                                                         Achados:</label>
@@ -89,7 +90,9 @@
                                                         Campo é obrigatório.
                                                 </span>
                                         </span>
+                                        <label class="imagenslabel" for="imagens">Selecione as imagens</label>
                                         <div id="cards" [class.active]="classes[3] ">
+                                                
                                                 <div [class.active]="classes[3]"
                                                         *ngFor="let url of urls;let index = index">
                                                         <span class="letras" >{{Letras[index]}}</span>
@@ -97,7 +100,7 @@
                                                                 (click)="ModalImg(url,index,Letras[index])" class="card" [src]="url"
                                                                 alt="Card image cap">
                                                         <img id="bntdelete" (click)="Delete(index)"
-                                                                src="https://img.icons8.com/color/20/000000/close-window.png"
+                                                                src="../../../assets/images/remover.png"
                                                                 alt="Delete">
 
                                                 </div>

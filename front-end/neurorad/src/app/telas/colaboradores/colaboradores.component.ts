@@ -42,7 +42,7 @@ export class ColaboradoresComponent implements OnInit {
     this.Colaboradores$ = this._http.Colaboradores()
       .pipe(
         catchError(error => {
-          console.log(error);
+          alert('Erro, tente novamente mais tarde');
           this.erro$.next(true);
           return empty();
         })

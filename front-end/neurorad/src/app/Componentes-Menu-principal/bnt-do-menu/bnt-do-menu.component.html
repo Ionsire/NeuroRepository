@@ -1,56 +1,20 @@
 
-  <!-- 
-
-<div class="dropdown">
-        <button type="button" class="btn btn-secondary" (click)="active()" > &#10148; {{M}}</button>
-        <ul class="{{lu}}" >
-            <li><a  (click)="activeHome()" routerLink=""><button type="button" class="btn btn-secondary">Home</button></a></li>
-            <li><a  (click)="activeCS()" routerLink="casos"><button type="button" class="btn btn-secondary">Casos Clinicos</button></a></li>
-            <li><a  (click)="activeRe()" routerLink="registrar"><button type="button" class="btn btn-secondary">Registrar</button></a></li>
-            <li><a  (click)="activeRe()" routerLink="Homologacao"><button type="button" class="btn btn-secondary">Homologação </button></a></li>
-            <li><a  (click)="activeRe()" routerLink="perfil/formulario"><button type="button" class="btn btn-secondary">UserForm</button></a></li>
-            <li><a  (click)="activeRe()" routerLink="usuariopendecias"><button type="button" class="btn btn-secondary">UserPendentes </button></a></li>
-            <li><a  (click)="activeRe()" routerLink="perfil"><button type="button" class="btn btn-secondary">perfil </button></a></li>
-        </ul>
-</div>
---> 
-  <!--   <nav class="navbar navbar-expand-lg  " >
-        
-          <a [class.active]="classes[0]" (click)="toggle(classes, 0)"  class="nav-link" routerLink="home/">Início</a>
-       
-     
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item " [class.active]="classes[1]" (click)="toggle(classes, 1)">
-              <a class="nav-link"  routerLink="casos" routerLinActive="active">Casos Clínicos</a>
-            </li >
-            <li class="nav-item" *ngIf="this.auth.RegistrarSwitch()"  [class.active]="classes[2]" (click)="toggle(classes, 2)" >
-              <a class="nav-link " routerLink="registrar" routerLinActive="active">Registrar</a>
-            </li>
-            <li class="nav-item"  [class.active]="classes[3]" (click)="toggle(classes, 3)">
-              <a class="nav-link "  routerLink="casos" routerLinActive="active">A Plataforma</a>
-           </li >
-            
-          </ul>
-          <img id="logo"  src="../../../assets/images/neurorad_logo_1.png" alt="">
-          <form class="form-inline" [formGroup]="formularioBusca" (ngSubmit)="onSubmit()" >
-            <input formControlName="busca" class="search" type="search" placeholder="Search..." aria-label="Search">
-            <button class="bnt-search "  type="submit"><img src="../../../assets/images/icons8-search-19.png"></button>
-           </form>
-
-          <app-usuario-logado *ngIf="this.auth.AtivarLogado()"></app-usuario-logado>
-          <button  *ngIf="!this.auth.AtivarLogado()" class="acoes"> <a href=""> Cadastrar </a></button>
-        <button class="acoes" *ngIf="!this.auth.AtivarLogado()"> <app-sabia-enter  ></app-sabia-enter> </button> 
-         
-        
-        </div>
- </nav>
- -->
-<nav >
+<nav  >
   <div class="nav">
+
+      <div class="btn-group">
+          
+              <img id="menudrop"  src="../../../assets/images/menu3.png" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+          
+          <div class="dropdown-menu">
+              <a class="dropdown-item" routerLink="home/">Início</a>
+              <a class="dropdown-item" routerLink="casos" routerLinActive="active">Casos Clínicos</a>
+              <a *ngIf="this.auth.RegistrarSwitch() " class="dropdown-item" routerLink="registrar" routerLinActive="active">Registrar</a>
+              <a class="dropdown-item" routerLink="home/plataforma" routerLinActive="active">A Plataforma</a>
+          </div>
+        </div>
+
+
     <ul >
       <li [class.active]="classes[0]" (click)="toggle(classes, 0)">
         <a  routerLink="home/">Início</a>
@@ -62,7 +26,7 @@
         <a  routerLink="registrar" routerLinActive="active">Registrar</a>
       </li>
       <li  [class.active]="classes[3]" (click)="toggle(classes, 3)">
-        <a  routerLink="casos" routerLinActive="active">A Plataforma</a>
+        <a  routerLink="home/plataforma" routerLinActive="active">A Plataforma</a>
       </li>
     </ul>
     <img id="logo" src="../../../assets/images/neurorad_logo_1.png" alt="">
@@ -73,7 +37,7 @@
         </form>
  
       <app-usuario-logado *ngIf="this.auth.AtivarLogado()"></app-usuario-logado>
-      <button class="acoes" *ngIf="!this.auth.AtivarLogado()"> <a href=""> Cadastrar </a></button>
+      <button class="acoes" *ngIf="!this.auth.AtivarLogado()"> <a href="https://login.sabia.ufrn.br/oauth/authorize/?client_id=FLZ4MGe3BtQcDx0ddp06P1gPQtJZRbeF8r4bxs3w&redirect_uri=http://localhost:4200/home/&response_type=code"> Cadastrar </a></button>
       <button class="acoes" *ngIf="!this.auth.AtivarLogado()">
         <app-sabia-enter ></app-sabia-enter>
       </button>

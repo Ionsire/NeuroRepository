@@ -19,6 +19,7 @@ class PublicacaoAutomaticaCasoController extends Controller
         //busca e verifica se existe caso clinico com CO_STATUS 3 (Agendado) com a data de agendamento pra aquele dia
         $casoAgendado = CasoClinico::where('CO_STATUS', '=', 3)->where('DT_SEMANA', '=', $date)->first(); // procura por casos que estejam agendados para essa semana
 
+
         //se nao tem caso Agendado (CO_STATUS = 3)
         if(!$casoAgendado){
 

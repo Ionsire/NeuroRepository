@@ -13,6 +13,9 @@ import { UsuarioService } from './services/UsuarioService/usuario.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { GuardsGuard } from './guards/guards.guard';
+import { RegistrarCasoGuardsGuard } from './guards/guardsRegistrarCaso/registrar-caso-guards.guard';
+import { AdmGuard } from './guards/guardsAdm/adm.guard';
 
 
 @NgModule({
@@ -34,7 +37,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
   
 
   ],
-  providers: [ AuthService, CasesService,UsuarioService],
+  providers: [ AuthService, CasesService,UsuarioService , GuardsGuard, RegistrarCasoGuardsGuard, AdmGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -21,6 +21,8 @@ import { ColaboradoresComponent } from './colaboradores/colaboradores.component'
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { UsuarioCasosComponent } from './usuario-casos/usuario-casos.component';
 import { FooterNeuroComponent } from './footer-neuro/footer-neuro.component';
+import { ReenviarCasoComponent } from './reenviar-caso/reenviar-caso.component';
+import { PlataformaComponent } from './plataforma/plataforma.component';
 
 
 
@@ -39,6 +41,8 @@ import { FooterNeuroComponent } from './footer-neuro/footer-neuro.component';
     ColaboradoresComponent,
     UsuarioCasosComponent,
     FooterNeuroComponent,
+    ReenviarCasoComponent,
+    PlataformaComponent,
   ],
   imports: [
     CommonModule,

@@ -31,7 +31,7 @@ export class PendenciasUsuariosComponent implements OnInit {
       )
   }
   onSubmit(){
-    console.log(this.formulario.value);
+   // console.log(this.formulario.value);
     
      if (this.formulario.valid) {
       const formData = new FormData();
@@ -67,7 +67,7 @@ export class PendenciasUsuariosComponent implements OnInit {
     });
 
   }
-  PopulaForms(usuario: Usuario) {
+  PopulaForms(usuario: Usuario) {console.log(usuario)
    this.Reset();
    this.Usuario$ = usuario;
    this.formulario.patchValue({
@@ -83,7 +83,7 @@ export class PendenciasUsuariosComponent implements OnInit {
     this.Usuario$ = new Usuario();
   }
   recusar(id) {
-    console.log(id)
+   // console.log(id)
     if(id){
 this.condicoes =  confirm(
       'Deseja recusar esse Usuário'
@@ -112,4 +112,24 @@ this.condicoes =  confirm(
   ErroApi(){
     alert('Erro ao tentar enviar!')
   }
+  formatDate(date: string){
+
+    if(date !=null){
+        let day;
+        let month;
+        let year;
+        let dateBR;
+            year = date.slice(0,-6)
+            day =  date.slice(8,)
+            month = date.slice(5,-3)
+
+        let DATE : Date = new Date(year, month -1, day  )
+
+        month = DATE.toLocaleString('default', {month: 'long'})
+
+        dateBR  =   day + ' ' + month  + ' ' +year
+        return dateBR;
+  }
+  }
+  
 }

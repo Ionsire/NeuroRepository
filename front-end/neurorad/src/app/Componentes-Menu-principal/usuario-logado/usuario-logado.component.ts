@@ -15,6 +15,7 @@ export class UsuarioLogadoComponent implements OnInit {
   usuario: Usuario
   UsuariosPendentes: number = 0;
   CasosPendentes: number = 0;
+  contNotificacoes : any;
   userData: any;
 
   constructor( private _http: UsuarioService , private _http1: CasesService, private Service: AuthService, private router: Router) { }
@@ -22,11 +23,11 @@ export class UsuarioLogadoComponent implements OnInit {
   ngOnInit() {
     this._http.GET().subscribe(
       response => this.UsuariosPendentes = response.length,
-      erro => console.log(erro)
+      erro => alert('Erro, tente novamente mais tarde')
     );
     this._http1.getCaseHomo()
     .subscribe(Response => this.CasosPendentes = Response.length,
-      erro => console.log(erro)
+      erro => alert('Erro, tente novamente mais tarde')
     );
       
     // AuthService.get('enviaUser').subscribe(data => {
@@ -36,7 +37,6 @@ export class UsuarioLogadoComponent implements OnInit {
     // });
     //console.log('eu executei');
     this.usuario = this.Service.User()
-    console.log(this.Service.User());
   }
   Logout(){
     let conf;

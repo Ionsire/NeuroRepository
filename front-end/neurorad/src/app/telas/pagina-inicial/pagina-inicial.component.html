@@ -6,10 +6,10 @@
       <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
           <li *ngFor="let caso of SecundaryCase;let I = index" data-target="#carouselExampleIndicators" data-slide-to="I"></li>
     </ol>
-    <div class="carousel-inner">
-      <h2 *ngIf="!condicoes" >Publicação da Semana </h2>
+    <div class="carousel-inner" *ngIf="PrimaryCase">
+      <h2 *ngIf="!condicoes" >Caso da Semana </h2>
                   <hr *ngIf="!condicoes" >
-      <h2 *ngIf="condicoes" >Publicações da Semana </h2>
+      <h2 *ngIf="condicoes" >Casos da Semana </h2>
       <hr *ngIf="condicoes" >
       <div  *ngIf="PrimaryCase"  class="carousel-item active">
         <article class="CaseSemana" >
@@ -37,7 +37,7 @@
           <article class="CaseSemana" >
               <div id="caso">
                 <div class="img">
-                <a (click)="VisualizarCaso(caso.CO_SEQ_CASO_CLINICO)"><img src="{{hostApi}}{{caso.CO_IMAGEM_CAPA}}{{ext}}" alt="diagnóstico"></a>
+                <a (click)="VisualizarCaso(caso.CO_SEQ_CASO_CLINICO)"><img src="{{hostApi}}{{caso.CO_IMAGEM_CAPA}}" alt="diagnóstico"></a>
                 </div>
                 <span class="div" ></span>
                 <div class="descricao">

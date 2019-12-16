@@ -1,7 +1,7 @@
 <div id="viewcase">
 <section>
     <div id="principal" >
-        <div class="idcaso"> <h5>Caso: # <span>{{CasoClinico.CO_SEQ_CASO_CLINICO}}999999</span></h5></div>
+        <div class="idcaso"> <h5>Caso: # <span>{{CasoClinico.CO_SEQ_CASO_CLINICO}}</span></h5></div>
 
             <div id="titulo">
                 <div id="Historia">
@@ -12,7 +12,7 @@
                         <p> <strong>Categoria: </strong> {{CasoClinico.CO_CATEGORIA}}</p>
                         <p> <strong>Subcategoria: </strong> {{CasoClinico.CO_SUBCATEGORIA}}</p>
                     </div>
-                    <img *ngIf="Img" class="capa" src="{{hostApi}}{{Img}}"alt=""> 
+                    <img *ngIf="Img" class="capa" src="{{hostApi}}storage/images/{{CasoClinico.CO_IMAGEM_CAPA}}"alt=""> 
                     </div>
                     <div  class="Historiatext">
                     <h6> <strong>História Clínica</strong></h6>
@@ -38,8 +38,6 @@
                 <div id="toggleclasses"  enctype="multipart/form-data">
                         <div id="BNT0"  [class.active]="classes[0]">
                                 <div  [class.active]="classes[0]">
-                                    <p> {{CasoClinico.DS_ACHADOS_DAS_IMAGENS}} . </p>
-
                                     <div  [class.active]="classes[0]" id="Cards">
                                                 <div [class.active]="classes[0]" class="imagens">
                                                     <div [class.active]="classes[0]" *ngFor="let url of  CasoClinico.images; let index = index">
@@ -49,7 +47,11 @@
                                                     </div>
                                                 </div>
                                     </div>
+                                  
+                                    <button id="ver-descricao" type="button"  class="btn btn-outline-info" (click)="ver_DS()">Descrição dos achados</button>
+                                    <p *ngIf="ver_DS_Achados"> {{CasoClinico.DS_ACHADOS_DAS_IMAGENS}}</p>
                                 </div>
+                              
                         </div>
                         <div id="BNT1" [class.active]="classes[1]" >
                                 <div [class.active]="classes[1]">

@@ -15,6 +15,7 @@ import { ViewSubCategorias } from 'src/app/services/Classes/viewsubcategoria';
 export class ViewCaseComponent implements OnInit {
 
   CasoClinico: any = '';
+  ver_DS_Achados: boolean = false;
   autorCaso: any = 'Anônimo';
   MaxImg: number;
   cont : number = 0;
@@ -83,6 +84,10 @@ export class ViewCaseComponent implements OnInit {
   }
   Voltar() {
     this.location.back();
+  }
+  ver_DS(){
+
+    this.ver_DS_Achados = true;
   }
 
 

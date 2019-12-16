@@ -341,6 +341,8 @@ class CasoClinicoController extends Controller
             'CO_STATUS'=>'int|exists:TB_STATUS_CASO_CLINICO,CO_SEQ_STATUS_CASO_CLINICO',
             // 'DT_CRIACAO'=>'required|date'
         ]);
+
+        //return response()->json($request->CO_IMAGEM_CAPA_EXTENCAO);
     
         // Salva o caso clínico e recupera o ID recém criado
         $_caso_clinico = CasoClinico::create($request->all());
@@ -369,11 +371,14 @@ class CasoClinicoController extends Controller
             $image->storeAs('images', $_filename);
 
             //Atualiza a imagem de capa
-            if ($i == 0) {
+            if ($i == $request->CO_IMAGEM_CAPA) {
                 $_caso_clinico->CO_IMAGEM_CAPA = $_filename;
                 
                 $_caso_clinico->save();
-            }
+             }
+            
+
+
             $i++;
         }
 

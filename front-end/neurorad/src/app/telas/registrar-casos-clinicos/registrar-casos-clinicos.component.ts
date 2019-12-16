@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/services/authentication/auth.service';
 import { Usuario } from 'src/app/services/Classes/usuario';
 import { Router } from '@angular/router';
+import { CasesService } from 'src/app/services/Casos-Clinicos/cases.service';
 
 @Component({
   selector: 'app-registrar-casos-clinicos',
@@ -15,6 +16,7 @@ import { Router } from '@angular/router';
 export class RegistrarCasosClinicosComponent implements OnInit {
   formulario: FormGroup;
   ArrayImagens: string[] = [];
+  extencao : any;
   urls = new Array<string>();
   image: string = "";
   ImgsObjct = Array<any>();
@@ -30,7 +32,7 @@ export class RegistrarCasosClinicosComponent implements OnInit {
   cont : number = 0;
   select: Array<File> = null;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private service: AuthService,private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private service: AuthService,private router: Router, private _http: CasesService) { }
 
   // esta metodo abixo e só para testa ainda vai ser configurado corretamente
   classes: boolean[] = Array(
@@ -65,6 +67,7 @@ export class RegistrarCasosClinicosComponent implements OnInit {
       CO_CATEGORIA: [null, Validators.required],
       DS_ACHADOS_DAS_IMAGENS: [null, Validators.required],
       CO_USUARIO:[null, Validators.required],
+      CO_IMAGEM_CAPA:[null, Validators.required],
       CO_STATUS: [1],
 
       // UPLOADCARE_PUB_KEY: ['demopublickey'],
@@ -74,9 +77,12 @@ export class RegistrarCasosClinicosComponent implements OnInit {
     
   }
   onSubmit() {
-  
+    // popular imagens capa 
+            this.imagensCapaTopo();
+
         if (this.formulario.valid && this.ArrayImagens.length >0) {
           //enviar para o servidor
+          
           const formData = new FormData();
           formData.append('DS_HISTORIA_CLINICA', this.formulario.get('DS_HISTORIA_CLINICA').value);
           formData.append('DS_DISCUSSAO', this.formulario.get('DS_DISCUSSAO').value);
@@ -86,13 +92,17 @@ export class RegistrarCasosClinicosComponent implements OnInit {
           formData.append('DS_ACHADOS_DAS_IMAGENS', this.formulario.get('DS_ACHADOS_DAS_IMAGENS').value);
           formData.append('CO_USUARIO', this.formulario.get('CO_USUARIO').value);
           formData.append('CO_STATUS', this.formulario.get('CO_STATUS').value);
-          this.imagensCapaTopo();
-          console.log(this.formulario.get('CO_CATEGORIA').value);
-        
+          formData.append('CO_IMAGEM_CAPA', this.formulario.get('CO_IMAGEM_CAPA').value);
+          formData.append('CO_IMAGEM_CAPA_EXTENCAO', this.extencao );
+          
+         //return console.log(formData.get('CO_IMAGEM_CAPA') , formData.get('CO_IMAGEM_CAPA_EXTENCAO') );
+
+
           for (var i = 0; i < this.ArrayImagens.length; i++) {
           formData.append('images[]', this.ArrayImagens[i]);
           }
-          this.http.post('http://localhost:8000/api/casoclinico', formData)
+          //this.http.post('http://localhost:8000/api/casoclinico', formData)
+          this._http.creatCaso(formData)
             .subscribe(
               res => this.SucessoAlerta(),
               err => this.Erro(),
@@ -161,6 +171,7 @@ export class RegistrarCasosClinicosComponent implements OnInit {
 
       alert('numero maximo de imagens');
     }
+    this.img_Capa_OK = true;
   }
   ModalImg(x,y, index) {
     this.letra = index;
@@ -191,29 +202,42 @@ export class RegistrarCasosClinicosComponent implements OnInit {
     }
   }
    SalvarCapa(capa) {
+     
      this.CapaSalva = capa;
+      
+      
     alert('Capa salvar com sucesso');
-    this.Imgcapatopoview(capa)
-    this.img_Capa_OK = true;
+   // this.Imgcapatopoview(capa)
+   
    }
    imagensCapaTopo() {
-     // trocan a imagens antes de enviar para beck
-    var auxi: string;
-    auxi = this.ArrayImagens[this.CapaSalva];
-    this.ArrayImagens[this.CapaSalva] = this.ArrayImagens[0];
-    this.ArrayImagens[0] = auxi;
+    let IMGCAPA :any;
+    IMGCAPA = this.ArrayImagens[this.CapaSalva];
+    this.extencao = IMGCAPA.name.slice(-4)
+
+    //trocan a imagens antes de enviar para beck
+    //var auxi: string;
+    //auxi = this.ArrayImagens[this.CapaSalva];
+    //this.ArrayImagens[this.CapaSalva] = this.ArrayImagens[0];
+    //this.ArrayImagens[0] = auxi;
+
+      this.formulario.patchValue({
+    
+        CO_IMAGEM_CAPA: this.CapaSalva,  
+    });
+    
+
    }
   MiniCard(x) {
     this.image = x;
   }
   // trocando imagens na view
-  Imgcapatopoview(x){
-    var AX : any;
-    AX = this.urls[0];
-    this.urls[0] =  this.urls[x];
-    this.urls[x] = AX;
-
-  }
+  //Imgcapatopoview(x){
+    //var AX : any;
+   // AX = this.urls[0];
+    //this.urls[0] =  this.urls[x];
+    //this.urls[x] = AX;
+  //}
   PopulaForms(User: Usuario) {
   this.formulario.patchValue({
 

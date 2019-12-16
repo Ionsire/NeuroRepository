@@ -1,7 +1,7 @@
 <div id="container">
         <div id="sino">
           <div class="notificacao" *ngIf="this.Service.PreceptorAdministrador()"><span>{{UsuariosPendentes+CasosPendentes }}</span></div>
-         <img  src="../../../../assets/images/sino-icone.png" alt="">
+         <img class="sinoNoti"  src="../../../../assets/images/sino-icone.png" alt="">
           <div *ngIf="this.Service.PreceptorAdministrador()" id="arrow-up" [class]="sino" ></div>
           <ul *ngIf="this.Service.PreceptorAdministrador()" >
             <li ><a routerLink="usuariopendecias">Usuarios : {{UsuariosPendentes}}</a></li>

@@ -1,20 +1,79 @@
+@color-button: #b9b9b9;
+@color-button-active: #ffff;
+@back-fundo:#393939;
+@back : #00CC5C;
+@text-color : #707070;
+@span-colaborador:#01E065;
+@background-inf : #EEEEEE;
+@nav-btn: #E3E3E3;
+@bnt :#1992BF;
+
 section{
 width: 100%;
 min-height: 93vh;
+background-color:@back-fundo;
+font-family: 'Lato' !important ;
 height: 100%;
-background-image: url('https://estilo.online/wp-content/uploads/2018/08/naom_5b7213ce5ab2d.jpg');
-background-position: 50% 0%;
 padding: 2em; 
-form{
- //  width: 60%;
-    background-color: rgb(230, 230, 230);
-    border-radius: 1em;
-    margin-bottom: 1em;
-    button {
+    form{
+    //  width: 60%;
+        background-color: rgb(230, 230, 230);
+        border-radius: 1em;
         margin-bottom: 1em;
-    }
-    div.papel{
-        padding: 0;
+        padding: 2em;
+        button {
+            margin-bottom: 1em;
+            
+        }
+        div.papel{
+            padding: 0;
+        }
+        div#termoNR{
+            p{
+                padding: 1em;
+                span.termo{
+                    color:@back !important ;
+
+                    &:hover{
+                        cursor: pointer;
+                        color: @bnt !important;
+                    }
+                }
+            }
+        }
     }
 }
+
+// modal 
+
+div.modal-body{
+    h6{
+        text-align: center;
+    }
+   
+    p{
+        text-indent: 2em;
+        padding: .5em 2em;
+        text-align: justify;
+        margin: 0px;
+    }
+    form.container{
+        div.form-group{
+            div.form-check{
+                height: 100px;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                input.radioBtn{
+                    width: 15px;
+                    position: relative;
+                    top: 20px;
+
+                }
+                label{
+                    margin-bottom: 1em;;
+                }
+            }
+        }
+    }
 }

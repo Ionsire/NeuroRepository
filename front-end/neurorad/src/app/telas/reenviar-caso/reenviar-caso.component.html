@@ -1,0 +1,138 @@
+<section>
+        <div class="container">
+            <form  [formGroup]="formulario" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+             
+                        <div class="correcoes">
+                              <h5>Correções sugeridas :</h5>
+                              <p>{{formulario.value.DS_CORRECOES}} </p>
+                        </div>
+              
+                <div  class="form-group" >
+                        <div class="form-container" >
+                                <label for="DS_HISTORIA_CLINICA" class="control-label">Resumo:</label>
+                                <textarea type="text" class="form-control" formControlName="DS_HISTORIA_CLINICA" id="resumo"
+                                        [ngClass]="aplicaCssErro('DS_HISTORIA_CLINICA')" style="max-height: 30vh " rows="8"
+                                        cols="4"></textarea>
+                                <span *ngIf="verificarValidTouched('DS_HISTORIA_CLINICA')" class="invalid-feedback">
+                                        Campo é obrigatório.
+                                </span>
+
+                        </div>
+                </div>
+                <div  class="form-group">
+                        <div class="form-container" >
+                                <label for="DS_DISCUSSAO" class="control-label">Discussão:</label>
+                                <textarea type="text" class="form-control" formControlName="DS_DISCUSSAO"
+                                        id="discussao" [ngClass]="aplicaCssErro('DS_DISCUSSAO')"
+                                        style="max-height: 30vh " rows="7" cols="4"></textarea>
+                                <span *ngIf="verificarValidTouched('DS_DISCUSSAO')" class="invalid-feedback">
+                                        Campo é obrigatório.
+                                </span>
+                                <label id="referecias" for="DS_REFERENCIAS"
+                                        class="control-label">Referências:</label>
+                                <textarea type="text" class="form-control" formControlName="DS_REFERENCIAS"
+                                        id="referecias" [ngClass]="aplicaCssErro('DS_REFERENCIAS')"
+                                        style="max-height: 30vh " rows="7" cols="4"></textarea>
+                                <span *ngIf="verificarValidTouched('DS_REFERENCIAS')" class="invalid-feedback">
+                                        Campo é obrigatório.
+                                </span>
+
+                        </div>
+                </div>
+                <div   class="form-group">
+                        <div class="form-container" >
+                                <label for="DS_DIAGNOSTICO" class="control-label">Diagnóstico:</label>
+                                <input type="text" class="form-control text" formControlName="DS_DIAGNOSTICO"
+                                        id="nome" [ngClass]="aplicaCssErro('DS_DIAGNOSTICO')"
+                                        placeholder="diagnostico">
+                                <span *ngIf="verificarValidTouched('DS_DIAGNOSTICO')" class="invalid-feedback">
+                                        Campo é obrigatório.
+                                </span>
+                                <label id="doenca" for="CO_CATEGORIA" class="control-label">Categoria da
+                                        Doença:</label>
+                                <select formControlName="CO_CATEGORIA" class="custom-select"
+                                        id="formControlName3" [ngClass]="aplicaCssErro('CO_CATEGORIA')">
+                                        <option selected></option>
+                                        <option value="{{categoria.id}}" *ngFor="let categoria of  Categoria$.categorias">{{categoria.classe1}}</option>
+                                        
+                                </select>
+                                <span *ngIf="verificarValidTouched('CO_CATEGORIA')"
+                                        class="invalid-feedback">
+                                        Campo é obrigatório.
+                                </span>
+
+                        </div>
+                </div>
+                <div >
+                        <div class="form-container" >
+
+                                <div id="cards" >
+                                        <div class="for" *ngFor="let url of  ArrayImagens;let index = index">
+                                                <span class="letras" >{{Letras[index]}}</span>
+                                                <img data-toggle="modal" data-target="#exampleModal"
+                                                        (click)="ModalImg(url,index,Letras[index])" class="card" src="{{hostApi}}{{url}}"
+                                                        alt="Card image cap">
+                                                <img id="bntdelete" (click)="Delete(index)"
+                                                        src="https://img.icons8.com/color/20/000000/close-window.png"
+                                                        alt="Delete">
+
+                                        </div>
+                                </div>
+
+
+                                <span >
+                                        <label for="DS_ACHADOS_DAS_IMAGENS" class="control-label">Descrição dos
+                                                Achados:</label>
+                                        <textarea type="text" class="form-control"
+                                                formControlName="DS_ACHADOS_DAS_IMAGENS" id="referecias"
+                                                [ngClass]="aplicaCssErro('DS_ACHADOS_DAS_IMAGENS')"
+                                                style="max-height: 30vh " rows="8" cols="4"></textarea>
+                                        <span *ngIf="verificarValidTouched('DS_ACHADOS_DAS_IMAGENS')"
+                                                class="invalid-feedback">
+                                                Campo é obrigatório.
+                                        </span>
+                                </span>
+                                <div>
+                                        
+                                </div>
+
+                                <button type="submit" class="btn btn-outline-info">Submit</button>
+                        </div>
+                </div>
+
+        </form>
+        </div>
+
+
+
+</section>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document" >
+        <div class="modal-content" >
+                <div  class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Imagen : {{letra}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                        <img [src]="image" style="width: 80%;" alt="">
+
+                </div>
+                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                data-dismiss="modal">Voltar</button>
+
+                <div >
+                        <img class="modalnav" src="assets/images/prev.png" (click)="ModalImg(ArrayImagens[cont-1],cont-1,Letras[cont-1])" *ngIf="cont > 0">
+                        <span> {{cont+1}} of {{MaxImg+1}}</span>
+                        <img class="modalnav"  src="assets/images/next.png" (click)="ModalImg(ArrayImagens[cont+1],cont+1,Letras[cont+1])"  *ngIf="cont < MaxImg" >
+                </div>
+                       
+                        
+                </div>
+        </div>
+</div>
+</div>

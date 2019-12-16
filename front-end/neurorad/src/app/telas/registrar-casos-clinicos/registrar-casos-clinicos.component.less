@@ -199,6 +199,9 @@ nav#RegisterCases{
                  cursor: pointer;
                  display: flex;
                 }
+                label.imagenslabel{
+                    text-align: center;
+                }
                img.card{
                 width: 100%;
                 max-width: 180px;
@@ -233,10 +236,10 @@ nav#RegisterCases{
                img#bntdelete{
                 width: 20px;
                 height: 20px;
-                background-color: #FFF;
-                border-radius: 1px solid #ffffff;
-                border-radius: .3em;
-                box-shadow: 1px 3px 5px 0px #000000;
+                //background-color: #FFF;
+                //border-radius: .8em  solid #ffffff;
+                //border-radius: .3em;
+                //box-shadow: 1px 3px 5px 0px #000000;
                 z-index: 1px;
                 position: relative;
                 right: 1.2em;
@@ -281,6 +284,14 @@ nav#RegisterCases{
                     height: 80px;
                     z-index: 3;
                 }   
+            }
+            div#informacao{
+                width:350px;
+                @var: calc(100% - 390px);
+                margin-left: @var;
+                background-color: rgb(238, 214, 81);
+                border-radius: .4em;
+                padding: 1em;
             }
                
         }
