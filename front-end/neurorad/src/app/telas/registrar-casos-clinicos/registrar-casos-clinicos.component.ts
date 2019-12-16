@@ -105,7 +105,7 @@ export class RegistrarCasosClinicosComponent implements OnInit {
           this._http.creatCaso(formData)
             .subscribe(
               res => this.SucessoAlerta(),
-              err => this.Erro(),
+              err => console.log(err)//this.Erro(), 
             
             );
         } else {
