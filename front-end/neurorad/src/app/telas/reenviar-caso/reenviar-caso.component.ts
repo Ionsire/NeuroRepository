@@ -83,7 +83,7 @@ export class ReenviarCasoComponent implements OnInit {
   }
   PopulaForms(caso: CasoClinico) {
   //  console.log(this.NU_REJEICOES)
-    console.log(caso);
+    //console.log(caso);
     this.id = caso.CO_SEQ_CASO_CLINICO;
 
    
@@ -138,7 +138,7 @@ export class ReenviarCasoComponent implements OnInit {
       formData.append('DS_ACHADOS_DAS_IMAGENS', this.formulario.get('DS_ACHADOS_DAS_IMAGENS').value);
       formData.append('CO_USUARIO', this.formulario.get('CO_USUARIO').value);
       formData.append('CO_STATUS', this.formulario.get('CO_STATUS').value);
-      console.log(this.formulario.get('CO_CATEGORIA').value);
+      //console.log(this.formulario.get('CO_CATEGORIA').value);
 
       //console.log(this.id)
 

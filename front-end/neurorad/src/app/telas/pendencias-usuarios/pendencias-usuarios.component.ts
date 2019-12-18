@@ -27,7 +27,7 @@ export class PendenciasUsuariosComponent implements OnInit {
     });
       this._http.GET().subscribe(
         response => this.UsuariosPendentes = response,
-        erro =>console.log(erro)
+        erro =>alert("Ocorreu um erro ao iniciar")//console.log(erro)
       )
   }
   onSubmit(){
@@ -57,7 +57,7 @@ export class PendenciasUsuariosComponent implements OnInit {
   }
   verificarValidacoeFrom(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(campo => {
-      console.log(campo);
+      //console.log(campo);
       const controle = formGroup.get(campo);
       controle.markAsTouched();
       if (controle instanceof FormGroup ) {
@@ -67,7 +67,7 @@ export class PendenciasUsuariosComponent implements OnInit {
     });
 
   }
-  PopulaForms(usuario: Usuario) {console.log(usuario)
+  PopulaForms(usuario: Usuario) {//console.log(usuario)
    this.Reset();
    this.Usuario$ = usuario;
    this.formulario.patchValue({

@@ -25,8 +25,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('neurorad:agendamento')
-                    ->everyMinute(); // ->weeklyOn(2, '0:00'); executa na terça feira às 0 horas 
+        $schedule->command('neurorad:desagendamento')//->everyMinute();
+                    ->weeklyOn(2, '0:00'); // remove todos os casos da semana
+        $schedule->command('neurorad:agendamento')//->everyFiveMinutes();
+                    ->weeklyOn(2, '0:05'); // terça feira executa o agendamento
+                    //->everyMinute(); // ->weeklyOn(2, '0:00'); executa na terça feira às 0 horas 
 
 
         // crontab -e * * * * * php /Users/inamar/Desktop/testCron/schedule/artisan schedule:run 1>> /dev/null 2>&1

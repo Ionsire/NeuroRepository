@@ -28,7 +28,7 @@
 
   <nav id="RegisterCases">
                 <ul>
-                <li><button type="button" [class.active]="classes[0]" (click)="toggle(classes, 0)"><span>1</span>Descrição dos achados</button></li>
+                <li><button type="button" [class.active]="classes[0]" (click)="toggle(classes, 0)"><span>1</span>Descrição dos Achados</button></li>
                 <li><button type="button" [class.active]="classes[1]" (click)="toggle(classes, 1)"><span>2</span>Diagnóstico</button></li>
                 <li><button type="button" [class.active]="classes[2]" (click)="toggle(classes, 2)"><span>3</span>Discussão</button></li>
                 <li><button type="button" [class.active]="classes[3]" (click)="toggle(classes, 3)"><span>4</span>Referência </button></li>
@@ -48,7 +48,7 @@
                                                 </div>
                                     </div>
                                   
-                                    <button id="ver-descricao" type="button"  class="btn btn-outline-info" (click)="ver_DS()">Descrição dos achados</button>
+                                    <button id="ver-descricao" type="button"  class="btn btn-outline-info" (click)="ver_DS()">Descrição dos Achados</button>
                                     <p *ngIf="ver_DS_Achados"> {{CasoClinico.DS_ACHADOS_DAS_IMAGENS}}</p>
                                 </div>
                               

@@ -66,7 +66,7 @@ export class AuthService {
 
     // usando o Try para caso o Token seja invalido ou expirado
     
-      this.http.get(`${this.APIloginUser}`,{ params: params }).subscribe(resp => this.GetdadosUser(resp), erro => {this.Logoff(), alert("Token Invalido")});
+      this.http.get(`${this.APIloginUser}`,{ params: params }).subscribe(resp => this.GetdadosUser(resp), erro => {this.Logoff(), alert("Você está Desconectado")});
   }
   GetdadosUser(user){
 

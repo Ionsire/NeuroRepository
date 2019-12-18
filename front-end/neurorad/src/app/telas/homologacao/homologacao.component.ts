@@ -208,16 +208,16 @@ export class HomologacaoComponent implements OnInit {
       DS_ACHADOS_DAS_IMAGENS: null,
       CO_SUBCATEGORIA: null,
       DT_SEMANA:null,
+      CO_SEQ_CASO_CLINICO: null
     });
   }
 
   homologar() {
 
-      
-
-
     if (this.formulario.valid ) {
-      this._http.deletarImagens(this.imagensDeletadas,this.formulario.get('CO_SEQ_CASO_CLINICO').value).subscribe(resp => console.log(resp))
+      if (this.imagensDeletadas[0] != null) {
+        this._http.deletarImagens(this.imagensDeletadas,this.formulario.get('CO_SEQ_CASO_CLINICO').value).subscribe(resp => console.log(resp))
+      }
       const formData = new FormData();
       formData.append('DS_HISTORIA_CLINICA', this.formulario.get('DS_HISTORIA_CLINICA').value);
       formData.append('DS_DISCUSSAO',this.formulario.get('DS_DISCUSSAO').value);
@@ -228,13 +228,14 @@ export class HomologacaoComponent implements OnInit {
       formData.append('CO_SEQ_CASO_CLINICO',this.formulario.get('CO_SEQ_CASO_CLINICO').value);
       formData.append('CO_SUBCATEGORIA',this.formulario.get('CO_SUBCATEGORIA').value);
 
-      this._http.homologar(formData).subscribe (resp =>alert('Envidao com sucesso'), error =>alert('erro ao enviar') );
-
+      this._http.homologar(formData).subscribe (resp =>alert('Homologado com sucesso'), error =>alert('Erro ao Homologar') );
       this.ngOnInit ();
+
     } else {
-      alert("Formulario invalido")
+      alert("Formulario inválido")
       this.verificarValidacoeFrom(this.formulario);
     }
+
     
   }
   SubCategorias() {
@@ -283,23 +284,23 @@ export class HomologacaoComponent implements OnInit {
         this.ngOnInit()
       } else {
 
-        alert('Nao a caso selecionado')
+        alert('Não há caso selecionado')
       }
     } else {
-      alert('Data do agendamento e obrigatorio')
+      alert('Data do agendamento e obrigatório')
     }
 
   }
   Desagendar() {
     let confi;
-    confi = confirm( 'deseja mesmo Desagendar?')
+    confi = confirm( 'Deseja mesmo Desagendar?')
     if (confi) {
       if(this.formulario.get('CO_SEQ_CASO_CLINICO').value){
         this._http.desagendarCaso(this.formulario.get('CO_SEQ_CASO_CLINICO').value).subscribe(res => alert('Desagendado com Sucesso'));
         this.ngOnInit();
       }
       else{
-        alert('nenhum caso selecionado')
+        alert('Nenhum caso selecionado')
       }
     } else {
 
@@ -308,14 +309,14 @@ export class HomologacaoComponent implements OnInit {
 
   Disponibilizar(){
     let confi;
-    confi = confirm( 'deseja mesmo Disponibilizar na base publica?')
+    confi = confirm( 'Deseja mesmo Disponibilizar na base publica?')
     if (confi) {
       if(this.formulario.get('CO_SEQ_CASO_CLINICO').value){
         this._http.tornarCasoPublico(this.formulario.get('CO_SEQ_CASO_CLINICO').value).subscribe(res => alert('Disponibilizado com Sucesso'));
         this.ngOnInit();
       }
       else{
-        alert('nenhum caso selecionado')
+        alert('Nenhum caso selecionado')
       }
     } else {
       
@@ -337,7 +338,6 @@ export class HomologacaoComponent implements OnInit {
    }
   Reenviar(){
    // console.log(this.formularioRenvio.value);
-
     if (this.formularioRenvio.valid ) {
       const formDataReenvio = new FormData();
       formDataReenvio.append('CO_SEQ_CASO_CLINICO', this.formularioRenvio.get('CO_SEQ_CASO_CLINICO').value);
@@ -357,13 +357,20 @@ export class HomologacaoComponent implements OnInit {
   }
   DeletarCaso(id){
     let conf = false;
-    conf = confirm('deseja deletar esse Caso?');
+   if (id != null) {
+    conf = confirm('Deseja deletar esse Caso?');
 
     if(conf){
       this._http.deletarCaso(id).subscribe( Responser => alert( 'Deletado com sucesso'),
-      err => alert('falha ao deletar'));
+      err => alert('Falha ao deletar'));
     }
     this.ngOnInit();
+     
+   } else {
+    alert('Nenhum caso selecionado')
+   }
+   
+  
   }
   ModalImg(imagems,i,index) {
 
@@ -377,7 +384,7 @@ export class HomologacaoComponent implements OnInit {
   deletarImagem(imagens){
     //console.log('imagem', imagens)
     let conf;
-      conf = confirm('desaje deletar essa imagens?');
+      conf = confirm('Deseja deletar essa imagen?');
       if(conf){
         this.ArrayImagens.splice(this.cont, 1)
         this.imagensDeletadas[this.contDelete] = imagens.slice(15,-4)

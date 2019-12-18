@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-
+use App\Http\Controllers\API\PublicacaoAutomaticaCasoController;
 class desagendamento extends Command
 {
     /**
@@ -37,6 +37,8 @@ class desagendamento extends Command
      */
     public function handle()
     {
+        $autoPublic = new PublicacaoAutomaticaCasoController;
+        $autoPublic->desPublicaCaso();
         // $scheduleController = new ScheduleController;
         // $scheduleController -> busca();
     }

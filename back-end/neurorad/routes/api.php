@@ -73,7 +73,7 @@ Route::get('/deletar', 'API\CasoClinicoController@deletarImagem');
 Route::get('/vercaso/{id}', 'API\CasoClinicoController@verCaso');
 Route::get('/user_nome/{id}','API\UsersController@nome_user');
 
-//Route::get('/testauth/{code?}', 'API\SabiaController@teste');
+Route::get('/testcron', 'API\PublicacaoAutomaticaCasoController@publicarCaso');
 
 Route::post('/reenviar/{id}', 'API\CasoClinicoController@update');
 // PublicacaoAutomaticaCasoController

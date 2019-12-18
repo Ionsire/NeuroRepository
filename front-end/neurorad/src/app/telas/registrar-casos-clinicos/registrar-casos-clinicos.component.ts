@@ -52,9 +52,9 @@ export class RegistrarCasosClinicosComponent implements OnInit {
   userData: Usuario = new Usuario();
 
   ngOnInit() {
-    if(localStorage.getItem("token")){
-      this.service.acessotoken(localStorage.getItem("token"));
-     }
+    // if(localStorage.getItem("token")){
+    //   this.service.acessotoken(localStorage.getItem("token"));
+    //  }
      AuthService.get('enviaUser').subscribe(data => this.PopulaForms(data));
      
 
@@ -105,10 +105,11 @@ export class RegistrarCasosClinicosComponent implements OnInit {
           this._http.creatCaso(formData)
             .subscribe(
               res => this.SucessoAlerta(),
-              err => console.log(err)//this.Erro(), 
+              err => this.Erro(), 
             
             );
         } else {
+         
           alert("Formulario invalido, verifique se todos os campos estãos preenchido juntos com as imgens, todos são obrigatorios! ")
           this.verificarValidacoeFrom(this.formulario);
         }
@@ -211,9 +212,17 @@ export class RegistrarCasosClinicosComponent implements OnInit {
    
    }
    imagensCapaTopo() {
-    let IMGCAPA :any;
-    IMGCAPA = this.ArrayImagens[this.CapaSalva];
-    this.extencao = IMGCAPA.name.slice(-4)
+
+    if (this.ArrayImagens.length >0) {
+      let IMGCAPA :any;
+      IMGCAPA = this.ArrayImagens[this.CapaSalva];
+      this.extencao = IMGCAPA.name.slice(-4)
+    
+    } else {
+      alert("Formulario invalido, verifique se todos os campos estãos preenchido juntos com as imgens, todos são obrigatorios! ")
+      
+    }
+    
 
     //trocan a imagens antes de enviar para beck
     //var auxi: string;

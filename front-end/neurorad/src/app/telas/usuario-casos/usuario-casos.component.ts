@@ -41,7 +41,7 @@ export class UsuarioCasosComponent implements OnInit {
     
   
     for (let index = 0; index < this.casosclinicos.length; index++) {
-      console.log(this.casosclinicos[index].CO_STATUS)
+      //console.log(this.casosclinicos[index].CO_STATUS)
       if (this.casosclinicos[index].CO_STATUS == 2) {
        
         this.casoClinicosAprovados.push(this.casosclinicos[index])

@@ -23,6 +23,6 @@ class UsuarioSeeder extends Seeder
             ['CO_PAPEL' => 1],
             ['CO_STATUS' => 3],
         ];
-        DB::table('TB_STATUS_USUARIO')->insert($data);
+        DB::table('TB_USUARIO')->insert($data);
     }
 }

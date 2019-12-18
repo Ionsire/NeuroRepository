@@ -260,15 +260,13 @@
                                                         </div>
                                                 </div>
                                         </div>
-                                      
-                                       <div class="Acoes" [class.active]="classes[4]" *ngIf="!tabela[2]">
-                                        <button type="button" *ngIf="!tabela[1]" (click)="DeletarCaso(formulario.value.CO_SEQ_CASO_CLINICO)" class="btn btn-outline-danger"> Deletar </button>
-                                         <span *ngIf="this.NU_REJEICOES !=2" > <button type="button" *ngIf="!tabela[1]" (click)="verColaborador(content,formulario.value.CO_SEQ_CASO_CLINICO)" class="btn btn-outline-warning"> Reenviar</button></span>
-                                        <button type="submit" *ngIf="!tabela[1]" class="btn btn-outline-success" >Homologar</button>
-                
-                                       
-                                   
-                                       </div>
+                                      <span *ngIf="formulario.valid">
+                                                <div class="Acoes" [class.active]="classes[4]" *ngIf="!tabela[2]">
+                                                                <button type="button" *ngIf="!tabela[1]" (click)="DeletarCaso(formulario.value.CO_SEQ_CASO_CLINICO)" class="btn btn-outline-danger"> Deletar </button>
+                                                                <span *ngIf="this.NU_REJEICOES !=2" > <button type="button" *ngIf="!tabela[1]" (click)="verColaborador(content,formulario.value.CO_SEQ_CASO_CLINICO)" class="btn btn-outline-warning">Reenviar</button></span>
+                                                                <button type="submit" *ngIf="!tabela[1]" class="btn btn-outline-success" >Homologar</button>
+                                                </div>
+                                        </span>
                                        
 
                                 </div>
