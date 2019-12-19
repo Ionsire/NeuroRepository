@@ -1,3 +1,4 @@
+import { AuthService } from './services/authentication/auth.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-  title = 'neurorad';
+  title = 'neuro-rad';
+
+  constructor (private _servic : AuthService ) {}
+
+  
+
 }

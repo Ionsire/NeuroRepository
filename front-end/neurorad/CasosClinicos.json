@@ -1,0 +1,276 @@
+{
+  "Usuarios": [
+    {
+      "id": 1,
+      "CO_SEQ_USUARIO": 1,
+      "NU_CPF": 70000000,
+      "DS_NOME": "Renata Santana",
+      "DS_EMAIL": "Renata@gmail.com",
+      "DT_NASCIMENTO": "2019-09-25",
+      "IM_FOTO": "https://cdn.pixabay.com/photo/2017/09/21/07/47/girl-2771001_960_720.jpg",
+      "CO_PERFIL": "Estudante",
+      "CO_ESPECIALIDADE": "Neurologia",
+      "CO_PAPEL": "Pre_Adminstrador"
+    },
+    {
+      "id": 2,
+      "CO_SEQ_USUARIO": 2,
+      "NU_CPF": 70000000,
+      "DS_NOME": "Pablo Maciel",
+      "DS_EMAIL": "Pablo@homail.com",
+      "DT_NASCIMENTO": "2019-09-25",
+      "IM_FOTO": "https://image.shutterstock.com/image-photo/portrait-casually-dressed-young-businessman-600w-505890028.jpg",
+      "CO_PERFIL": "Estudante",
+      "CO_ESPECIALIDADE": "Neurologia",
+      "CO_PAPEL": "Pre_Adminstrador"
+    },
+    {
+      "id": 3,
+      "CO_SEQ_USUARIO": 3,
+      "NU_CPF": 70000000,
+      "DS_NOME": "Rebeca Santana",
+      "DS_EMAIL": "Rebeca@hotmail.com",
+      "DT_NASCIMENTO": "2019-09-25",
+      "IM_FOTO": "https://cdn.pixabay.com/photo/2015/04/20/13/10/person-731142_960_720.jpg",
+      "CO_PERFIL": "Estudante",
+      "CO_ESPECIALIDADE": "Neurologia",
+      "CO_PAPEL": "Pre_Adminstrador"
+    },
+    {
+      "CO_SEQ_USUARIO": 4,
+      "NU_CPF": 70000000,
+      "DS_NOME": "Rafael Silva",
+      "DS_EMAIL": "Rafael@hotmail.com",
+      "DT_NASCIMENTO": "2019-09-25",
+      "IM_FOTO": "https://cdn.pixabay.com/photo/2014/07/31/23/49/guitarist-407212_960_720.jpg",
+      "CO_PERFIL:string": "Estudante",
+      "CO_ESPECIALIDADE": "Neurologia",
+      "CO_PAPEL": "Pre_Adminstrador",
+      "id": 4
+    }
+  ],
+  "caso": [
+    {
+      "id": 1,
+      "CO_SEQ_CASO_CLINICO": 1,
+      "DS_HISTORIA_CLINICA": "DS_HISTORIA_CLINICA  O elemento select permite uma ou mais opções em um menu onde cada opção é representada por um elemento option. Seusprincipais atributos name, i e size funcionam da maneira que você já viu no elmento input. O atributo multiple permite ao usuário indicar mais de uma opção. O elemento select permite",      "DS_ACHADOS_DAS_IMAGENS":"DS_ACHADOS_DAS_IMAGENS" ,
+      "DS_DIAGNOSTICO": "DS_DIAGNOSTICO",
+      "CO_CATEGORIA": 2,
+      "CO_SUBCATEGORIA": 2,
+      "DS_DISCUSSAO": "DS_DISCUSSAO",
+      "DS_REFERENCIAS": "DS_REFERENCIAS",
+      "CO_USUARIO": 1,
+      "CO_STATUS": 4,
+     
+      "NU_REJEICOES": 0,
+      "DS_CORRECOES": 0,
+      "CO_IMAGEM_CAPA": 0
+  
+    },
+    {
+      "id": 2,
+      "CO_SEQ_CASO_CLINICO": 2,
+      "DS_HISTORIA_CLINICA": "DS_HISTORIA_CLINICA  2 ",
+      "DS_ACHADOS_DAS_IMAGENS":"DS_ACHADOS_DAS_IMAGENS 2" ,
+      "DS_DIAGNOSTICO": "DS_DIAGNOSTICO 2",
+      "CO_CATEGORIA": 2,
+      "CO_SUBCATEGORIA": 2,
+      "DS_DISCUSSAO": "DS_DISCUSSAO 2",
+      "DS_REFERENCIAS": "DS_REFERENCIAS 2",
+      "CO_USUARIO": 1,
+      "CO_STATUS": 4,
+     
+      "NU_REJEICOES": 0,
+      "DS_CORRECOES": 0,
+      "CO_IMAGEM_CAPA": 0
+
+    },
+    {
+      "id": 3,
+      "CO_SEQ_CASO_CLINICO": 3,
+      "DS_HISTORIA_CLINICA": "DS_HISTORIA_CLINICA  3 ",
+      "DS_ACHADOS_DAS_IMAGENS":"DS_ACHADOS_DAS_IMAGENS 3" ,
+      "DS_DIAGNOSTICO": "DS_DIAGNOSTICO 3",
+      "CO_CATEGORIA": 2,
+      "CO_SUBCATEGORIA": 2,
+      "DS_DISCUSSAO": "DS_DISCUSSAO 3",
+      "DS_REFERENCIAS": "DS_REFERENCIAS 3",
+      "CO_USUARIO": 1,
+      "CO_STATUS": 4,
+     
+      "NU_REJEICOES": 0,
+      "DS_CORRECOES": 0,
+      "CO_IMAGEM_CAPA": 0
+
+    },
+    {
+      "id": 1,
+      "CO_SEQ_CASO_CLINICO": 1,
+      "DS_HISTORIA_CLINICA": "DS_HISTORIA_CLINICA ",
+      "DS_ACHADOS_DAS_IMAGENS":"DS_ACHADOS_DAS_IMAGENS" ,
+      "DS_DIAGNOSTICO": "DS_DIAGNOSTICO",
+      "CO_CATEGORIA": 2,
+      "CO_SUBCATEGORIA": 2,
+      "DS_DISCUSSAO": "DS_DISCUSSAO",
+      "DS_REFERENCIAS": "DS_REFERENCIAS",
+      "CO_USUARIO": 1,
+      "CO_STATUS": 4,
+     
+      "NU_REJEICOES": 0,
+      "DS_CORRECOES": 0,
+      "CO_IMAGEM_CAPA": 0
+  
+    },
+    {
+      "id": 2,
+      "CO_SEQ_CASO_CLINICO": 2,
+      "DS_HISTORIA_CLINICA": "DS_HISTORIA_CLINICA  2 ",
+      "DS_ACHADOS_DAS_IMAGENS":"DS_ACHADOS_DAS_IMAGENS 2" ,
+      "DS_DIAGNOSTICO": "DS_DIAGNOSTICO 2",
+      "CO_CATEGORIA": 2,
+      "CO_SUBCATEGORIA": 2,
+      "DS_DISCUSSAO": "DS_DISCUSSAO 2",
+      "DS_REFERENCIAS": "DS_REFERENCIAS 2",
+      "CO_USUARIO": 1,
+      "CO_STATUS": 4,
+     
+      "NU_REJEICOES": 0,
+      "DS_CORRECOES": 0,
+      "CO_IMAGEM_CAPA": 0
+
+    },
+    {
+      "id": 3,
+      "CO_SEQ_CASO_CLINICO": 3,
+      "DS_HISTORIA_CLINICA": "DS_HISTORIA_CLINICA  3 ",
+      "DS_ACHADOS_DAS_IMAGENS":"DS_ACHADOS_DAS_IMAGENS 3" ,
+      "DS_DIAGNOSTICO": "DS_DIAGNOSTICO 3",
+      "CO_CATEGORIA": 2,
+      "CO_SUBCATEGORIA": 2,
+      "DS_DISCUSSAO": "DS_DISCUSSAO 3",
+      "DS_REFERENCIAS": "DS_REFERENCIAS 3",
+      "CO_USUARIO": 1,
+      "CO_STATUS": 4,
+     
+      "NU_REJEICOES": 0,
+      "DS_CORRECOES": 0,
+      "CO_IMAGEM_CAPA": 0
+
+    },
+    {
+      "id": 1,
+      "CO_SEQ_CASO_CLINICO": 1,
+      "DS_HISTORIA_CLINICA": "DS_HISTORIA_CLINICA ",
+      "DS_ACHADOS_DAS_IMAGENS":"DS_ACHADOS_DAS_IMAGENS" ,
+      "DS_DIAGNOSTICO": "DS_DIAGNOSTICO",
+      "CO_CATEGORIA": 2,
+      "CO_SUBCATEGORIA": 2,
+      "DS_DISCUSSAO": "DS_DISCUSSAO",
+      "DS_REFERENCIAS": "DS_REFERENCIAS",
+      "CO_USUARIO": 1,
+      "CO_STATUS": 4,
+     
+      "NU_REJEICOES": 0,
+      "DS_CORRECOES": 0,
+      "CO_IMAGEM_CAPA": 0
+  
+    },
+    {
+      "id": 2,
+      "CO_SEQ_CASO_CLINICO": 2,
+      "DS_HISTORIA_CLINICA": "DS_HISTORIA_CLINICA  2 ",
+      "DS_ACHADOS_DAS_IMAGENS":"DS_ACHADOS_DAS_IMAGENS 2" ,
+      "DS_DIAGNOSTICO": "DS_DIAGNOSTICO 2",
+      "CO_CATEGORIA": 2,
+      "CO_SUBCATEGORIA": 2,
+      "DS_DISCUSSAO": "DS_DISCUSSAO 2",
+      "DS_REFERENCIAS": "DS_REFERENCIAS 2",
+      "CO_USUARIO": 1,
+      "CO_STATUS": 4,
+     
+      "NU_REJEICOES": 0,
+      "DS_CORRECOES": 0,
+      "CO_IMAGEM_CAPA": 0
+
+    },
+    {
+      "id": 3,
+      "CO_SEQ_CASO_CLINICO": 3,
+      "DS_HISTORIA_CLINICA": "DS_HISTORIA_CLINICA  3 ",
+      "DS_ACHADOS_DAS_IMAGENS":"DS_ACHADOS_DAS_IMAGENS 3" ,
+      "DS_DIAGNOSTICO": "DS_DIAGNOSTICO 3",
+      "CO_CATEGORIA": 2,
+      "CO_SUBCATEGORIA": 2,
+      "DS_DISCUSSAO": "DS_DISCUSSAO 3",
+      "DS_REFERENCIAS": "DS_REFERENCIAS 3",
+      "CO_USUARIO": 1,
+      "CO_STATUS": 4,
+     
+      "NU_REJEICOES": 0,
+      "DS_CORRECOES": 0,
+      "CO_IMAGEM_CAPA": 0
+
+    },
+    {
+      "id": 1,
+      "CO_SEQ_CASO_CLINICO": 1,
+      "DS_HISTORIA_CLINICA": "DS_HISTORIA_CLINICA ",
+      "DS_ACHADOS_DAS_IMAGENS":"DS_ACHADOS_DAS_IMAGENS" ,
+      "DS_DIAGNOSTICO": "DS_DIAGNOSTICO",
+      "CO_CATEGORIA": 2,
+      "CO_SUBCATEGORIA": 2,
+      "DS_DISCUSSAO": "DS_DISCUSSAO",
+      "DS_REFERENCIAS": "DS_REFERENCIAS",
+      "CO_USUARIO": 1,
+      "CO_STATUS": 4,
+     
+      "NU_REJEICOES": 0,
+      "DS_CORRECOES": 0,
+      "CO_IMAGEM_CAPA": 0
+  
+    },
+    {
+      "id": 2,
+      "CO_SEQ_CASO_CLINICO": 2,
+      "DS_HISTORIA_CLINICA": "DS_HISTORIA_CLINICA  2 ",
+      "DS_ACHADOS_DAS_IMAGENS":"DS_ACHADOS_DAS_IMAGENS 2" ,
+      "DS_DIAGNOSTICO": "DS_DIAGNOSTICO 2",
+      "CO_CATEGORIA": 2,
+      "CO_SUBCATEGORIA": 2,
+      "DS_DISCUSSAO": "DS_DISCUSSAO 2",
+      "DS_REFERENCIAS": "DS_REFERENCIAS 2",
+      "CO_USUARIO": 1,
+      "CO_STATUS": 4,
+     
+      "NU_REJEICOES": 0,
+      "DS_CORRECOES": 0,
+      "CO_IMAGEM_CAPA": 0
+
+    },
+    {
+      "id": 3,
+      "CO_SEQ_CASO_CLINICO": 3,
+      "DS_HISTORIA_CLINICA": "DS_HISTORIA_CLINICA  3 ",
+      "DS_ACHADOS_DAS_IMAGENS":"DS_ACHADOS_DAS_IMAGENS 3" ,
+      "DS_DIAGNOSTICO": "DS_DIAGNOSTICO 3",
+      "CO_CATEGORIA": 2,
+      "CO_SUBCATEGORIA": 2,
+      "DS_DISCUSSAO": "DS_DISCUSSAO 3",
+      "DS_REFERENCIAS": "DS_REFERENCIAS 3",
+      "CO_USUARIO": 1,
+      "CO_STATUS": 4,
+     
+      "NU_REJEICOES": 0,
+      "DS_CORRECOES": 0,
+      "CO_IMAGEM_CAPA": 0
+
+    }
+    
+
+
+
+
+
+
+  ]
+}

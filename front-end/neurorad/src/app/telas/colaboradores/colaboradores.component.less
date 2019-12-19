@@ -1,0 +1,99 @@
+@text-nav : #01E065;
+@backgrond-text : #00CC5C;
+@bnt :#1992BF;
+@back-fundo:#393939;
+@text-color : #707070;
+@text-color2 : #004560;
+
+section{
+    width: 100%;
+    font-family: 'Lato', sans-serif !important ;
+    background-color:@back-fundo ;
+    min-height: 85.4vh;
+    padding: 3em;
+
+    article{
+        width: 100%;
+        height: 100%;
+        padding: 1em;
+        background-color: #ffff;
+        border-radius: .8em;
+        div#title{
+            h3{
+            }
+            display: flex; 
+            justify-content: space-around;
+            margin-bottom: .8em;
+
+        }
+        input.search{
+            border-radius:0.3em 0 0 0.3em;
+            padding: 0.2em;
+           background-color: #9c9c9c;
+           color: rgb(0, 0, 0);
+        
+        }
+        input.search,button.bnt-search:focus{
+            border: 0 none;
+            outline: 0;
+        }
+        button.bnt-search{
+            display: flex;
+            height: 31px;
+            justify-content: center;
+            border-radius:0 0.3em 0.3em 0;
+            background-color: #424242;
+            border: none;
+            padding: 0.2em .4em;
+        }
+        button.bnt-search:hover{
+            cursor: pointer;
+        }
+    }
+}
+@media screen and(max-width: 830px){
+    article{
+        div#title{
+            h3{
+                font-size: 1.3em;
+            }
+         
+        }
+        input.search{
+          width:130px;
+          padding: 0.219em !important;
+        
+        }
+        input.search,button.bnt-search:focus{
+           
+        }
+        button.bnt-search{
+           
+        }
+      
+    }
+}
+
+// modal 
+div.modal-body{
+    display: flex;
+    justify-content: space-between;
+    div.IMG{
+        img{
+           width: 150px;
+           height: 150px;
+           border-radius: 50%;
+           margin-right:.5em ;
+
+        }
+        
+    }
+    div.dados{
+        span{
+            font-weight: bold;
+            margin-right: .2em;
+        }
+
+    }
+
+}

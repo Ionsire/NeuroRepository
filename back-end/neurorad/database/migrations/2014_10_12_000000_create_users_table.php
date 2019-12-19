@@ -8,6 +8,10 @@ class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
+     * 
+     * 
+     * delete FROM public."TB_CASO_CLINICO";
+     * delete FROM public."TB_IMAGEM"
      *
      * @return void
      */

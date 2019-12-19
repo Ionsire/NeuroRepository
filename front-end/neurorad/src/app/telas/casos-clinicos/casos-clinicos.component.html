@@ -1,0 +1,75 @@
+<section id="casos">
+
+
+    <article *ngIf="CasosClinicos$ | async as Casos; else loadingError">
+           <!-- <span>Resultado:  {{Casos.length}} Casos </span>-->
+     <div class="flex">
+       
+          <div class="card-container">
+              <span class="resultado">Resultado:  {{Casos.length}} Casos </span>
+            <div id="cards"  >
+                    <div class="card-principal" *ngFor="let caso of Casos.slice().reverse() | paginate: { itemsPerPage: 15, currentPage: pag }; let i = index">
+                             <div>
+                             <span class="date">{{formatDate(caso.DT_ATUALIZACAO)}}</span>
+                                 <img  (click)="VisualizarCaso(caso.CO_SEQ_CASO_CLINICO)"   src="{{hostApi}}{{caso.CO_IMAGEM_CAPA}}" alt="">
+                                 <div (click)="VisualizarCaso(caso.CO_SEQ_CASO_CLINICO)"  class="text-card" >
+                                 <span>{{caso.DS_DIAGNOSTICO}}</span>
+                                </div>
+                             </div>
+                     </div>
+                    
+            </div>
+            <div class="pagination-controls">
+              <pagination-controls class="ola" (pageChange)="pag = $event"></pagination-controls>
+            </div>
+                
+        </div>
+                 <div id="filtros" class="container">
+                     <form class="form-group" [formGroup]="formulario" action="">
+                       <div class="filter">
+                          <img src="../../../assets/images/filter.ico" alt="">
+                          <h4> Filtros</h4>
+                         
+                       </div>
+                       <hr>
+                             <div *ngIf ="formulario.value.DS_DIAGNOSTICO" class="form-group">
+
+                                    <label for="exampleInputEmail1">Busca:</label>
+                                    <p> {{ formulario.value.DS_DIAGNOSTICO }} <a routerLink="/casos"  > <img src="../../assets/images/cancel.png"></a> </p>
+                                    <hr>
+                            </div>
+
+                             <label for="">Categorias </label>
+                             <select (change)="SubCategorias()" class="custom-select" formControlName="CO_CATEGORIA" name="CO_CATEGORIA" form="CO_CATEGORIA">
+                                 <option ></option>
+                                 <option value="{{cat.id}}" *ngFor="let cat of  Categorias.categorias">{{cat.classe1}}</option>
+            
+                             </select>
+                             <br>
+                              <hr>
+                             <label for="">SubCategoria</label>
+                             <select (change)="SubCategoriasFiltros()" name="carlist" form="carform" class="custom-select" formControlName="CO_SUBCATEGORIA" name="CO_SUBCATEGORIA" form="CO_SUBCATEGORIA">
+                                     <option  ></option>
+                                     <option value="{{subcat.id}}" *ngFor="let subcat of auxiliar">{{subcat.classe}}</option>
+                             </select>
+                             <hr>
+                     </form>
+                 </div>
+     </div>
+       
+    </article>
+
+</section>
+<ng-template #loadingError>
+        <div *ngIf="erro$ | async; else loading">
+            Erro ao carregar os casos clinícos. Tente novamente mais tarde.
+            <button type="button" class="btn btn-outline-primary" (click)="Atualizar()">Carregar a Página</button>
+            
+        </div>
+        <ng-template #loading>
+          <span>Carregando Casos...</span>
+          <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </ng-template>
+</ng-template>

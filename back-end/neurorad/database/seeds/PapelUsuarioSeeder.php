@@ -17,6 +17,7 @@ class PapelUsuarioSeeder extends Seeder
             ['DS_DESCRICAO' => 'Residente Colaborador'],
             ['DS_DESCRICAO' => 'Residente Administrador'],
             ['DS_DESCRICAO' => 'Residente'],
+            ['DS_DESCRICAO' => 'Comum'],
         ];
         DB::table('TB_PAPEL_USUARIO')->insert($data);
     }

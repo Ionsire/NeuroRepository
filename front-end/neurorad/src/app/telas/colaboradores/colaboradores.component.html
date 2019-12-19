@@ -1,0 +1,86 @@
+<section >
+<article *ngIf="Colaboradores$ | async as Colaboradores; else loadingError">
+                <div class="container"  >
+                      <div id="title" >
+                            <h3> Lista de Colaboradores NeuroRad  </h3>
+                            <form  [formGroup]="formulario" class="form-inline" >
+                                    <input  formControlName="search" class="search" type="search" placeholder="Search..." aria-label="Search">
+                                    <button class="bnt-search "  type="button"><img src="https://img.icons8.com/android/15/000000/search.png"></button>
+                                   </form>
+                      </div>
+                    
+                  
+                    <div class="tabela">
+                            <table class="table">
+                                    <thead class="thead-dark" >
+                                            <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Nome</th>
+                                                    <th scope="col">Papel no Sistema</th>
+                                                    <th scope="col">informações</th>
+                                            </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr *ngFor="let colaborador of Colaboradores |filter: formulario.value.search  ; let I = index "  > 
+                                                    <th scope="row">{{I+1}}</th>
+                                                    <td>{{colaborador.DS_NOME}}</td>
+                                                    <td >{{atributos.Papeis[colaborador.CO_PAPEL]}}</td>
+                                                 
+                                                    <td><button (click)="verColaborador(content,colaborador)" type="button" class="btn btn-outline-primary"
+                                                                   >Ver mais</button>
+                                    
+                                                    </td>
+                                            </tr>
+                                    </tbody>
+                
+                            
+                            </table>
+                    </div>
+            </div>
+      </article>
+
+        </section>
+
+            <ng-template #loadingError>
+                <div *ngIf="erro$ | async; else loading">
+                    Erro ao carregar os casos clinícos. Tente novamente mais tarde.
+                    <button type="button" class="btn btn-outline-primary" (click)="Atualizar()">Carregar a Página</button>
+                    
+                </div>
+                <ng-template #loading>
+                  <span>Carregando Casos...</span>
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </ng-template>
+        </ng-template>
+        
+        <!--modal-->
+
+        <ng-template #content let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title">Colaborador</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div *ngIf="VerColaborador" class="modal-body">
+                <div class="IMG">
+                        <img   [src]="VerColaborador.IM_FOTO">
+                </div>
+                   
+                <div class="dados">
+                        <p> <span>Nome: </span>  {{ VerColaborador.DS_NOME }}  </p>
+                        <p> <span>Email:</span>  {{ VerColaborador.DS_EMAIL }}</p>
+                        <p> <span>CPF</span>:  {{ VerColaborador.NU_CPF }}</p>
+                        <p> <span>data de Nascimento:</span>  {{ VerColaborador.DT_NASCIMENTO }}</p>
+                        <p><span>Perfil:</span>  {{atributos.Perfis[VerColaborador.CO_PERFIL]}}</p>
+                        <p> <span>Especialidade:</span>  {{atributos.Especialidades[VerColaborador.CO_ESPECIALIDADE]}}</p>
+                        <p> <span>Papel no sistema:</span>  {{atributos.Papeis[VerColaborador.CO_PAPEL]}}</p>
+                </div>
+            
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+            </div>
+          </ng-template>

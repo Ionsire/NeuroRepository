@@ -1,0 +1,186 @@
+@back-fundo:#393939;
+@text:#707070;
+@text-selct : #01E065;
+@option : #004560;
+@card-bnt:#00678E;
+section#casos{
+    font-family: 'Lato', sans-serif !important ;
+    color: @text;
+    min-height: 85vh;
+    height: 100%;
+    width: 100%;
+    background-color: @back-fundo ;
+  padding: 1em;
+    article{
+        width: 100%;
+        div.flex{
+            width: 95%;
+            height: 100%;
+            min-height: 85vh;
+            display: flex;
+            margin: auto;
+            padding-bottom: 1px;
+            background-color: #ffffff;
+            border-radius: .5em;
+           
+            div.card-container{
+                width: 100%;
+                padding-top: 2em;
+             
+
+                span.resultado{
+                    margin: 0;
+                    font-family: 'Lato', sans-serif  ;
+                    color: @text;
+                    font-size: 15px;
+                    margin-left: 5em;
+                    
+                  
+                }
+                #cards{
+                    width: 100%;
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-around;
+                    margin-top: 1em;
+                    
+                    div.card-principal{
+                        width: 215px;
+                        height: 280px;
+                        background-color: @card-bnt;
+                        margin: 1em ;
+                        border-radius: 0 0 .8em .8em;
+                        box-shadow: .1em .2em .2em @text;
+                        span.date{
+                            margin: auto;
+                            text-align: center;
+                            color: #ffffff;
+                            font-size:.8em;
+                        }
+                        div{
+                            text-align: center;
+                            img{
+                                border: 0.2em solid #ffff;
+                                margin: 0px;
+                                width:210px;
+                                height: 205px;
+                                &:hover{
+                                    cursor: pointer;
+                                }
+                            }
+                            div.text-card{
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                padding: 15px 7px;
+                                border-radius: 0 0 0.8em .8em;
+                                &:hover{
+                                    cursor: pointer;
+                                    background-color: #1992BF;
+                                }
+                                span{
+                                    white-space: nowrap; 
+                                    width: 160px; 
+                                    overflow: hidden;
+                                    text-overflow: ellipsis; 
+                                    margin: 0px;
+                                    font-size: 15px;
+                                    color: #ffffff;
+                                    
+                                }
+                            }
+                        }
+                        
+                    }
+                   
+                }
+                @media screen and(max-width: 1024px){
+                    #cards{
+                        div.card-principal{
+                            width: 175px;
+                            height: 250px;
+                            div{
+                                img{
+                                    width:170px;
+                                    height:180px;
+                                }
+                                div.text-card{
+                                    margin: 0px;
+                                    width: 170px;
+                                    height: 40px;
+                                    span{
+                                        width: 150px; 
+                                    
+                                    }
+                                }
+                            }
+                            
+                        }
+                       
+                    }
+
+                }
+                div.pagination-controls{
+                    margin: auto;
+                margin-top: 10%;
+                background-color: #ffffff;
+                width: 300px;
+                border-radius: .8em;
+               
+                }
+            }
+           
+            div#filtros{
+                /// filtros
+                width: 30%;
+               // background-color: #1992BF;
+                border-radius: .5em;
+                padding-right: 50px;
+                div.filter{
+                    color:@text;
+                    margin-top: 4.2em;
+                    display: flex;
+                    img{
+                        margin-right: .5em;
+                        width: 25px;
+                        height: 27px;
+                    }
+                  
+                }
+                hr{
+                    width: 100%;
+                   
+                    background-color:@text ;
+                    margin: 0;
+                    margin-top: 5px;
+                }
+                select{
+
+                    color: @text-selct;
+                    option {
+                        color: @option;
+                      
+                    }
+
+                }
+              
+                
+             
+            }
+            @media screen and(max-width: 1024px){
+                div#filtros{
+                    /// filtros
+                    width: 40%;
+                }
+            }
+
+
+        }
+     
+    }
+}
+span{
+    margin-left: 35%;
+    font-size: 2em;
+    color: #ffffff;
+}

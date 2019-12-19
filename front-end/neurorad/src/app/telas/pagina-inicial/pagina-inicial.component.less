@@ -1,0 +1,457 @@
+@text-nav : #01E065;
+@back : #00CC5C;
+@bnt :#1992BF;
+@back-fundo:#393939;
+
+section#pagInicial{
+    font-family: 'Lato', sans-serif !important ;
+    width: 100%;
+     min-height: 86.3vh;
+    height: 100%;
+    background-color:@back-fundo; 
+    z-index: 0;
+
+
+    div#carouselExampleIndicators{
+        div.carousel-inner{
+            width: 100%;
+            height: 100%;
+           // min-height: 85.3vh;
+            z-index: 0 !important;
+
+       
+            h2{
+                color: aliceblue;
+                margin-top: 1em;
+                margin-bottom: .3em;
+                text-align: center;
+            }
+            hr{
+                width: 200px;
+                height: 2px;
+                background-color: @text-nav ;
+                margin: auto;
+
+                
+            }
+            div.carousel-item{
+                width: 100%;
+                //height: 100%;
+                height: 730px;
+               
+                article.CaseSemana{
+                    min-width: 1014px;
+                    width: 60%;
+                    height: 470px;
+                    min-height: 440px;
+                    background-color: rgb(255, 255, 255);
+                    border-radius: .5em;
+                     margin: auto auto;
+                     margin-top: 3%;
+                     padding-bottom: 1em ;
+                    div#caso{
+                       
+                        display: flex;
+                        div.img{
+                            width: 100%;
+                            height: 100%;
+                            margin-right: 40px;
+                            
+                            img{
+                                // imgens do caso
+                                width: 370px;
+                                height:  370px;
+                                border: 0.1em solid rgb(216, 216, 216);
+                                margin-left: 82px;
+                              //  margin-right: 20px;
+                                margin-top: 35px;
+                                object-fit:  cover;
+                               object-position: 50% 0;
+                            }
+                            p{
+                                text-indent:2em;
+                                text-align: justify;
+                                width: 100%;
+                                height: 140px;
+                                overflow: hidden;
+                    
+                            }
+                         
+                        }
+                        span.div{
+                            // traco verde no meio
+                            margin-top: 85px;
+                            height: 270px;
+                            width: 5px;
+                            background-color: @text-nav ;
+                            margin-right: 20px;
+                            
+                        }
+                        div.descricao{
+                            font-family: 'Lato', sans-serif !important ;
+                            padding: 0 1em 0 0;
+                            width: 100%;
+                         
+                                    div.idcaso{
+                                        padding: 0px;
+                                        width: 135px;
+                                       height: 62px;
+                                        background-color:@back ;
+                                        padding: 19px 0px;
+                                        @var: calc(100% - 145px);
+                                         margin-left:   @var;
+                                         border-radius: 0 0 .3em .3em ;
+                                      
+                                        h5{
+                                            text-align: center;
+                                            color: #fff;
+                                            white-space: nowrap; 
+                                            width: 132px; 
+                                            overflow: hidden;
+                                            text-overflow: ellipsis; 
+                                         
+                                        }
+                                    
+
+                                    }
+                                    div#historia_clinica{
+                                        // historia_clinica
+                                        margin-top: 73px;
+                                        font-family: 'Lato', sans-serif !important ;
+                                        width:450px ;
+                                        height:180px ;
+                                      
+                                        overflow: hidden; 
+                                        text-overflow: ellipsis;
+                                       
+                                  
+                                                p{
+                                                    margin-top: 25px;
+                                                    text-align: justify;
+                                                    text-indent:2em;
+                                                    max-height: 125px;
+                                                    overflow: hidden;
+                                                  
+                                                }
+                                    } 
+                                    a.colaborador{
+                                        margin-top: 27px;
+                                       padding: 0 .6em 0 0;
+                                        color: @text-nav;
+                                        float: right;
+                                    }
+                                
+                                button{
+                                    margin-top: 27px;
+                                    padding: 6px 29px;
+                                    @var: calc(100% - 135px);
+                                    margin-left:@var ;
+                                    background-color: #FFFFFF;
+                                    border: none;
+                                    border-radius: .3em;
+                                    border: 2px solid #1992BF;
+                                    color:#1992BF ;
+                                    &:hover{
+                                        background-color: @bnt;
+                                        color:@text-nav;
+                                    }
+                                }
+                        }
+
+                     }
+                
+                }
+              
+            }
+        }
+        // assets do lado e do roda pé
+        a.carousel-control-prev{
+            width: 60px;
+            height: 60px; 
+            margin: 335px   0 0 80px;
+             
+              img{
+                
+                  width: 60px;
+                  height: 60px;
+              }
+        }
+        a.carousel-control-next{
+            width: 60px;
+             height: 60px; 
+             margin: 335px  80px 0 0;
+             img{
+                
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+    }
+    span.seta{
+        width: 40px;
+        height: 40px;
+    }
+    // listra verde de localização
+    ol.carousel-indicators{
+        margin-bottom: 150px ;
+    li{
+        margin-top: 10px !important;
+        width: 80px !important;
+        margin-right: 33px;
+        &.active{
+            background-color: @text-nav  !important;
+        }
+        &:last-child{
+            margin-right: 0px;
+        }
+    }
+}
+}
+@media screen and(max-width: 1440px) {
+    section#pagInicial{
+
+        div#carouselExampleIndicators{
+            div.carousel-inner{
+                h2{
+                    margin-top: 2em;
+                    font-size: 1.7em;
+                }
+                hr{
+                    width: 180px;
+                    height: 2px;
+                }
+                div.carousel-item{
+                    height: 680px;
+                    article.CaseSemana{
+                        min-width: 850px;
+                        height: 370px;
+                        div#caso{
+                            div.img{
+                                margin-right: 0px;
+                                img{
+                                    // imgens do caso
+                                    width: 320px;
+                                    height:  320px;
+                                    margin-left: 32px;
+                                }
+                            }
+                            span.div{
+                                // traco verde no meio
+                                margin-top: 75px;
+                                height: 230px;
+                                width: 4px;
+                                background-color: @text-nav ;
+                                margin-right: 13px;
+                                
+                            }
+                            div.descricao{
+                                        div.idcaso{
+                                            padding: 0px;
+                                            width: 125px;
+                                           height: 55px;
+                                            background-color:@back ;
+                                            padding: 19px 0px;
+                                            @var: calc(100% - 145px);
+                                             margin-left:   @var;
+                                             border-radius: 0 0 .3em .3em ;
+                                          
+                                            h5{
+                                                font-size: 1em;
+                                                width: 110px; 
+                                            }
+                                        
+    
+                                        }
+                                        div#historia_clinica{
+                                            // historia_clinica
+                                            margin-top: 53px;
+                                            font-family: 'Lato', sans-serif !important ;
+                                            width:365px ;
+                                            height:200px ;
+                                                    p{
+                                                        margin-top: 15px;
+                                                        text-indent:2em;
+                                                        max-height: 145px;
+                                                    }
+                                        } 
+                                        a.colaborador{
+                                            margin-top: 17px;
+                                        }
+                                    button{
+                                        margin-top: 22px;
+                                        font-size: .8em;
+                                    }
+                            }
+                         }
+                    
+                    }
+                 }
+             }
+             a.carousel-control-prev{
+                width: 40px;
+                height: 40px; 
+                margin: 335px   0 0 40px;
+                 
+                  img{
+                    
+                      width: 45px;
+                      height: 45px;
+                  }
+            }
+            a.carousel-control-next{
+                width: 40px;
+                 height: 40px; 
+                 margin: 335px  40px 0 0;
+                 img{
+                    
+                    width: 45px;
+                    height: 45px;
+                }
+            }
+    
+        }
+        // listra verde de localização
+        ol.carousel-indicators{
+            margin-bottom: 150px ;
+        li{
+            margin-top: 10px !important;
+            width: 60px !important;
+            margin-right: 33px;
+            &.active{
+                background-color: @text-nav  !important;
+            }
+            &:last-child{
+                margin-right: 0px;
+            }
+        }
+            
+        }
+        
+    }
+    
+ 
+ }
+
+
+
+ @media screen and(max-width: 1064px) {
+    section#pagInicial{
+
+        div#carouselExampleIndicators{
+            div.carousel-inner{
+                h2{
+                    margin-top: 3.5em;
+                    font-size: 1.5em;
+                }
+                hr{
+                    width: 150px;
+                    height: 2px;
+                }
+                div.carousel-item{
+                    article.CaseSemana{
+                        min-width: 650px;
+                        width: 75%;
+                       min-height: 380px;
+                        height: 150px;
+                        div#caso{
+                            div.img{
+                                margin-top: 30px;
+                                margin-right: 0px;
+                                img{
+                                    // imgens do caso
+                                    width: 250px;
+                                    height:  250px;
+                                    margin-left: 32px;
+                                }
+                            }
+                            span.div{
+                                // traco verde no meio
+                                margin-top: 85px;
+                                height: 200px;     
+                            }
+                            div.descricao{
+                                        div.idcaso{
+                                            padding: 0px;
+                                            width: 105px;
+                                             height: 45px;
+                                            padding: 15px 0px;
+                                            @var: calc(100% - 115px);
+                                             margin-left:   @var;
+                                            h5{
+                                                font-size: .9em;
+                                                width: 100px; 
+                                            }
+                                        }
+                                        div#historia_clinica{
+                                           
+                                            width:300px ;
+                                            height:170px ;
+                                                    h5{
+                                                            font-size: 1em; 
+                                                        }
+                                                    p{
+                                                        font-size: .8em;
+                                                       
+                                                    }
+                                        } 
+                                        a.colaborador{
+                                            margin-top: 17px;
+                                            font-size: .8em;
+                                        }
+                                    button{
+                                        margin-top: 22px;
+                                        font-size: .7em;
+                                    }
+                            }
+                         }
+                    
+                    }
+                 }
+             }
+             a.carousel-control-prev{
+                width: 30px;
+                height: 30px; 
+                margin: 335px   0 0 30px;
+                 
+                  img{
+                    
+                      width: 30px;
+                      height: 30px;
+                  }
+            }
+            a.carousel-control-next{
+                width: 30px;
+                 height: 30px; 
+                 margin: 335px  30px 0 0;
+                 img{
+                    
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+    
+        }
+        // listra verde de localização
+        ol.carousel-indicators{
+            margin-bottom: 150px ;
+        li{
+            margin-top: 10px !important;
+            margin-bottom: 70px  !important;
+            width: 60px !important;
+            margin-right: 33px;
+            &.active{
+                background-color: @text-nav  !important;
+            }
+            &:last-child{
+                margin-right: 0px;
+            }
+        }
+            
+        }
+        
+    }
+    
+ 
+ }
+ 

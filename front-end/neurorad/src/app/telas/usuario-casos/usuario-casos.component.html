@@ -1,0 +1,61 @@
+<section style="padding: 3em;">
+<article>
+                <div class="container" style="width:60%" >
+                      <div style="display: flex; justify-content: space-around;">
+                       <button  type="button" class="btn btn-outline-primary" (click)="Aprovados()" >Aprovados</button>
+                         <button type="button" class="btn btn-outline-primary" (click)="Casosenviados()" >Casos enviados</button>
+                         <button type="button" class="btn btn-outline-primary" (click)="Retornados()" >Retornados</button>
+                        
+                    
+                      </div>
+                    
+                  
+                    <div class="tabela">
+                    <h3 style="text-align:center">{{titulotabela}}</h3>
+                            <table class="table">
+                                    <thead class="thead-dark">
+                                            <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Caso</th>
+                                                    <th scope="col">Categoria</th>
+                                                    <th scope="col">Data de submição</th>
+                                                     <th scope="col">Ações</th>
+
+                                            </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr *ngFor="let caso of casoClinicosAxiliar "> 
+                                                    <th scope="row"></th>
+                                                    <td>{{caso.CO_SEQ_CASO_CLINICO}}</td>
+                                                    <td>jdkbfkjbsdg</td>
+                                                    <td >jfhbdsfjhsd</td>
+                                                    <td  *ngIf="active != 2" ><button (click)="ViewCase(content,1)" type="button" class="btn btn-outline-primary"
+                                                                   >Ver mais</button>
+                                    
+                                                    </td>
+                                                     <td  *ngIf="active == 2" ><button (click)="ViewCase(content,1)" type="button" class="btn btn-outline-primary"
+                                                                   >Reenviar</button>
+                                    
+                                                    </td>
+                                            </tr>
+                                         
+                                    </tbody>
+                            </table>
+                    </div>
+            </div>
+      </article>
+ </section>
+
+
+         <ng-template #content let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title">caso</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+           
+            <div class="modal-footer">
+              <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+            </div>
+          </ng-template>

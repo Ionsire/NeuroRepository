@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        'App\Console\Commands\agendamento',
+        'App\Console\Commands\desagendamento',
     ];
 
     /**
@@ -24,8 +25,22 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('neurorad:desagendamento')//->everyMinute();
+                    ->weeklyOn(2, '0:00'); // remove todos os casos da semana
+        $schedule->command('neurorad:agendamento')//->everyFiveMinutes();
+                    ->weeklyOn(2, '0:05'); // terça feira executa o agendamento
+                    //->everyMinute(); // ->weeklyOn(2, '0:00'); executa na terça feira às 0 horas 
+
+
+        // crontab -e * * * * * php /Users/inamar/Desktop/testCron/schedule/artisan schedule:run 1>> /dev/null 2>&1
+        // caminho absoluto do arquivo artisan
+        //sair e salvar crontab: :wq
+
+
+        // $schedule->command('neurorad:desagendamento')
+        //             ->everyMinute();
+
+        
     }
 
     /**

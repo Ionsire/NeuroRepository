@@ -14,6 +14,7 @@ class CategoriaCasoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //oi
     public function index()
     {
         $categoriacaso = CategoriaCasoClinico::all();

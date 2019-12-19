@@ -1,0 +1,47 @@
+
+<nav  >
+  <div class="nav">
+
+      <div class="btn-group">
+          
+              <img id="menudrop"  src="../../../assets/images/menu3.png" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+          
+          <div class="dropdown-menu">
+              <a class="dropdown-item" routerLink="home/">Início</a>
+              <a class="dropdown-item" routerLink="casos" routerLinActive="active">Casos Clínicos</a>
+              <a *ngIf="this.auth.RegistrarSwitch() " class="dropdown-item" routerLink="registrar" routerLinActive="active">Registrar</a>
+              <a class="dropdown-item" routerLink="home/plataforma" routerLinActive="active">A Plataforma</a>
+          </div>
+        </div>
+
+
+    <ul >
+      <li [class.active]="classes[0]" (click)="toggle(classes, 0)">
+        <a  routerLink="home/">Início</a>
+      </li>
+      <li  [class.active]="classes[1]" (click)="toggle(classes, 1)">
+        <a  routerLink="casos" routerLinActive="active">Casos Clínicos</a>
+      </li>
+      <li *ngIf="this.auth.RegistrarSwitch()" [class.active]="classes[2]" (click)="toggle(classes, 2)">
+        <a  routerLink="registrar" routerLinActive="active">Registrar</a>
+      </li>
+      <li  [class.active]="classes[3]" (click)="toggle(classes, 3)">
+        <a  routerLink="home/plataforma" routerLinActive="active">A Plataforma</a>
+      </li>
+    </ul>
+    <img id="logo" src="../../../assets/images/neurorad_logo_1.png" alt="">
+    <div class="nav-left">
+        <form class="form-inline" [formGroup]="formularioBusca" (ngSubmit)="onSubmit()">
+          <input formControlName="busca" class="search" type="search" placeholder="Search..." aria-label="Search">
+          <button class="bnt-search " type="submit"><img src="../../../assets/images/icons8-search-19.png"></button>
+        </form>
+ 
+      <app-usuario-logado *ngIf="this.auth.AtivarLogado()"></app-usuario-logado>
+      <button class="acoes" *ngIf="!this.auth.AtivarLogado()"> <a href="https://login.sabia.ufrn.br/oauth/authorize/?client_id=FLZ4MGe3BtQcDx0ddp06P1gPQtJZRbeF8r4bxs3w&redirect_uri=http://localhost:4200/home/&response_type=code"> Cadastrar </a></button>
+      <button class="acoes" *ngIf="!this.auth.AtivarLogado()">
+        <app-sabia-enter ></app-sabia-enter>
+      </button>
+ 
+    </div>
+  </div>
+</nav>

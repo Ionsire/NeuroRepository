@@ -1,0 +1,60 @@
+@text:  #707070;
+@text-color: #fff;
+@text-green: #01E065;
+@back-ground :#1992BF;
+@back-ground1 :#1992BF;
+nav#footer{
+    font-family: 'Lato'!important ;
+    height: 57px;
+    width: 100%;
+    background-color: @back-ground1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    div#parceiras{
+        font-size: 20px;
+        margin-left: 25px;
+        a{
+            margin-right: 25px;
+            color:@text-color;
+            &:last-child{
+                margin-right: 0px;
+            }
+            &:hover{
+                color:@text-green;
+                cursor: pointer;
+            }
+
+        }
+    }
+    p.informacoes{
+        font-size: 15px;
+        color: @text-color;
+        padding: 0;
+        margin: 0;
+    }
+    a.colabore{
+        font-size: 15px;
+        color: @text-green;
+        margin-right: 80px;
+    }
+  
+
+}
+@media screen and(max-width: 900px){
+    nav#footer{
+        div#parceiras{
+            font-size: 17px;
+            margin-left: 20px;
+            a{
+                margin-right: 17px;
+                color:@text-color;
+            
+            }
+        }
+        a.colabore{
+            font-size: 15px;
+            margin-right: 50px;
+        }
+    }
+}

@@ -1,0 +1,102 @@
+<div id="viewcase">
+<section>
+    <div id="principal" >
+        <div class="idcaso"> <h5>Caso: # <span>{{CasoClinico.CO_SEQ_CASO_CLINICO}}</span></h5></div>
+
+            <div id="titulo">
+                <div id="Historia">
+                    <div class="inicio">
+                        <h4 *ngIf="CasoClinico.CO_STATUS == 4" >Publicação da semana</h4>
+                        <h4 *ngIf="CasoClinico.CO_STATUS != 4" >Caso Clínico</h4>
+                        <span> contributed by {{autorCaso}} </span>
+                        <p> <strong>Categoria: </strong> {{CasoClinico.CO_CATEGORIA}}</p>
+                        <p> <strong>Subcategoria: </strong> {{CasoClinico.CO_SUBCATEGORIA}}</p>
+                    </div>
+                    <img *ngIf="Img" class="capa" src="{{hostApi}}storage/images/{{CasoClinico.CO_IMAGEM_CAPA}}"alt=""> 
+                    </div>
+                    <div  class="Historiatext">
+                    <h6> <strong>História Clínica</strong></h6>
+                    <p>{{CasoClinico.DS_HISTORIA_CLINICA}}    </div>
+                </div>
+    </div>
+
+   
+<!---->
+
+  <!--corpo-->
+
+
+  <nav id="RegisterCases">
+                <ul>
+                <li><button type="button" [class.active]="classes[0]" (click)="toggle(classes, 0)"><span>1</span>Descrição dos Achados</button></li>
+                <li><button type="button" [class.active]="classes[1]" (click)="toggle(classes, 1)"><span>2</span>Diagnóstico</button></li>
+                <li><button type="button" [class.active]="classes[2]" (click)="toggle(classes, 2)"><span>3</span>Discussão</button></li>
+                <li><button type="button" [class.active]="classes[3]" (click)="toggle(classes, 3)"><span>4</span>Referência </button></li>
+             
+                </ul>
+
+                <div id="toggleclasses"  enctype="multipart/form-data">
+                        <div id="BNT0"  [class.active]="classes[0]">
+                                <div  [class.active]="classes[0]">
+                                    <div  [class.active]="classes[0]" id="Cards">
+                                                <div [class.active]="classes[0]" class="imagens">
+                                                    <div [class.active]="classes[0]" *ngFor="let url of  CasoClinico.images; let index = index">
+                                                       <span>{{Letras[index]}}</span> 
+                                                        
+                                                        <img data-toggle="modal" data-target="#exampleModal"  (click)="ModalImg(url, index,Letras[index])"  src="{{hostApi}}{{url}}" alt="">
+                                                    </div>
+                                                </div>
+                                    </div>
+                                  
+                                    <button id="ver-descricao" type="button"  class="btn btn-outline-info" (click)="ver_DS()">Descrição dos Achados</button>
+                                    <p *ngIf="ver_DS_Achados"> {{CasoClinico.DS_ACHADOS_DAS_IMAGENS}}</p>
+                                </div>
+                              
+                        </div>
+                        <div id="BNT1" [class.active]="classes[1]" >
+                                <div [class.active]="classes[1]">
+                                     <p>{{CasoClinico.DS_DIAGNOSTICO}}  
+                                 </div>
+                        </div>
+                        <div id="BNT2" [class.active]="classes[2] " >
+                                <div  [class.active]="classes[2]">
+                                        <p>{{CasoClinico.DS_DISCUSSAO}}                               </div>
+                        </div>
+                        <div id="BNT3" [class.active]="classes[3] ">
+                                <div  [class.active]="classes[3]">
+                                       <p>{{CasoClinico.DS_REFERENCIAS}}                               
+                                </div>
+                        </div>
+
+                </div>
+</nav>
+ <button type="button" class="voltar" (click)="Voltar()">Voltar</button>
+ 
+</section>
+</div>
+ <!-- modal-->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div  class="modal-dialog" role="document" >
+          <div  class="modal-content" >
+                  <div  class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Imagens: {{letra}}</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                          </button>
+                  </div>
+                  <div  class="modal-body">
+                          <img *ngIf="imagem" src="{{hostApi}}{{imagem}}" style="width: 80%;" alt="">
+
+                  </div>
+                  <div  class="modal-footer">
+                  <div>
+                    <img class="modalnav" src="assets/images/prev.png" (click)="ModalImg(CasoClinico.images[cont-1], cont-1,Letras[cont-1])" *ngIf="cont > 0">
+                   <span> {{cont+1}} of {{MaxImg+1}}</span>
+                    <img class="modalnav"  src="assets/images/next.png" (click)="ModalImg(CasoClinico.images[cont+1], cont+1,Letras[cont+1])"  *ngIf="cont < MaxImg" >
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
+                  </div>
+          </div>
+  </div>
+</div>

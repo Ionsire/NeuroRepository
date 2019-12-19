@@ -18,6 +18,7 @@ class StatusCasoClinicoSeeder extends Seeder
             ['DS_DESCRICAO' => 'Em uso'],
             ['DS_DESCRICAO' => 'Arquivado'],
             ['DS_DESCRICAO' => 'Inativado'],
+            ['DS_DESCRICAO' => 'Reenviado'],
         ];
         DB::table('TB_STATUS_CASO_CLINICO')->insert($data);
     }

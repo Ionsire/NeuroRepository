@@ -1,0 +1,228 @@
+<section id="perfil">
+    <div class="container">
+      <nav id="navbar">
+          <ul>
+        
+          <li> <button [class.active]="classes[0]" (click)="toggle(classes, 0)"  >Meu perfil  </button></li>
+        <span *ngIf="userData != null">
+          <span *ngIf="userData.CO_PAPEL != 6">
+              <li > <button  [class.active]="classes[1]" (click)="toggle(classes, 1)"  >Casos submetidos </button> </li>
+              <li> <button  [class.active]="classes[2]"  (click)="toggle(classes, 2)" >Casos retornados <span *ngIf="asstesAviso"><img src="../../../assets/images/Icon-alert.png"></span> <span></span></button> </li>
+              <li> <button   [class.active]="classes[3]"  (click)="toggle(classes, 3)" >Casos aprovados</button> </li>
+          </span>
+
+        </span>
+          
+       
+          </ul>
+      </nav>
+      
+      <div *ngIf="userData != null" class="media">
+         
+              <div *ngIf="classes[0]" class="meu-perfil">
+                          <!--perfil-->
+                            <div class="perfil" >
+                                  <img  [src]="userData.IM_FOTO" class="mr-3" alt="...">
+                                      <div class="dadosUser">
+                                      <h5>Dados pessoais</h5>
+                                         <p><span class="nome">Nome:</span> {{userData.DS_NOME}} </p>
+                                         <p><span>E-mail:</span> {{userData.DS_EMAIL}}</p> 
+                                         <p><span class="cpf">CPF:</span> {{userData.NU_CPF}} </p>
+                                         <p><span class="perfil" >Perfil:</span> {{atributos.Perfis[userData.CO_PERFIL]}} </p>
+                                        <p><span>Papel no Sistema:</span> {{atributos.Papeis[userData.CO_PAPEL]}} </p>      
+                                          
+                                      </div>
+                            </div>
+
+
+                            <div class="deseja" *ngIf="userData.CO_PAPEL == 6">
+                                <p>Deseja entrar como colaborador click <a routerLink="formulario">Aqui</a></p>
+                            </div>
+                            <div class="deseja" *ngIf="userData.CO_PAPEL != 6">
+                                <p>Deseja alterar seu papel no sistema click <a routerLink="formulario">Aqui</a></p>
+                            </div>
+              </div>
+
+              <!-- casos submetidos-->
+
+              <div *ngIf="classes[1] " >
+               <div class="tabela">
+                            <table class="table">
+                                    <thead >
+                                            <tr>
+                                                   <th scope="col">Diagnóstico</th>
+                                                    <th scope="col">Data envio</th>
+                                                     <th scope="col">Ações</th>
+
+                                            </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr *ngFor="let caso of casoClinicosEnviados "> 
+                                                    <td>{{caso.DS_DIAGNOSTICO}} </td>
+                                                     <td class="data"><span></span>{{caso.DT_CRIACAO.slice(0, -9)}}</td>
+                                                  
+                                                    <td  *ngIf="active != 2" ><button (click)="ViewCase(content,caso.CO_SEQ_CASO_CLINICO)" type="button" class="btn btn-outline-info"
+                                                                   >Ver mais</button>
+                                    
+                                                    </td>
+                                            </tr>
+                                         
+                                    </tbody>
+                            </table>
+                    </div>
+              </div>
+              <!-- casos retornados-->
+              <div *ngIf="classes[2] " >
+               <div class="tabela">
+                            <table class="table">
+                                    <thead >
+                                            <tr>
+                                                     <th scope="col">Diagnóstico</th>
+                                                    <th scope="col">Data envio</th>
+                                                     <th scope="col">Ações</th>
+
+                                            </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr *ngFor="let caso of casoClinicosRetornados "> 
+                                                     <td>{{caso.DS_DIAGNOSTICO}}</td>
+                                                     <td class="data"><span></span>{{caso.DT_CRIACAO.slice(0, -9)}}</td>
+                                                
+                                                     <td ><button (click)="ViewCase(content,caso.CO_SEQ_CASO_CLINICO)" type="button" class="btn btn-outline-info"
+                                                                   >Ver mais</button>
+                                    
+                                                    </td>
+                                            </tr>
+                                         
+                                    </tbody>
+                            </table>
+                    </div>
+              </div>
+               <!-- casos aprovados-->
+              <div *ngIf="classes[3] " >
+               <div class="tabela">
+                            <table class="table">
+                                    <thead >
+                                            <tr>
+                                                    <th scope="col">Diagnóstico</th>
+                                                    <th scope="col">Data envio</th>
+                                                     <th scope="col">Ações</th>
+
+                                            </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr *ngFor="let caso of casoClinicosAprovados "> 
+              
+                                                    <td>{{caso.DS_DIAGNOSTICO}}</td>
+                                                     <td class="data"><span></span>{{caso.DT_CRIACAO.slice(0, -9)}}</td>
+                                                  
+                                                    <td  *ngIf="active != 2" ><button     (click)="ViewCase(content,caso.CO_SEQ_CASO_CLINICO)" type="button" class="btn btn-outline-info"
+                                                                   >Ver mais</button>
+                                    
+                                                    </td>
+                                                    
+                                            </tr>
+                                         
+                                    </tbody>
+                            </table>
+                    </div>
+              </div>
+
+          
+
+      </div>
+       
+   </div> 
+  
+</section>
+
+
+<!--modal-->
+
+
+
+         <ng-template #content let-modal>
+
+            <div class="modal-header">
+              <h4 class="modal-title">CASO:# {{casoClinicosAxiliar.CO_SEQ_CASO_CLINICO}}</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              </div>
+                <div id="principalmodal">
+                        <div class="container casomodal">
+                                        <div id="principal" >
+                                        <div class="idcaso"> <h5>Caso: # <span>{{casoClinicosAxiliar.CO_SEQ_CASO_CLINICO}}</span></h5></div>
+                                
+                                                <div id="titulo">
+                                                <div id="Historia">
+                                                        <div class="inicio">
+                                                        <p> <strong>Categoria: </strong> {{categoriacaso}}</p>
+                                                        <p> <strong>Subcategoria: </strong> {{subcategoriacaso}}</p>
+                                                        </div>
+                                                        <img *ngIf="ArrayImagens[0]" class="capa" src="{{hostApi}}storage/images/{{casoClinicosAxiliar.CO_IMAGEM_CAPA}}"alt=""> 
+                                                        </div>
+                                                        <div  class="Historiatext">
+                                                        <h6> <strong>História Clínica</strong></h6>
+                                                        <p>{{casoClinicosAxiliar.DS_HISTORIA_CLINICA}}    </div>
+                                                </div>
+                                        </div>
+                                
+                                
+                                <!---->
+                                
+                                <!--corpo-->
+                                
+                                
+                                <nav id="RegisterCases">
+                                                <ul>
+                                                <li><button type="button" [class.active]="clscasos[0]" (click)="togglecaso(clscasos, 0)"><span>1</span>Descrição dos achados</button></li>
+                                                <li><button type="button" [class.active]="clscasos[1]" (click)="togglecaso(clscasos, 1)"><span>2</span>Diagnóstico</button></li>
+                                                <li><button type="button" [class.active]="clscasos[2]" (click)="togglecaso(clscasos, 2)"><span>3</span>Discussão</button></li>
+                                                <li><button type="button" [class.active]="clscasos[3]" (click)="togglecaso(clscasos, 3)"><span>4</span>Referência </button></li>
+                                                
+                                                </ul>
+                                
+                                                <div id="toggleclasses"  enctype="multipart/form-data">
+                                                        <div id="BNT0"  [class.active]="clscasos[0]">
+                                                                <div  [class.active]="clscasos[0]">
+                                                                        <p> {{casoClinicosAxiliar.DS_ACHADOS_DAS_IMAGENS}} </p>
+
+                                                                        <div  [class.active]="clscasos[0]" id="Cards">
+                                                                                        <div [class.active]="clscasos[0]" class="imagens">
+                                                                                            <div [class.active]="clscasos[0]" *ngFor="let url of   ArrayImagens; let index = index">
+                                                                                               <span>{{Letras[index]}}</span> 
+                                                                                                <img   src="{{hostApi}}{{url}}" alt="">
+                                                                                            </div>
+                                                                                        </div>
+                                                                            </div>
+                                
+                                                                     
+                                                                </div>
+                                                        </div>
+                                                        <div id="BNT1" [class.active]="clscasos[1]" >
+                                                                <div [class.active]="clscasos[1]">
+                                                                        <p>{{casoClinicosAxiliar.DS_DIAGNOSTICO}}  
+                                                                </div>
+                                                        </div>
+                                                        <div id="BNT2" [class.active]="clscasos[2] " >
+                                                                <div  [class.active]="clscasos[2]">
+                                                                        <p>{{casoClinicosAxiliar.DS_DISCUSSAO}} </p>
+
+                                                                </div>
+                                                        </div>
+                                                        <div id="BNT3" [class.active]="clscasos[3] ">
+                                                                <div  [class.active]="clscasos[3]">
+                                                                        <p>{{casoClinicosAxiliar.DS_REFERENCIAS}}    </p>                           
+                                                                </div>
+                                                        </div>
+                                
+                                                </div>
+                                </nav>
+                        </div>
+                </div>
+            <div class="modal-footer">
+              <button type="button" id="close" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+              <button (click)="reenviar(casoClinicosAxiliar.CO_SEQ_CASO_CLINICO)" *ngIf="casoClinicosAxiliar.CO_STATUS == 7" type="button" class="btn btn-outline-warning"> Reenviar</button>
+            </div>
+          </ng-template>
